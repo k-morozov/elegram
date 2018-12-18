@@ -1,2 +1,3 @@
-# elegram
-My super-puper Telegram killer
+# Elegram
+My super-puper instant message service, both client and server applications.
+Just fo fun =)
