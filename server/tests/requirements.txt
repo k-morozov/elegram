@@ -1,0 +1,2 @@
+# For generating input data
+psycopg2>=2.7
