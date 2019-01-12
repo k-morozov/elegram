@@ -1,4 +1,5 @@
 # encoding: utf8
+
 import psycopg2 as pg_driver
 from Crypto.Hash import SHA256
 

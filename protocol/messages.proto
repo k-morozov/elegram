@@ -1,0 +1,117 @@
+syntax = "proto3";
+
+package elegram;
+
+// REQUESTS
+/*___________________________________________________________________________*/
+
+// 1
+message RegisterRequest {
+    string name = 1;
+    string email = 2;
+    string password = 3;
+}
+
+// 2
+message LoginRequest {
+    string name = 1;
+    string password = 2;
+}
+
+// 3
+message AllMyChatsRequest {
+}
+
+// 4
+message AllMyContactsRequest {
+}
+
+// 5
+message MessagesRequest {
+    uint64 chat_id = 1;
+}
+
+message MessageToSend {
+    uint64 chat_id = 1;
+    string text = 2;
+}
+
+// 6
+message SendMessageRequest {
+    MessageToSend mesg = 1;
+}
+
+message Request {
+    oneof msg {
+        RegisterRequest m1 = 1;
+        LoginRequest m2 = 2;
+        AllMyChatsRequest m3 = 3;
+        AllMyContactsRequest m4 = 4;
+        MessagesRequest m5 = 5;
+        SendMessageRequest m6 = 6;
+    }
+}
+
+// RESPONSES
+/*___________________________________________________________________________*/
+
+// 1
+message StatusResponse {
+    enum RESULT {
+        ACCEPTED = 0;
+        REJECTED = 1;
+    }
+    RESULT result = 1;
+}
+
+message Chat {
+    uint64 chat_id = 1;
+    string title = 2;
+}
+
+// 2
+message ChatsResponse {
+    repeated Chat chats = 1;
+}
+
+message Contact {
+    string name = 1;
+    string email = 2;
+}
+
+// 3
+message ContactsResponse {
+    repeated Contact contacts = 1;
+}
+
+message MessageToRecieve {
+    uint64 sender_id = 1;
+    uint64 chat_id = 2;
+    string text = 3;
+    // bool readed = 4;
+    // todo add timestampt
+}
+
+// 4
+message MessagesResponse {
+    repeated MessageToRecieve messages = 1;
+}
+
+message Response {
+    oneof msg {
+        StatusResponse stat = 1;
+        ChatsResponse chats = 2;
+        ContactsResponse contacts = 3;
+        MessagesResponse messages = 4;
+    }
+}
+
+/*___________________________________________________________________________*/
+
+message WrappedMessage {
+    oneof msg {
+        Response response = 1;
+        Request request = 2;
+    }
+}
+

@@ -1,0 +1,39 @@
+dist: xenial
+language: cpp
+branches:
+  only:
+    - skeleton
+before_script:
+  # add modern repo for loading boost 1.67 packages, want thread_pool
+  - sudo cp config_travis/cosmic-packages.pref /etc/apt/preferences.d/cosmic-package-repo.pref
+  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/comsic.list
+
+  # install boost 1.67 from cosmic repo
+  - sudo apt-get update
+  - sudo apt-get install libboost-all-dev -t cosmic
+  - mkdir build
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
+      - protobuf-compiler
+      - libprotobuf-dev
+script:
+  - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
+  - cd protocol
+  - protoc  --cpp_out=../server/src/proto --python_out=../server/tests  messages.proto
+  - cd ..
+  - cd build
+#  - cmake ..
+#  - cmake --build .
+#  - sudo env "PATH=$PATH" cmake --build . --target test
+#  - cmake --build . --target package
+#deploy:
+#  - provider: script
+#    skip_cleanup: true
+#    on:
+#      branch: skeleton
+#    script:
+#      - curl -T elegram_server-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram_server/0.0.$TRAVIS_BUILD_NUMBER/elegram_server-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
