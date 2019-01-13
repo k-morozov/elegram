@@ -21,8 +21,11 @@ def send_message(sock, message):
         to a socket, prepended by its length packed in 4 bytes.
     """
     s = message.SerializeToString()
-    packed_len = struct.pack('>L', len(s))
-    packed_message = packed_len + s
+    length_prefix = LengthPrefix()
+    length_prefix.length = len(s)
+    # packed_len = struct.pack('>L', len(s))
+    # packed_message = packed_len + s
+    packed_message = length_prefix + s
     sock.send(packed_message)
 
 
@@ -60,30 +63,6 @@ def send_login_request(sock: socket, login: str, passw: str):
 
     send_message(sock, msg)
     return get_response(sock)
-
-
-# def send_set_value(sock, key, value):
-#     rq = Request()
-#     rq.type = Request.SET_VALUE
-#     rq.request_set_value.key = key
-#     rq.request_set_value.value = value
-#     send_message(sock, rq)
-#     return get_response(sock)
-#
-#
-# def send_get_value(sock, key):
-#     rq = Request()
-#     rq.type = Request.GET_VALUE
-#     rq.request_get_value.key = key
-#     send_message(sock, rq)
-#     return get_response(sock)
-#
-#
-# def send_count_values(sock):
-#     rq = Request()
-#     rq.type = Request.COUNT_VALUES
-#     send_message(sock, rq)
-#     return get_response(sock)
 
 
 if __name__ == '__main__':

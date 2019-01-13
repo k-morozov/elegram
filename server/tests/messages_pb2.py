@@ -9,7 +9,6 @@ from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf import descriptor_pb2
-
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -19,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='elegram',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x0emessages.proto\x12\x07\x65legram\"@\n\x0fRegisterRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\".\n\x0cLoginRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x13\n\x11\x41llMyChatsRequest\"\x16\n\x14\x41llMyContactsRequest\"\"\n\x0fMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\".\n\rMessageToSend\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\x0c\n\x04text\x18\x02 \x01(\t\":\n\x12SendMessageRequest\x12$\n\x04mesg\x18\x01 \x01(\x0b\x32\x16.elegram.MessageToSend\"\x87\x02\n\x07Request\x12&\n\x02m1\x18\x01 \x01(\x0b\x32\x18.elegram.RegisterRequestH\x00\x12#\n\x02m2\x18\x02 \x01(\x0b\x32\x15.elegram.LoginRequestH\x00\x12(\n\x02m3\x18\x03 \x01(\x0b\x32\x1a.elegram.AllMyChatsRequestH\x00\x12+\n\x02m4\x18\x04 \x01(\x0b\x32\x1d.elegram.AllMyContactsRequestH\x00\x12&\n\x02m5\x18\x05 \x01(\x0b\x32\x18.elegram.MessagesRequestH\x00\x12)\n\x02m6\x18\x06 \x01(\x0b\x32\x1b.elegram.SendMessageRequestH\x00\x42\x05\n\x03msg\"f\n\x0eStatusResponse\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.elegram.StatusResponse.RESULT\"$\n\x06RESULT\x12\x0c\n\x08\x41\x43\x43\x45PTED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\"&\n\x04\x43hat\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\"-\n\rChatsResponse\x12\x1c\n\x05\x63hats\x18\x01 \x03(\x0b\x32\r.elegram.Chat\"&\n\x07\x43ontact\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"6\n\x10\x43ontactsResponse\x12\"\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x10.elegram.Contact\"D\n\x10MessageToRecieve\x12\x11\n\tsender_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\x04\x12\x0c\n\x04text\x18\x03 \x01(\t\"?\n\x10MessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.elegram.MessageToRecieve\"\xc1\x01\n\x08Response\x12\'\n\x04stat\x18\x01 \x01(\x0b\x32\x17.elegram.StatusResponseH\x00\x12\'\n\x05\x63hats\x18\x02 \x01(\x0b\x32\x16.elegram.ChatsResponseH\x00\x12-\n\x08\x63ontacts\x18\x03 \x01(\x0b\x32\x19.elegram.ContactsResponseH\x00\x12-\n\x08messages\x18\x04 \x01(\x0b\x32\x19.elegram.MessagesResponseH\x00\x42\x05\n\x03msg\"c\n\x0eWrappedMessage\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x11.elegram.ResponseH\x00\x12#\n\x07request\x18\x02 \x01(\x0b\x32\x10.elegram.RequestH\x00\x42\x05\n\x03msgb\x06proto3')
+        '\n\x0emessages.proto\x12\x07\x65legram\"@\n\x0fRegisterRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\".\n\x0cLoginRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x13\n\x11\x41llMyChatsRequest\"\x16\n\x14\x41llMyContactsRequest\"\"\n\x0fMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\".\n\rMessageToSend\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\x0c\n\x04text\x18\x02 \x01(\t\":\n\x12SendMessageRequest\x12$\n\x04mesg\x18\x01 \x01(\x0b\x32\x16.elegram.MessageToSend\"\x87\x02\n\x07Request\x12&\n\x02m1\x18\x01 \x01(\x0b\x32\x18.elegram.RegisterRequestH\x00\x12#\n\x02m2\x18\x02 \x01(\x0b\x32\x15.elegram.LoginRequestH\x00\x12(\n\x02m3\x18\x03 \x01(\x0b\x32\x1a.elegram.AllMyChatsRequestH\x00\x12+\n\x02m4\x18\x04 \x01(\x0b\x32\x1d.elegram.AllMyContactsRequestH\x00\x12&\n\x02m5\x18\x05 \x01(\x0b\x32\x18.elegram.MessagesRequestH\x00\x12)\n\x02m6\x18\x06 \x01(\x0b\x32\x1b.elegram.SendMessageRequestH\x00\x42\x05\n\x03msg\"f\n\x0eStatusResponse\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.elegram.StatusResponse.RESULT\"$\n\x06RESULT\x12\x0c\n\x08\x41\x43\x43\x45PTED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\"&\n\x04\x43hat\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\"-\n\rChatsResponse\x12\x1c\n\x05\x63hats\x18\x01 \x03(\x0b\x32\r.elegram.Chat\"&\n\x07\x43ontact\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"6\n\x10\x43ontactsResponse\x12\"\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x10.elegram.Contact\"D\n\x10MessageToRecieve\x12\x11\n\tsender_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\x04\x12\x0c\n\x04text\x18\x03 \x01(\t\"?\n\x10MessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.elegram.MessageToRecieve\"\xc1\x01\n\x08Response\x12\'\n\x04stat\x18\x01 \x01(\x0b\x32\x17.elegram.StatusResponseH\x00\x12\'\n\x05\x63hats\x18\x02 \x01(\x0b\x32\x16.elegram.ChatsResponseH\x00\x12-\n\x08\x63ontacts\x18\x03 \x01(\x0b\x32\x19.elegram.ContactsResponseH\x00\x12-\n\x08messages\x18\x04 \x01(\x0b\x32\x19.elegram.MessagesResponseH\x00\x42\x05\n\x03msg\"c\n\x0eWrappedMessage\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x11.elegram.ResponseH\x00\x12#\n\x07request\x18\x02 \x01(\x0b\x32\x10.elegram.RequestH\x00\x42\x05\n\x03msg\"\x1e\n\x0cLengthPrefix\x12\x0e\n\x06length\x18\x01 \x01(\x06\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -44,6 +43,7 @@ _STATUSRESPONSE_RESULT = _descriptor.EnumDescriptor(
     serialized_end=698,
 )
 _sym_db.RegisterEnumDescriptor(_STATUSRESPONSE_RESULT)
+
 
 _REGISTERREQUEST = _descriptor.Descriptor(
     name='RegisterRequest',
@@ -89,6 +89,7 @@ _REGISTERREQUEST = _descriptor.Descriptor(
     serialized_end=91,
 )
 
+
 _LOGINREQUEST = _descriptor.Descriptor(
     name='LoginRequest',
     full_name='elegram.LoginRequest',
@@ -126,6 +127,7 @@ _LOGINREQUEST = _descriptor.Descriptor(
     serialized_end=139,
 )
 
+
 _ALLMYCHATSREQUEST = _descriptor.Descriptor(
     name='AllMyChatsRequest',
     full_name='elegram.AllMyChatsRequest',
@@ -149,6 +151,7 @@ _ALLMYCHATSREQUEST = _descriptor.Descriptor(
     serialized_end=160,
 )
 
+
 _ALLMYCONTACTSREQUEST = _descriptor.Descriptor(
     name='AllMyContactsRequest',
     full_name='elegram.AllMyContactsRequest',
@@ -171,6 +174,7 @@ _ALLMYCONTACTSREQUEST = _descriptor.Descriptor(
     serialized_start=162,
     serialized_end=184,
 )
+
 
 _MESSAGESREQUEST = _descriptor.Descriptor(
     name='MessagesRequest',
@@ -201,6 +205,7 @@ _MESSAGESREQUEST = _descriptor.Descriptor(
     serialized_start=186,
     serialized_end=220,
 )
+
 
 _MESSAGETOSEND = _descriptor.Descriptor(
     name='MessageToSend',
@@ -239,6 +244,7 @@ _MESSAGETOSEND = _descriptor.Descriptor(
     serialized_end=268,
 )
 
+
 _SENDMESSAGEREQUEST = _descriptor.Descriptor(
     name='SendMessageRequest',
     full_name='elegram.SendMessageRequest',
@@ -268,6 +274,7 @@ _SENDMESSAGEREQUEST = _descriptor.Descriptor(
     serialized_start=270,
     serialized_end=328,
 )
+
 
 _REQUEST = _descriptor.Descriptor(
     name='Request',
@@ -337,6 +344,7 @@ _REQUEST = _descriptor.Descriptor(
     serialized_end=594,
 )
 
+
 _STATUSRESPONSE = _descriptor.Descriptor(
     name='StatusResponse',
     full_name='elegram.StatusResponse',
@@ -367,6 +375,7 @@ _STATUSRESPONSE = _descriptor.Descriptor(
     serialized_start=596,
     serialized_end=698,
 )
+
 
 _CHAT = _descriptor.Descriptor(
     name='Chat',
@@ -405,6 +414,7 @@ _CHAT = _descriptor.Descriptor(
     serialized_end=738,
 )
 
+
 _CHATSRESPONSE = _descriptor.Descriptor(
     name='ChatsResponse',
     full_name='elegram.ChatsResponse',
@@ -434,6 +444,7 @@ _CHATSRESPONSE = _descriptor.Descriptor(
     serialized_start=740,
     serialized_end=785,
 )
+
 
 _CONTACT = _descriptor.Descriptor(
     name='Contact',
@@ -472,6 +483,7 @@ _CONTACT = _descriptor.Descriptor(
     serialized_end=825,
 )
 
+
 _CONTACTSRESPONSE = _descriptor.Descriptor(
     name='ContactsResponse',
     full_name='elegram.ContactsResponse',
@@ -501,6 +513,7 @@ _CONTACTSRESPONSE = _descriptor.Descriptor(
     serialized_start=827,
     serialized_end=881,
 )
+
 
 _MESSAGETORECIEVE = _descriptor.Descriptor(
     name='MessageToRecieve',
@@ -546,6 +559,7 @@ _MESSAGETORECIEVE = _descriptor.Descriptor(
     serialized_end=951,
 )
 
+
 _MESSAGESRESPONSE = _descriptor.Descriptor(
     name='MessagesResponse',
     full_name='elegram.MessagesResponse',
@@ -575,6 +589,7 @@ _MESSAGESRESPONSE = _descriptor.Descriptor(
     serialized_start=953,
     serialized_end=1016,
 )
+
 
 _RESPONSE = _descriptor.Descriptor(
     name='Response',
@@ -630,6 +645,7 @@ _RESPONSE = _descriptor.Descriptor(
     serialized_end=1212,
 )
 
+
 _WRAPPEDMESSAGE = _descriptor.Descriptor(
     name='WrappedMessage',
     full_name='elegram.WrappedMessage',
@@ -668,6 +684,36 @@ _WRAPPEDMESSAGE = _descriptor.Descriptor(
     ],
     serialized_start=1214,
     serialized_end=1313,
+)
+
+_LENGTHPREFIX = _descriptor.Descriptor(
+    name='LengthPrefix',
+    full_name='elegram.LengthPrefix',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='length', full_name='elegram.LengthPrefix.length', index=0,
+            number=1, type=6, cpp_type=4, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=1315,
+    serialized_end=1345,
 )
 
 _SENDMESSAGEREQUEST.fields_by_name['mesg'].message_type = _MESSAGETOSEND
@@ -741,6 +787,7 @@ DESCRIPTOR.message_types_by_name['MessageToRecieve'] = _MESSAGETORECIEVE
 DESCRIPTOR.message_types_by_name['MessagesResponse'] = _MESSAGESRESPONSE
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 DESCRIPTOR.message_types_by_name['WrappedMessage'] = _WRAPPEDMESSAGE
+DESCRIPTOR.message_types_by_name['LengthPrefix'] = _LENGTHPREFIX
 
 RegisterRequest = _reflection.GeneratedProtocolMessageType('RegisterRequest', (_message.Message,), dict(
     DESCRIPTOR=_REGISTERREQUEST,
@@ -866,5 +913,13 @@ WrappedMessage = _reflection.GeneratedProtocolMessageType('WrappedMessage', (_me
     # @@protoc_insertion_point(class_scope:elegram.WrappedMessage)
 ))
 _sym_db.RegisterMessage(WrappedMessage)
+
+LengthPrefix = _reflection.GeneratedProtocolMessageType('LengthPrefix', (_message.Message,), dict(
+    DESCRIPTOR=_LENGTHPREFIX,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.LengthPrefix)
+))
+_sym_db.RegisterMessage(LengthPrefix)
+
 
 # @@protoc_insertion_point(module_scope)

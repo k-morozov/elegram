@@ -115,3 +115,7 @@ message WrappedMessage {
     }
 }
 
+
+message LengthPrefix {
+    fixed64 length = 1;
+}
