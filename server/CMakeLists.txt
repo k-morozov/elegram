@@ -13,11 +13,11 @@ find_package(Boost COMPONENTS system program_options log unit_test_framework REQ
 find_package(Threads)
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_library(protobufed_lib
+add_library(messages_pb2_lib
         src/proto/messages.pb.cc)
 
 # remove -Werror flags cause of many
-set_target_properties(protobufed_lib PROPERTIES
+set_target_properties(messages_pb2_lib PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
         COMPILE_OPTIONS "-O0;-ggdb"
@@ -28,10 +28,9 @@ add_executable(${PROJECT_NAME}
         src/exceptions/exceptions.cpp
         src/server/server.cpp
         src/server/session.cpp
-        src/storage/cached_storage.cpp
         src/storage/db_storage.cpp
         src/jobs/jobs.cpp
-        src/proto/proto_handler.cpp src/proto/proto_handler.h)
+        )
 
 
 message("${CMAKE_CXX_COMPILER_ID}")
@@ -68,7 +67,8 @@ set_warning_flags(${PROJECT_NAME})
 target_link_libraries(${PROJECT_NAME}
         ${Boost_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
-        protobufed_lib
+        messages_pb2_lib
+        protobuf
         )
 
 

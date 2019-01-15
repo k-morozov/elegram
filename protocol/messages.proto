@@ -43,12 +43,12 @@ message SendMessageRequest {
 
 message Request {
     oneof msg {
-        RegisterRequest m1 = 1;
-        LoginRequest m2 = 2;
-        AllMyChatsRequest m3 = 3;
-        AllMyContactsRequest m4 = 4;
-        MessagesRequest m5 = 5;
-        SendMessageRequest m6 = 6;
+        RegisterRequest register_request = 1;
+        LoginRequest login_request = 2;
+        AllMyChatsRequest chats_request = 3;
+        AllMyContactsRequest contacts_request = 4;
+        MessagesRequest messages_request = 5;
+        SendMessageRequest send_mesg_request = 6;
     }
 }
 
@@ -99,10 +99,10 @@ message MessagesResponse {
 
 message Response {
     oneof msg {
-        StatusResponse stat = 1;
-        ChatsResponse chats = 2;
-        ContactsResponse contacts = 3;
-        MessagesResponse messages = 4;
+        StatusResponse status_response = 1;
+        ChatsResponse chats_response = 2;
+        ContactsResponse contacts_response = 3;
+        MessagesResponse messages_response = 4;
     }
 }
 
