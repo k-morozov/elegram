@@ -2,13 +2,12 @@
 
 from __future__ import print_function
 
-import struct
 from socket import *
 
 from messages_pb2 import *
 
 
-def make_socket(port=4050):
+def make_socket(port=8000):
     """ Create a socket on localhost and return it.
     """
     sockobj = socket(AF_INET, SOCK_STREAM)
@@ -23,9 +22,11 @@ def send_message(sock, message):
     s = message.SerializeToString()
     length_prefix = LengthPrefix()
     length_prefix.length = len(s)
-    # packed_len = struct.pack('>L', len(s))
-    # packed_message = packed_len + s
-    packed_message = length_prefix + s
+
+    # print(length_prefix.ByteSize())
+    # assert length_prefix.ByteSize() == 8 + 1
+
+    packed_message = length_prefix.SerializeToString() + s
     sock.send(packed_message)
 
 
@@ -33,7 +34,7 @@ def socket_read_n(sock, n):
     """ Read exactly n bytes from the socket.
         Raise RuntimeError if the connection closed before n bytes were read.
     """
-    buf = ''
+    buf = b''
     while n > 0:
         data = sock.recv(n)
         if data == '':
@@ -46,30 +47,45 @@ def socket_read_n(sock, n):
 def get_response(sock):
     """ Read a serialized response message from a socket.
     """
+    len_prefix = LengthPrefix()
+    len_buf = socket_read_n(sock, 9)
+    len_prefix.ParseFromString(len_buf)
+    print("Response prefix length", len_prefix.length)
+
+    msg_buf = socket_read_n(sock, len_prefix.length)
+
     msg = Response()
-    len_buf = socket_read_n(sock, 4)
-    msg_len = struct.unpack('>L', len_buf)[0]
-    msg_buf = socket_read_n(sock, msg_len)
     msg.ParseFromString(msg_buf)
+
     return msg
 
 
-def send_login_request(sock: socket, login: str, passw: str):
+def send_login_request(sock, login, passw):
+    login_req = LoginRequest()
+    login_req.name = login
+    login_req.password = passw
+
+    request = Request()
+    request.login_request.MergeFrom(login_req)
+
     msg = WrappedMessage()
-    msg.request = Request()
-    msg.request.m2 = LoginRequest()
-    msg.request.m2.name = login
-    msg.request.m2.password = passw
+    msg.request.MergeFrom(request)
 
     send_message(sock, msg)
     return get_response(sock)
 
 
 if __name__ == '__main__':
-    port = 9999
+    port = 8000
     if len(sys.argv) >= 2:
         port = int(sys.argv[1])
 
     sockobj = make_socket(port)
 
-    print(send_login_request(sockobj, "john", "12345678"))
+    resp = send_login_request(sockobj, "john", "12345678")
+    if resp.status_response.result == StatusResponse.ACCEPTED:
+        print("ACCEPTED")
+    elif resp.status_response.result == StatusResponse.REJECTED:
+        print("REJECTED")
+    else:
+        raise Exception()

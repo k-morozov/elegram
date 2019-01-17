@@ -26,22 +26,22 @@ namespace elegram::server {
 
   class RegisterRequestJob {
    public:
-    RegisterRequestJob(const RegisterRequest &mesg, std::shared_ptr<ClientSession> session);
+    RegisterRequestJob(RegisterRequest *mesg, std::shared_ptr<ClientSession> session);
     void operator()();
 
    private:
     std::shared_ptr<ClientSession> session_;
-    const RegisterRequest &mesg_;
+    std::unique_ptr<RegisterRequest> mesg_;
   };
 
   class LoginRequestJob {
    public:
-    LoginRequestJob(const LoginRequest &mesg, std::shared_ptr<ClientSession> session);
+    LoginRequestJob(LoginRequest *mesg, std::shared_ptr<ClientSession> session);
     void operator()();
 
    private:
     std::shared_ptr<ClientSession> session_;
-    const LoginRequest &mesg_;
+    std::unique_ptr<LoginRequest> mesg_;
   };
 
   class ChatsRequestJob {
@@ -64,22 +64,22 @@ namespace elegram::server {
 
   class MessagesRequestJob {
    public:
-    MessagesRequestJob(const MessagesRequest &mesg, std::shared_ptr<ClientSession> session);
+    MessagesRequestJob(MessagesRequest *mesg, std::shared_ptr<ClientSession> session);
     void operator()();
 
    private:
     std::shared_ptr<ClientSession> session_;
-    const MessagesRequest &mesg_;
+    std::unique_ptr<MessagesRequest> mesg_;
   };
 
   class SendMesgRequestJob {
    public:
-    SendMesgRequestJob(const SendMessageRequest &mesg, std::shared_ptr<ClientSession> session);
+    SendMesgRequestJob(SendMessageRequest *mesg, std::shared_ptr<ClientSession> session);
     void operator()();
 
    private:
     std::shared_ptr<ClientSession> session_;
-    const SendMessageRequest &mesg_;
+    std::unique_ptr<SendMessageRequest> mesg_;
   };
 
 } // namespace elegram::server

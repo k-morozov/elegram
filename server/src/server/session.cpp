@@ -63,10 +63,11 @@ namespace elegram::server {
           bool parsed = prefix.ParseFromArray(read_buffer_.data(),
                                               static_cast<int>(read_buffer_.size()));
           if (parsed) {
+              BOOST_LOG_TRIVIAL(info) << this << " on_read_prefix: readed " << prefix.length();
               do_async_read_message(prefix.length());
           } else {
               stop();
-              BOOST_LOG_TRIVIAL(error) << this << " can't parse header";
+              BOOST_LOG_TRIVIAL(error) << this << " can't parse header from array";
               return;
           }
       } else {
@@ -82,7 +83,7 @@ namespace elegram::server {
       }
       using namespace std::placeholders;
 
-      // BOOST_LOG_TRIVIAL(info) << this << " Will async_read_until now";
+      // BOOST_LOG_TRIVIAL(info) << this << " Will async_read now";
       read_buffer_.resize(HEADER_SIZE);
       ba::async_read(sock_,
                      ba::buffer(read_buffer_),
@@ -98,6 +99,7 @@ namespace elegram::server {
           return;
       }
 
+      BOOST_LOG_TRIVIAL(info) << this << " on_read_message: readed " << readed_bytes;
       if (readed_bytes == mesg_size) {
           ba::post(*job_pool_, ParseCommandJob{shared_from_this()});
       } else {
@@ -113,15 +115,15 @@ namespace elegram::server {
       }
       using namespace std::placeholders;
 
-      // BOOST_LOG_TRIVIAL(info) << this << " Will async_read_until now";
       read_buffer_.resize(mesg_size);
+      BOOST_LOG_TRIVIAL(info) << this << " Will async_read " << mesg_size << " bytes of message";
       ba::async_read(sock_,
                      ba::buffer(read_buffer_),
                      std::bind(&ClientSession::on_read_message, shared_from_this(), _1, _2, mesg_size));
   }
 
   void ClientSession::write(const WrappedMessage &mesg) {
-//      BOOST_LOG_TRIVIAL(info) << this << " will write " << s.size() << " bytes";
+      BOOST_LOG_TRIVIAL(info) << this << " will write " << mesg.ByteSize() << " bytes";
       do_async_write(mesg);
   }
 
@@ -143,10 +145,14 @@ namespace elegram::server {
       }
       using namespace std::placeholders;
 
-      read_buffer_.resize(static_cast<unsigned long>(mesg.ByteSize()));
-      mesg.SerializeToArray(read_buffer_.data(), static_cast<int>(read_buffer_.size()));
+      read_buffer_.resize(static_cast<unsigned long>(mesg.ByteSize() + HEADER_SIZE));
 
-      // BOOST_LOG_TRIVIAL(info) << this << " Will async_write_until now";
+      LengthPrefix length_prefix;
+      length_prefix.set_length(static_cast<google::protobuf::uint64>(mesg.ByteSize()));
+      length_prefix.SerializeToArray(read_buffer_.data(), HEADER_SIZE);
+      mesg.SerializeToArray(read_buffer_.data() + HEADER_SIZE, static_cast<int>(mesg.ByteSize()));
+
+      BOOST_LOG_TRIVIAL(info) << this << " Will async_write now";
       ba::async_write(sock_,
                       ba::buffer(read_buffer_),
                       std::bind(&ClientSession::on_write, shared_from_this(), _1, _2));

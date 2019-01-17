@@ -55,7 +55,7 @@ namespace elegram::server {
     ba::io_service &service_;
     ba::ip::tcp::socket sock_;
     bool stopped_ = true;
-    constexpr static uint64_t HEADER_SIZE = sizeof(uint64_t); // fixed64 in protobuf
+    constexpr static uint64_t HEADER_SIZE = sizeof(uint64_t) + 1; // fixed64 in protobuf
 //    ba::streambuf read_buffer_;
     std::vector<uint8_t> read_buffer_;
 
