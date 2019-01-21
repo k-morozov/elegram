@@ -20,6 +20,8 @@ addons:
       - g++-7
       - protobuf-compiler
       - libprotobuf-dev
+      - libpq-dev # and may be postgresql
+      - postgresql-server-dev-all
 script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - cd protocol

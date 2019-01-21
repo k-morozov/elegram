@@ -22,7 +22,7 @@ try:
     for name, email, password in guys:
         cmd = "INSERT INTO Client (name, email, password_hash) " \
               "VALUES ('{0}', '{1}', '{2}' )". \
-            format(name, password, SHA256.new(password.encode('utf-8')).hexdigest())
+            format(name, email, SHA256.new(password.encode('utf-8')).hexdigest())
         cur.execute(cmd)
         print(cmd)
 

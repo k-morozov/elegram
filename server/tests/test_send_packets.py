@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
-from __future__ import print_function
-
+import unittest
 from socket import *
 
 from messages_pb2 import *
@@ -60,7 +59,7 @@ def get_response(sock):
     return msg
 
 
-def send_login_request(sock, login, passw):
+def login_request(sock, login, passw):
     login_req = LoginRequest()
     login_req.name = login
     login_req.password = passw
@@ -75,17 +74,45 @@ def send_login_request(sock, login, passw):
     return get_response(sock)
 
 
+def register_request(sock, login, email, passw):
+    register_req = RegisterRequest()
+    register_req.name = login
+    register_req.email = email
+    register_req.password = passw
+
+    request = Request()
+    request.login_request.MergeFrom(register_req)
+
+    msg = WrappedMessage()
+    msg.request.MergeFrom(request)
+
+    send_message(sock, msg)
+    return get_response(sock)
+
+
+class TestElegramServer(unittest.TestCase):
+    def setUp(self):
+        self.port = 8000
+        if len(sys.argv) >= 2:
+            self.port = int(sys.argv[1])
+
+        self.sockobj = make_socket(self.port)
+
+    def test_login(self):
+        resp1 = login_request(self.sockobj, "john", "12345678")
+        self.assertEqual(resp1.status_response.result, StatusResponse.ACCEPTED)
+
+        # resp2 = login_request(self.sockobj, "john", "123456789")
+        # self.assertEqual(resp2.status_response.result, StatusResponse.REJECTED)
+
+    def test_register(self):
+        pass
+        # resp1 = register_request(self.sockobj, "johny", "johny@mail.ru", "12345678")
+        # self.assertEqual(resp1.status_response.result, StatusResponse.ACCEPTED)
+        #
+        # resp1 = register_request(self.sockobj, "john", "john_doe@mail.ru", "12345678")
+        # self.assertEqual(resp1.status_response.result, StatusResponse.REJECTED)
+
+
 if __name__ == '__main__':
-    port = 8000
-    if len(sys.argv) >= 2:
-        port = int(sys.argv[1])
-
-    sockobj = make_socket(port)
-
-    resp = send_login_request(sockobj, "john", "12345678")
-    if resp.status_response.result == StatusResponse.ACCEPTED:
-        print("ACCEPTED")
-    elif resp.status_response.result == StatusResponse.REJECTED:
-        print("REJECTED")
-    else:
-        raise Exception()
+    unittest.main()

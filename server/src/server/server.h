@@ -4,7 +4,7 @@
 #include <boost/asio/thread_pool.hpp>
 
 #include "../jobs/jobs.h"
-#include "../storage/db_storage.h"
+#include "../storage/abstract_storage.h"
 
 #include "session.h"
 
@@ -13,9 +13,9 @@ namespace elegram::server {
 
   class ElegramServer : public std::enable_shared_from_this<ElegramServer> {
    public:
-    explicit ElegramServer(unsigned short port);
+    explicit ElegramServer(unsigned short port,
+                           std::shared_ptr<AbstractStorageConnectionFactory> &&storage_ptr);
     ~ElegramServer();
-
     void run();
 
    private:
@@ -29,7 +29,7 @@ namespace elegram::server {
     ba::ip::tcp::acceptor acceptor_;
 
     std::shared_ptr<ba::thread_pool> job_pool_ = std::make_shared<ba::thread_pool>(2);
-    std::shared_ptr<DBStorage> db_stor_ = std::make_shared<DBStorage>();
+    std::shared_ptr<AbstractStorageConnectionFactory> db_stor_;
   };
 
 } // namespace elegram::server

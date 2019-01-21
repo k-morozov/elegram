@@ -4,8 +4,11 @@
 #include "session.h"
 
 namespace elegram::server {
-  ElegramServer::ElegramServer(unsigned short port)
-      : ep_(ba::ip::tcp::v4(), port), acceptor_(network_service_, ep_) {}
+  ElegramServer::ElegramServer(unsigned short port,
+                               std::shared_ptr<AbstractStorageConnectionFactory> &&storage_ptr)
+      : ep_(ba::ip::tcp::v4(), port),
+        acceptor_(network_service_, ep_),
+        db_stor_(std::move(storage_ptr)) {}
 
   void ElegramServer::run() {
       using namespace std::placeholders;
@@ -16,7 +19,8 @@ namespace elegram::server {
                                std::placeholders::_1,
                                std::placeholders::_2));
 
-      auto clientSession = std::make_shared<ClientSession>(network_service_, job_pool_, db_stor_);
+      auto clientSession =
+          std::make_shared<ClientSession>(network_service_, job_pool_, db_stor_->create_connection());
       acceptor_.async_accept(clientSession->sock(),
                              std::bind(&ElegramServer::handle_accept,
                                        shared_from_this(),
@@ -40,7 +44,8 @@ namespace elegram::server {
       connected_client->start();
 
       // async wait new connection
-      auto waited_session = std::make_shared<ClientSession>(network_service_, job_pool_, db_stor_);
+      auto waited_session =
+          std::make_shared<ClientSession>(network_service_, job_pool_, db_stor_->create_connection());
       acceptor_.async_accept(waited_session->sock(),
                              std::bind(&ElegramServer::handle_accept,
                                        shared_from_this(),
@@ -49,7 +54,7 @@ namespace elegram::server {
 
   ElegramServer::~ElegramServer() {
       BOOST_LOG_TRIVIAL(info) << "### Server DTOR called";
-      // todo impl
+      // todo pimpl
   }
 
   void ElegramServer::signal_handler(const boost::system::error_code &, int) {

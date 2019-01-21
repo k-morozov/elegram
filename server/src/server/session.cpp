@@ -15,8 +15,9 @@ namespace elegram::server {
 
   ClientSession::ClientSession(ba::io_service &service,
                                std::shared_ptr<ba::thread_pool> job_pool,
-                               std::shared_ptr<DBStorage> storage) :
-      service_(service), sock_(service_), job_pool_(std::move(job_pool)), storage_(std::move(storage)) {
+                               std::shared_ptr<AbstractStorageConnection> storage_conn) :
+      service_(service), sock_(service_), job_pool_(std::move(job_pool)),
+      storage_conn_(std::move(storage_conn)) {
       BOOST_LOG_TRIVIAL(info) << this << " Session CTOR called";
   }
 
@@ -32,8 +33,8 @@ namespace elegram::server {
       return job_pool_;
   }
 
-  const std::shared_ptr<DBStorage> &ClientSession::storage() {
-      return storage_;
+  const std::shared_ptr<AbstractStorageConnection> &ClientSession::storage_connection() {
+      return storage_conn_;
   }
 
   void ClientSession::start() {

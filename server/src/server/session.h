@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../storage/db_storage.h"
+#include "../storage/abstract_storage.h"
 #include "../proto/messages.pb.h"
 
 #include <boost/asio.hpp>
@@ -23,12 +23,12 @@ namespace elegram::server {
    public:
     ClientSession(ba::io_service &service,
                   std::shared_ptr<ba::thread_pool> job_pool,
-                  std::shared_ptr<DBStorage> storage);
+                  std::shared_ptr<AbstractStorageConnection> storage_conn);
     ~ClientSession();
 
     ba::ip::tcp::socket &sock();
     const std::shared_ptr<ba::thread_pool> &job_pool();
-    const std::shared_ptr<DBStorage> &storage();
+    const std::shared_ptr<AbstractStorageConnection> &storage_connection();
     void set_state(std::unique_ptr<ClientState> new_state);
     const ClientState &state() const;
 
@@ -56,11 +56,12 @@ namespace elegram::server {
     ba::ip::tcp::socket sock_;
     bool stopped_ = true;
     constexpr static uint64_t HEADER_SIZE = sizeof(uint64_t) + 1; // fixed64 in protobuf
-//    ba::streambuf read_buffer_;
-    std::vector<uint8_t> read_buffer_;
+
+    // ba::streambuf read_buffer_;
+    std::unique_ptr<ClientState> state_ = nullptr;
+    std::vector<uint8_t> read_buffer_{};
 
     std::shared_ptr<ba::thread_pool> job_pool_;
-    std::shared_ptr<DBStorage> storage_;
-    std::unique_ptr<ClientState> state_ = nullptr;
+    std::shared_ptr<AbstractStorageConnection> storage_conn_;
   };
 } // namespace elegram::server

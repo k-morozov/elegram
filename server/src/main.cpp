@@ -10,6 +10,7 @@
 
 #include "exceptions/exceptions.h"
 #include "server/server.h"
+#include "storage/postgresql_storage.h"
 
 namespace {
   void set_up_arguments(const int argc, const char *const *argv,
@@ -54,8 +55,11 @@ int main(const int argc, const char *const argv[]) {
     }
 
     boost::log::core::get()->set_logging_enabled(logging_enabled);
-    std::shared_ptr<elegram::server::ElegramServer>
-        server = std::make_shared<elegram::server::ElegramServer>(port);
+
+    using namespace elegram::server;
+
+    std::shared_ptr<ElegramServer>
+        server = std::make_shared<ElegramServer>(port, std::make_shared<PostgresStorageFactory>());
     server->run();
 
     BOOST_LOG_TRIVIAL(info) << "Will return EXIT_SUCCESS now";

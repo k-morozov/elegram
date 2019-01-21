@@ -68,9 +68,9 @@ namespace elegram {
 
   void server::RegisterRequestJob::operator()() {
       // todo make async ?
-      bool register_res = session_->storage()->registration(mesg_->name(),
-                                                            mesg_->email(),
-                                                            mesg_->password());
+      bool register_res = session_->storage_connection()->registration(mesg_->name(),
+                                                                       mesg_->email(),
+                                                                       mesg_->password());
 
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
       if (register_res) {
@@ -93,8 +93,8 @@ namespace elegram {
 
   void server::LoginRequestJob::operator()() {
       // todo make async ?3
-      std::optional<uint64_t> register_res = session_->storage()->login(mesg_->name(),
-                                                                        mesg_->password());
+      std::optional<uint64_t> register_res = session_->storage_connection()->login(mesg_->name(),
+                                                                                   mesg_->password());
 
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
       if (register_res.has_value()) {
@@ -118,7 +118,7 @@ namespace elegram {
   void server::ChatsRequestJob::operator()() {
       // todo make async ?
       uint64_t user_id = session_->state().user_id();
-      std::unique_ptr<ChatsResponse> chats = session_->storage()->get_chats(user_id);
+      std::unique_ptr<ChatsResponse> chats = session_->storage_connection()->get_chats(user_id);
 
       std::unique_ptr<Response> response = std::make_unique<Response>();
       response->set_allocated_chats_response(chats.release());
@@ -135,7 +135,7 @@ namespace elegram {
   void server::ContactsRequestJob::operator()() {
       // todo make async ?
       uint64_t user_id = session_->state().user_id();
-      std::unique_ptr<ContactsResponse> contacts = session_->storage()->get_contacts(user_id);
+      std::unique_ptr<ContactsResponse> contacts = session_->storage_connection()->get_contacts(user_id);
 
       std::unique_ptr<Response> response = std::make_unique<Response>();
       response->set_allocated_contacts_response(contacts.release());
@@ -152,7 +152,8 @@ namespace elegram {
 
   void server::MessagesRequestJob::operator()() {
       // todo make async ?
-      std::unique_ptr<MessagesResponse> messages = session_->storage()->get_messages(mesg_->chat_id());
+      std::unique_ptr<MessagesResponse>
+          messages = session_->storage_connection()->get_messages(mesg_->chat_id());
 
       std::unique_ptr<Response> response = std::make_unique<Response>();
       response->set_allocated_messages_response(messages.release());
@@ -169,7 +170,8 @@ namespace elegram {
 
   void server::SendMesgRequestJob::operator()() {
       // todo make async ?
-      bool send_res = session_->storage()->send_message(mesg_->mesg());
+      bool send_res = session_->storage_connection()->send_message(session_->state().user_id(),
+                                                                   mesg_->mesg());
 
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
       if (send_res) {
@@ -185,5 +187,4 @@ namespace elegram {
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
   }
-
 } // namespace elegram
