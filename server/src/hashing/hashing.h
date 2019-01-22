@@ -1,9 +1,10 @@
 #pragma once
 
 #include <string>
+#include <pqxx/binarystring>
 
 namespace elegram {
   namespace server {
-    std::string hash_password(const std::string &password);
+    pqxx::binarystring hash_password(const std::string &password);
   } // namespace server
 } // namespace elegram

@@ -19,13 +19,11 @@ namespace elegram::server {
                                std::placeholders::_1,
                                std::placeholders::_2));
 
-      auto clientSession =
-          std::make_shared<ClientSession>(network_service_, job_pool_, db_stor_->create_connection());
+      auto clientSession = std::make_shared<ClientSession>(network_service_, job_pool_,
+                                                           db_stor_->create_connection());
       acceptor_.async_accept(clientSession->sock(),
-                             std::bind(&ElegramServer::handle_accept,
-                                       shared_from_this(),
-                                       clientSession,
-                                       _1));
+                             std::bind(&ElegramServer::handle_accept, shared_from_this(),
+                                       clientSession, _1));
 
       network_service_.run();
   }

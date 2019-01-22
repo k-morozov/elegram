@@ -163,7 +163,7 @@ namespace elegram::server {
       return read_buffer_;
   }
 
-  void ClientSession::set_state(std::unique_ptr<ClientState> new_state) {
+  void ClientSession::set_state(std::unique_ptr<ClientState> &&new_state) {
       state_ = std::move(new_state);
   }
 

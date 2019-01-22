@@ -21,8 +21,8 @@ try:
     # Вставляем в таблицу Clients 4 пользователей
     for name, email, password in guys:
         cmd = "INSERT INTO Client (name, email, password_hash) " \
-              "VALUES ('{0}', '{1}', '{2}' )". \
-            format(name, email, SHA256.new(password.encode('utf-8')).hexdigest())
+              "VALUES ('{0}', '{1}', {2} )". \
+            format(name, email, pg_driver.Binary(SHA256.new(password.encode('utf-8')).digest()))
         cur.execute(cmd)
         print(cmd)
 

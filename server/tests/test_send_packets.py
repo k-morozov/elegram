@@ -5,6 +5,8 @@ from socket import *
 
 from messages_pb2 import *
 
+PREFIX_LENGTH_SIZE = 8 + 1
+
 
 def make_socket(port=8000):
     """ Create a socket on localhost and return it.
@@ -47,13 +49,14 @@ def get_response(sock):
     """ Read a serialized response message from a socket.
     """
     len_prefix = LengthPrefix()
-    len_buf = socket_read_n(sock, 9)
+    len_buf = socket_read_n(sock, PREFIX_LENGTH_SIZE)
     len_prefix.ParseFromString(len_buf)
-    print("Response prefix length", len_prefix.length)
+    # print("# Response prefix length = ", len_prefix.length)
 
     msg_buf = socket_read_n(sock, len_prefix.length)
+    # print("# msg_buf: ", msg_buf)
 
-    msg = Response()
+    msg = WrappedMessage()
     msg.ParseFromString(msg_buf)
 
     return msg
@@ -95,23 +98,24 @@ class TestElegramServer(unittest.TestCase):
         self.port = 8000
         if len(sys.argv) >= 2:
             self.port = int(sys.argv[1])
-
         self.sockobj = make_socket(self.port)
 
     def test_login(self):
-        resp1 = login_request(self.sockobj, "john", "12345678")
-        self.assertEqual(resp1.status_response.result, StatusResponse.ACCEPTED)
+        mesg1 = login_request(self.sockobj, "john", "12345678")
+        self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
-        # resp2 = login_request(self.sockobj, "john", "123456789")
-        # self.assertEqual(resp2.status_response.result, StatusResponse.REJECTED)
+        mesg2 = login_request(self.sockobj, "john", "12345678999")
+        self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
 
     def test_register(self):
         pass
         # resp1 = register_request(self.sockobj, "johny", "johny@mail.ru", "12345678")
         # self.assertEqual(resp1.status_response.result, StatusResponse.ACCEPTED)
-        #
         # resp1 = register_request(self.sockobj, "john", "john_doe@mail.ru", "12345678")
         # self.assertEqual(resp1.status_response.result, StatusResponse.REJECTED)
+
+    def tearDown(self):
+        self.sockobj.close()
 
 
 if __name__ == '__main__':

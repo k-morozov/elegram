@@ -2,6 +2,7 @@
 #include "../proto/messages.pb.h"
 
 #include <boost/log/trivial.hpp>
+#include <iostream>
 
 namespace elegram {
   server::ParseCommandJob::ParseCommandJob(std::shared_ptr<server::ClientSession> session)
@@ -44,7 +45,7 @@ namespace elegram {
                   session_->stop();
                   return;
               }
-              BOOST_LOG_TRIVIAL(info) << " ParseCommandJob will done";
+              BOOST_LOG_TRIVIAL(info) << " ParseCommandJob done";
               return;
           } else { // message.has_response()
               BOOST_LOG_TRIVIAL(error) << " got response message instead fo request";
@@ -93,16 +94,19 @@ namespace elegram {
 
   void server::LoginRequestJob::operator()() {
       // todo make async ?3
-      std::optional<uint64_t> register_res = session_->storage_connection()->login(mesg_->name(),
-                                                                                   mesg_->password());
-
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
-      if (register_res.has_value()) {
+      try {
+          uint64_t user_id = session_->storage_connection()->login(mesg_->name(), mesg_->password());
           status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
-          session_->set_state(std::make_unique<ClientState>(register_res.value()));
-      } else {
+          session_->set_state(std::make_unique<ClientState>(user_id));
+      } catch (const std::invalid_argument &e) {
+          BOOST_LOG_TRIVIAL(error) << e.what();
+          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+      } catch (...) {
+          BOOST_LOG_TRIVIAL(error) << "THROWED SOMETHING UNHANDLED";
           status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
       }
+
       std::unique_ptr<Response> response = std::make_unique<Response>();
       response->set_allocated_status_response(status_resp.release());
 

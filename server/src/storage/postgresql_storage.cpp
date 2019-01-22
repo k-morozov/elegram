@@ -5,21 +5,18 @@
 
 #include <pqxx/pqxx>
 #include <iostream>
+#include <boost/log/trivial.hpp>
 
 namespace elegram {
   namespace server {
     /**
      * TODO don't prepare them for every connection, do it once for all connections (can we do it?)
      */
-    PostgresStorageConnection::PostgresStorageConnection() {
+    PostgresStorageConnection::PostgresStorageConnection()
+        : conn_(std::make_unique<LazyConnectionImpl>()) {
         conn_->conn().prepare("registration",
                               "INSERT INTO Client (name, email, password_hash) "
                               "VALUES ( $1, $2, $3 )"
-        );
-
-        conn_->conn().prepare("get_user_password",
-                              "SELECT id, password_hash FROM Client "
-                              "WHERE name = $1"
         );
 
         conn_->conn().prepare("send_message",
@@ -62,7 +59,7 @@ namespace elegram {
                 << "Query was: " << e.query() << std::endl;
             return false;
         } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            BOOST_LOG_TRIVIAL(error) << e.what();
             return false;
         }
 
@@ -71,25 +68,28 @@ namespace elegram {
 
     uint64_t PostgresStorageConnection::login(const std::string &name,
                                               const std::string &password) {
-//        try {
-        pqxx::work txn(conn_->conn());
+        try {
+            pqxx::work txn(conn_->conn());
+            pqxx::result r = txn.exec("SELECT id, password_hash FROM Client WHERE name = " +
+                txn.quote(name));
 
-        pqxx::result r = txn.prepared("get_user_password")(txn.quote(name)).exec();
-        txn.commit();
-        if (r.size() == 1 && r[0]["password"].as<std::string>() == hash_password(password)) {
-            return r[0]["id"].as<uint64_t>();
-        } else {
-            throw std::invalid_argument("Invalid password or name");
+            if (r.empty()) {
+                throw std::invalid_argument("invalid name " + name);
+            } else if (r.size() == 1
+                && pqxx::binarystring{r[0]["password_hash"]} != hash_password(password)) {
+
+                throw std::invalid_argument("Invalid password");
+            } else {
+                return r[0]["id"].as<uint64_t>();
+            }
+        } catch (const pqxx::sql_error &e) {
+            std::cerr
+                << "Database error: " << e.what() << std::endl
+                << "Query was: " << e.query() << std::endl;
+            throw std::runtime_error("Database error");
+        } catch (...) {
+            throw; // rethrow
         }
-//        } catch (const pqxx::sql_error &e) {
-//            std::cerr
-//                << "Database error: " << e.what() << std::endl
-//                << "Query was: " << e.query() << std::endl;
-//            throw std::runtime_error("Database error");
-//        }
-//        catch (const std::exception &e) {
-//            std::cerr << e.what() << std::endl;
-//        }
     }
 
     bool PostgresStorageConnection::send_message(uint64_t sender_id,
@@ -109,7 +109,7 @@ namespace elegram {
             return false;
         }
         catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            BOOST_LOG_TRIVIAL(error) << e.what();
             return false;
         }
 
@@ -133,7 +133,7 @@ namespace elegram {
             std::cerr << "Database error: " << e.what() << std::endl
                       << "Query was: " << e.query() << std::endl;
         } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            BOOST_LOG_TRIVIAL(error) << e.what();
         }
         return resp;
     }
@@ -154,7 +154,7 @@ namespace elegram {
             std::cerr << "Database error: " << e.what() << std::endl
                       << "Query was: " << e.query() << std::endl;
         } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            BOOST_LOG_TRIVIAL(error) << e.what();
         }
         return resp;
     }
@@ -177,14 +177,14 @@ namespace elegram {
             std::cerr << "Database error: " << e.what() << std::endl
                       << "Query was: " << e.query() << std::endl;
         } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            BOOST_LOG_TRIVIAL(error) << e.what();
         }
         return resp;
     }
 
     /* -------------------------PostgresStorageFactory-------------------------*/
     std::unique_ptr<AbstractStorageConnection> PostgresStorageFactory::create_connection() {
-        return std::unique_ptr<PostgresStorageConnection>();
+        return std::make_unique<PostgresStorageConnection>();
     }
   }
 } // namespace elegram::server

@@ -9,7 +9,7 @@ namespace elegram {
      public:
       pqxx::lazyconnection &conn();
      private:
-      pqxx::lazyconnection conn_{"dbname=postgres user=postgres"};
+      pqxx::lazyconnection conn_{"dbname=postgres user=avallon"};
     };
   } // namespace server
 } // namespace elegram

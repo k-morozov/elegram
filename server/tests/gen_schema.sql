@@ -10,7 +10,7 @@ CREATE TABLE Client (
 	id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
 	email TEXT NOT NULL,
-	password_hash VARCHAR(64) NOT NULL -- SHA256
+	password_hash bytea NOT NULL -- SHA256
 );
 
 -- there must be one message, but many chats - for every client it's own chat, and he can be connected

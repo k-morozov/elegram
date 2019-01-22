@@ -97,7 +97,7 @@ set_warning_flags(${PROJECT_NAME} 17)
 target_link_libraries(${PROJECT_NAME}
         ${Boost_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
-        messages_pb2_lib
+        messages_pb2_lib ## todo maybe better static ?
         postgres_conn_lib
         )
 

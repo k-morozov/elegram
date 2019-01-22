@@ -29,7 +29,7 @@ namespace elegram::server {
     ba::ip::tcp::socket &sock();
     const std::shared_ptr<ba::thread_pool> &job_pool();
     const std::shared_ptr<AbstractStorageConnection> &storage_connection();
-    void set_state(std::unique_ptr<ClientState> new_state);
+    void set_state(std::unique_ptr<ClientState> &&new_state);
     const ClientState &state() const;
 
     const std::vector<uint8_t> &get_buffer();
