@@ -9,6 +9,23 @@
 
 namespace elegram {
   namespace server {
+    namespace {
+      bool can_write(pqxx::work &txn, uint64_t sender_id, uint64_t chat_id) {
+          try {
+              pqxx::result r = txn.prepared("check_sender_able_to_write_to_chat")
+                  (sender_id)(chat_id).exec();
+              return !r.empty();
+          } catch (const pqxx::sql_error &e) {
+              std::cerr << "Database error: " << e.what() << std::endl
+                        << "Query was: " << e.query() << std::endl;
+              return false;
+          } catch (const std::exception &e) {
+              BOOST_LOG_TRIVIAL(error) << "exception in can_write(): " << e.what();
+              return false;
+          }
+      }
+    } // anonymous namespace
+
     /**
      * TODO don't prepare them for every connection, do it once for all connections (can we do it?)
      */
@@ -21,26 +38,32 @@ namespace elegram {
 
         conn_->conn().prepare("send_message",
                               "INSERT INTO Message(sender_id, chat_id, mesg) "
-                              "VALUES ($1, $2, $3)"
+                              "VALUES ( $1, $2, $3 ) "
         );
 
         conn_->conn().prepare("get_contacts",
-                              "WITH Contacts(id) AS ("
-                              "  SELECT friend_id FROM ClientToContact WHERE client_id = $1"
-                              ")"
-                              "SELECT Client.name, Client.email"
-                              "FROM Client, Contacts"
-                              "WHERE Client.id = Contacts.id;"
+                              "WITH Contacts(id) AS ( "
+                              "  SELECT friend_id FROM ClientToContact WHERE client_id = $1 "
+                              ") "
+                              "SELECT Client.name, Client.email "
+                              "FROM Client, Contacts "
+                              "WHERE Client.id = Contacts.id "
         );
 
         conn_->conn().prepare("get_messages",
-                              "SELECT sender_id, chat_id, text FROM Message WHERE id = $1"
+                              "SELECT sender_id, chat_id, mesg FROM Message WHERE chat_id = $1 "
         );
 
         conn_->conn().prepare("get_chats",
-                              "WITH MyChats(chat_id) AS ("
-                              "    SELECT chat_id from ClientToChat WHERE client_id = $1"
-                              ") SELECT Chat.id, Chat.title FROM Chat, MyChats WHERE Chat.id = MyChats.chat_id;"
+                              "WITH MyChats(chat_id) AS ( "
+                              "    SELECT chat_id from ClientToChat WHERE client_id = $1 "
+                              ") SELECT Chat.id, Chat.title FROM Chat, MyChats "
+                              "WHERE Chat.id = MyChats.chat_id "
+        );
+
+        conn_->conn().prepare("check_sender_able_to_write_to_chat",
+                              "SELECT 1 FROM ClientToChat "
+                              "WHERE client_id = $1 AND chat_id = $2 "
         );
     }
 
@@ -50,7 +73,8 @@ namespace elegram {
         try {
             pqxx::work txn(conn_->conn());
             pqxx::result r = txn.prepared("registration")
-                (txn.quote(name))(email)
+                (name)
+                (email)
                 (hash_password(password)).exec();
             txn.commit();
         } catch (const pqxx::sql_error &e) {
@@ -97,11 +121,14 @@ namespace elegram {
         try {
             pqxx::work txn(conn_->conn());
 
+            if (!can_write(txn, sender_id, mesg.chat_id())) {
+                throw std::invalid_argument("invalid chat_id for this sender_id");
+            }
+
             pqxx::result r = txn.prepared("send_message")
                 (sender_id)
                 (mesg.chat_id())
-                (txn.quote(mesg.text())).exec();
-
+                (mesg.text()).exec();
             txn.commit();
         } catch (const pqxx::sql_error &e) {
             std::cerr << "Database error: " << e.what() << std::endl
@@ -118,6 +145,7 @@ namespace elegram {
 
     // todo change signature and protocol for db error reporting
     std::unique_ptr<elegram::ChatsResponse> PostgresStorageConnection::get_chats(uint64_t user_id) {
+        BOOST_LOG_TRIVIAL(error) << "executing ChatsRequest";
         std::unique_ptr<elegram::ChatsResponse> resp = std::make_unique<ChatsResponse>();
         try {
             pqxx::work txn(conn_->conn());
@@ -127,13 +155,15 @@ namespace elegram {
             for (auto row : r) {
                 Chat *new_chat = resp->add_chats();;
                 new_chat->set_chat_id(row["id"].as<uint64_t>());
-                new_chat->set_title(row["title"].as<std::string>());
+                if (!row["title"].is_null()) {
+                    new_chat->set_title(row["title"].as<std::string>());
+                }
             }
         } catch (const pqxx::sql_error &e) {
             std::cerr << "Database error: " << e.what() << std::endl
                       << "Query was: " << e.query() << std::endl;
         } catch (const std::exception &e) {
-            BOOST_LOG_TRIVIAL(error) << e.what();
+            BOOST_LOG_TRIVIAL(error) << "Exception in get_chats(uint64_t user_id): " << e.what();
         }
         return resp;
     }
@@ -177,7 +207,7 @@ namespace elegram {
             std::cerr << "Database error: " << e.what() << std::endl
                       << "Query was: " << e.query() << std::endl;
         } catch (const std::exception &e) {
-            BOOST_LOG_TRIVIAL(error) << e.what();
+            BOOST_LOG_TRIVIAL(error) << "Exception in get_message: " << e.what();
         }
         return resp;
     }

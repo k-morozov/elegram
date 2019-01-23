@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import sys
 import unittest
 from socket import *
 
@@ -84,7 +84,7 @@ def register_request(sock, login, email, passw):
     register_req.password = passw
 
     request = Request()
-    request.login_request.MergeFrom(register_req)
+    request.register_request.MergeFrom(register_req)
 
     msg = WrappedMessage()
     msg.request.MergeFrom(request)
@@ -93,29 +93,138 @@ def register_request(sock, login, email, passw):
     return get_response(sock)
 
 
+def contacts_request(sock):
+    contacts_req = AllMyContactsRequest()
+
+    request = Request()
+    request.contacts_request.MergeFrom(contacts_req)
+
+    msg = WrappedMessage()
+    msg.request.MergeFrom(request)
+
+    send_message(sock, msg)
+    return get_response(sock)
+
+
+def chats_request(sock):
+    chats_req = AllMyChatsRequest()
+
+    request = Request()
+    request.chats_request.MergeFrom(chats_req)
+
+    msg = WrappedMessage()
+    msg.request.MergeFrom(request)
+
+    send_message(sock, msg)
+    return get_response(sock)
+
+
+def messages_request(sock, chat_id):
+    messages_req = MessagesRequest()
+    messages_req.chat_id = chat_id
+    request = Request()
+    request.messages_request.MergeFrom(messages_req)
+
+    msg = WrappedMessage()
+    msg.request.MergeFrom(request)
+
+    send_message(sock, msg)
+    return get_response(sock)
+
+
+def send_message_request(sock, chat_id, text):
+    mesg = MessageToSend()
+    mesg.chat_id = chat_id
+    mesg.text = text
+
+    send_message_req = SendMessageRequest()
+    send_message_req.mesg.MergeFrom(mesg)
+
+    request = Request()
+    request.send_mesg_request.MergeFrom(send_message_req)
+
+    msg = WrappedMessage()
+    msg.request.MergeFrom(request)
+
+    send_message(sock, msg)
+    return get_response(sock)
+
+
+def connect(port=8000):
+    if len(sys.argv) >= 2:
+        port = int(sys.argv[1])
+    return make_socket(port)
+
+
 class TestElegramServer(unittest.TestCase):
-    def setUp(self):
-        self.port = 8000
-        if len(sys.argv) >= 2:
-            self.port = int(sys.argv[1])
-        self.sockobj = make_socket(self.port)
-
     def test_login(self):
-        mesg1 = login_request(self.sockobj, "john", "12345678")
-        self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+        with connect() as sockobj:
+            mesg2 = login_request(sockobj, "john", "12345678999")
+            self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
 
-        mesg2 = login_request(self.sockobj, "john", "12345678999")
-        self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
+            mesg1 = login_request(sockobj, "john", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
     def test_register(self):
-        pass
-        # resp1 = register_request(self.sockobj, "johny", "johny@mail.ru", "12345678")
-        # self.assertEqual(resp1.status_response.result, StatusResponse.ACCEPTED)
-        # resp1 = register_request(self.sockobj, "john", "john_doe@mail.ru", "12345678")
-        # self.assertEqual(resp1.status_response.result, StatusResponse.REJECTED)
+        with connect() as sockobj:
+            mesg1 = register_request(sockobj, "johny d", "johny_d@mail.ru", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
-    def tearDown(self):
-        self.sockobj.close()
+            mesg2 = register_request(sockobj, "john", "john_doe@mail.ru", "12345678")
+            self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
+
+    def test_get_contacts(self):
+        with connect() as sockobj:
+            mesg1 = login_request(sockobj, "john", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+
+            mesg2 = contacts_request(sockobj)
+            self.assertEqual(len(mesg2.response.contacts_response.contacts), 2)
+            self.assertEqual(mesg2.response.contacts_response.contacts[0].name, "jimm")
+            self.assertEqual(mesg2.response.contacts_response.contacts[1].name, "jasck")
+
+    def test_get_chats(self):
+        with connect() as sockobj:
+            mesg1 = login_request(sockobj, "john", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+
+            mesg2 = chats_request(sockobj)
+            self.assertEqual(len(mesg2.response.chats_response.chats), 2)
+            self.assertEqual(mesg2.response.chats_response.chats[0].chat_id, 1)
+            self.assertEqual(mesg2.response.chats_response.chats[1].chat_id, 2)
+
+    def test_get_messages(self):
+        with connect() as sockobj:
+            mesg1 = login_request(sockobj, "john", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+
+            chat_id = 1
+            mesg2 = messages_request(sockobj, chat_id)
+            self.assertEqual(len(mesg2.response.messages_response.messages), 4)
+            self.assertEqual(mesg2.response.messages_response.messages[0].sender_id, 1)
+            self.assertEqual(mesg2.response.messages_response.messages[0].chat_id, 1)
+            self.assertEqual(mesg2.response.messages_response.messages[0].text, "Hello, jimm!")
+
+    def test_send_message(self):
+        with connect() as sockobj:
+            mesg1 = login_request(sockobj, "john", "12345678")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+
+            # user can write to this chat
+            mesg2 = send_message_request(sockobj, 1, "Test message from python")
+            self.assertEqual(mesg2.response.status_response.result, StatusResponse.ACCEPTED)
+
+        with connect() as sockobj:
+            mesg1 = login_request(sockobj, "jasck", "jasker37")
+            self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
+
+            # user can't write to this chat
+            mesg2 = send_message_request(sockobj, 1, "U can't write to this chat")
+            self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
+
+            # chat not exist
+            mesg3 = send_message_request(sockobj, 10, "chat not exist")
+            self.assertEqual(mesg3.response.status_response.result, StatusResponse.REJECTED)
 
 
 if __name__ == '__main__':
