@@ -15,7 +15,7 @@ namespace elegram {
        * Throw std::invalid_argument if can't login.
        * @return user's id
        */
-      virtual uint64_t login(const std::string &name, const std::string &password) = 0;
+      virtual uint64_t login(const std::string &email, const std::string &password) = 0;
       virtual bool send_message(uint64_t sender_d, const MessageToSend &mesg) = 0;
 
       virtual std::unique_ptr<ChatsResponse> get_chats(uint64_t user_id) = 0;

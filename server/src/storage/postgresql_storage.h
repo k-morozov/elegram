@@ -17,7 +17,7 @@ namespace elegram {
        * Throw std::invalid_argument if can't login.
        * @return user's id
        */
-      uint64_t login(const std::string &name, const std::string &password) override;
+      uint64_t login(const std::string &email, const std::string &password) override;
       bool send_message(uint64_t sender_id, const MessageToSend &mesg) override;
 
       std::unique_ptr<ChatsResponse> get_chats(uint64_t user_id) override;

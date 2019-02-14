@@ -254,16 +254,16 @@ namespace elegram {
 
     // accessors -------------------------------------------------------
 
-    // optional string name = 1;
-    void clear_name();
-    static const int kNameFieldNumber = 1;
-    const ::std::string &name() const;
-    void set_name(const ::std::string &value);
-    void set_name(const char *value);
-    void set_name(const char *value, size_t size);
-    ::std::string *mutable_name();
-    ::std::string *release_name();
-    void set_allocated_name(::std::string *name);
+    // optional string email = 1;
+    void clear_email();
+    static const int kEmailFieldNumber = 1;
+    const ::std::string &email() const;
+    void set_email(const ::std::string &value);
+    void set_email(const char *value);
+    void set_email(const char *value, size_t size);
+    ::std::string *mutable_email();
+    ::std::string *release_email();
+    void set_allocated_email(::std::string *email);
 
     // optional string password = 2;
     void clear_password();
@@ -281,7 +281,7 @@ namespace elegram {
 
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     bool _is_default_instance_;
-    ::google::protobuf::internal::ArenaStringPtr name_;
+    ::google::protobuf::internal::ArenaStringPtr email_;
     ::google::protobuf::internal::ArenaStringPtr password_;
     mutable int _cached_size_;
     friend void protobuf_AddDesc_messages_2eproto();
@@ -2025,49 +2025,49 @@ namespace elegram {
 
 // LoginRequest
 
-// optional string name = 1;
-  inline void LoginRequest::clear_name() {
-      name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string email = 1;
+  inline void LoginRequest::clear_email() {
+      email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  inline const ::std::string &LoginRequest::name() const {
-      // @@protoc_insertion_point(field_get:elegram.LoginRequest.name)
-      return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  inline const ::std::string &LoginRequest::email() const {
+      // @@protoc_insertion_point(field_get:elegram.LoginRequest.email)
+      return email_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  inline void LoginRequest::set_name(const ::std::string &value) {
+  inline void LoginRequest::set_email(const ::std::string &value) {
 
-      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-      // @@protoc_insertion_point(field_set:elegram.LoginRequest.name)
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+      // @@protoc_insertion_point(field_set:elegram.LoginRequest.email)
   }
-  inline void LoginRequest::set_name(const char *value) {
+  inline void LoginRequest::set_email(const char *value) {
 
-      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(value));
-      // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.name)
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                        ::std::string(value));
+      // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.email)
   }
-  inline void LoginRequest::set_name(const char *value, size_t size) {
+  inline void LoginRequest::set_email(const char *value, size_t size) {
 
-      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(reinterpret_cast<const char *>(value), size));
-      // @@protoc_insertion_point(field_set_pointer:elegram.LoginRequest.name)
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                        ::std::string(reinterpret_cast<const char *>(value), size));
+      // @@protoc_insertion_point(field_set_pointer:elegram.LoginRequest.email)
   }
-  inline ::std::string *LoginRequest::mutable_name() {
+  inline ::std::string *LoginRequest::mutable_email() {
 
-      // @@protoc_insertion_point(field_mutable:elegram.LoginRequest.name)
-      return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      // @@protoc_insertion_point(field_mutable:elegram.LoginRequest.email)
+      return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  inline ::std::string *LoginRequest::release_name() {
-      // @@protoc_insertion_point(field_release:elegram.LoginRequest.name)
+  inline ::std::string *LoginRequest::release_email() {
+      // @@protoc_insertion_point(field_release:elegram.LoginRequest.email)
 
-      return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  inline void LoginRequest::set_allocated_name(::std::string *name) {
-      if (name != NULL) {
+  inline void LoginRequest::set_allocated_email(::std::string *email) {
+      if (email != NULL) {
 
       } else {
 
       }
-      name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-      // @@protoc_insertion_point(field_set_allocated:elegram.LoginRequest.name)
+      email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+      // @@protoc_insertion_point(field_set_allocated:elegram.LoginRequest.email)
   }
 
 // optional string password = 2;

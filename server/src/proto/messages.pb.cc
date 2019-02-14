@@ -124,7 +124,7 @@ namespace elegram {
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RegisterRequest, _is_default_instance_));
       LoginRequest_descriptor_ = file->message_type(1);
       static const int LoginRequest_offsets_[2] = {
-          GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LoginRequest, name_),
+          GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LoginRequest, email_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LoginRequest, password_),
       };
       LoginRequest_reflection_ =
@@ -513,41 +513,41 @@ namespace elegram {
       ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
           "\n\016messages.proto\022\007elegram\"@\n\017RegisterReq"
           "uest\022\014\n\004name\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010pas"
-          "sword\030\003 \001(\t\".\n\014LoginRequest\022\014\n\004name\030\001 \001("
-          "\t\022\020\n\010password\030\002 \001(\t\"\023\n\021AllMyChatsRequest"
-          "\"\026\n\024AllMyContactsRequest\"\"\n\017MessagesRequ"
-          "est\022\017\n\007chat_id\030\001 \001(\004\".\n\rMessageToSend\022\017\n"
-          "\007chat_id\030\001 \001(\004\022\014\n\004text\030\002 \001(\t\":\n\022SendMess"
-          "ageRequest\022$\n\004mesg\030\001 \001(\0132\026.elegram.Messa"
-          "geToSend\"\326\002\n\007Request\0224\n\020register_request"
-          "\030\001 \001(\0132\030.elegram.RegisterRequestH\000\022.\n\rlo"
-          "gin_request\030\002 \001(\0132\025.elegram.LoginRequest"
-          "H\000\0223\n\rchats_request\030\003 \001(\0132\032.elegram.AllM"
-          "yChatsRequestH\000\0229\n\020contacts_request\030\004 \001("
-          "\0132\035.elegram.AllMyContactsRequestH\000\0224\n\020me"
-          "ssages_request\030\005 \001(\0132\030.elegram.MessagesR"
-          "equestH\000\0228\n\021send_mesg_request\030\006 \001(\0132\033.el"
-          "egram.SendMessageRequestH\000B\005\n\003msg\"f\n\016Sta"
-          "tusResponse\022.\n\006result\030\001 \001(\0162\036.elegram.St"
-          "atusResponse.RESULT\"$\n\006RESULT\022\014\n\010ACCEPTE"
-          "D\020\000\022\014\n\010REJECTED\020\001\"&\n\004Chat\022\017\n\007chat_id\030\001 \001"
-          "(\004\022\r\n\005title\030\002 \001(\t\"-\n\rChatsResponse\022\034\n\005ch"
-          "ats\030\001 \003(\0132\r.elegram.Chat\"&\n\007Contact\022\014\n\004n"
-          "ame\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\"6\n\020ContactsResp"
-          "onse\022\"\n\010contacts\030\001 \003(\0132\020.elegram.Contact"
-          "\"D\n\020MessageToRecieve\022\021\n\tsender_id\030\001 \001(\004\022"
-          "\017\n\007chat_id\030\002 \001(\004\022\014\n\004text\030\003 \001(\t\"\?\n\020Messag"
-          "esResponse\022+\n\010messages\030\001 \003(\0132\031.elegram.M"
-          "essageToRecieve\"\347\001\n\010Response\0222\n\017status_r"
-          "esponse\030\001 \001(\0132\027.elegram.StatusResponseH\000"
-          "\0220\n\016chats_response\030\002 \001(\0132\026.elegram.Chats"
-          "ResponseH\000\0226\n\021contacts_response\030\003 \001(\0132\031."
-          "elegram.ContactsResponseH\000\0226\n\021messages_r"
-          "esponse\030\004 \001(\0132\031.elegram.MessagesResponse"
-          "H\000B\005\n\003msg\"c\n\016WrappedMessage\022%\n\010response\030"
-          "\001 \001(\0132\021.elegram.ResponseH\000\022#\n\007request\030\002 "
-          "\001(\0132\020.elegram.RequestH\000B\005\n\003msg\"\036\n\014Length"
-          "Prefix\022\016\n\006length\030\001 \001(\006b\006proto3", 1470);
+          "sword\030\003 \001(\t\"/\n\014LoginRequest\022\r\n\005email\030\001 \001"
+          "(\t\022\020\n\010password\030\002 \001(\t\"\023\n\021AllMyChatsReques"
+          "t\"\026\n\024AllMyContactsRequest\"\"\n\017MessagesReq"
+          "uest\022\017\n\007chat_id\030\001 \001(\004\".\n\rMessageToSend\022\017"
+          "\n\007chat_id\030\001 \001(\004\022\014\n\004text\030\002 \001(\t\":\n\022SendMes"
+          "sageRequest\022$\n\004mesg\030\001 \001(\0132\026.elegram.Mess"
+          "ageToSend\"\326\002\n\007Request\0224\n\020register_reques"
+          "t\030\001 \001(\0132\030.elegram.RegisterRequestH\000\022.\n\rl"
+          "ogin_request\030\002 \001(\0132\025.elegram.LoginReques"
+          "tH\000\0223\n\rchats_request\030\003 \001(\0132\032.elegram.All"
+          "MyChatsRequestH\000\0229\n\020contacts_request\030\004 \001"
+          "(\0132\035.elegram.AllMyContactsRequestH\000\0224\n\020m"
+          "essages_request\030\005 \001(\0132\030.elegram.Messages"
+          "RequestH\000\0228\n\021send_mesg_request\030\006 \001(\0132\033.e"
+          "legram.SendMessageRequestH\000B\005\n\003msg\"f\n\016St"
+          "atusResponse\022.\n\006result\030\001 \001(\0162\036.elegram.S"
+          "tatusResponse.RESULT\"$\n\006RESULT\022\014\n\010ACCEPT"
+          "ED\020\000\022\014\n\010REJECTED\020\001\"&\n\004Chat\022\017\n\007chat_id\030\001 "
+          "\001(\004\022\r\n\005title\030\002 \001(\t\"-\n\rChatsResponse\022\034\n\005c"
+          "hats\030\001 \003(\0132\r.elegram.Chat\"&\n\007Contact\022\014\n\004"
+          "name\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\"6\n\020ContactsRes"
+          "ponse\022\"\n\010contacts\030\001 \003(\0132\020.elegram.Contac"
+          "t\"D\n\020MessageToRecieve\022\021\n\tsender_id\030\001 \001(\004"
+          "\022\017\n\007chat_id\030\002 \001(\004\022\014\n\004text\030\003 \001(\t\"\?\n\020Messa"
+          "gesResponse\022+\n\010messages\030\001 \003(\0132\031.elegram."
+          "MessageToRecieve\"\347\001\n\010Response\0222\n\017status_"
+          "response\030\001 \001(\0132\027.elegram.StatusResponseH"
+          "\000\0220\n\016chats_response\030\002 \001(\0132\026.elegram.Chat"
+          "sResponseH\000\0226\n\021contacts_response\030\003 \001(\0132\031"
+          ".elegram.ContactsResponseH\000\0226\n\021messages_"
+          "response\030\004 \001(\0132\031.elegram.MessagesRespons"
+          "eH\000B\005\n\003msg\"c\n\016WrappedMessage\022%\n\010response"
+          "\030\001 \001(\0132\021.elegram.ResponseH\000\022#\n\007request\030\002"
+          " \001(\0132\020.elegram.RequestH\000B\005\n\003msg\"\036\n\014Lengt"
+          "hPrefix\022\016\n\006length\030\001 \001(\006b\006proto3", 1471);
       ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
           "messages.proto", &protobuf_RegisterTypes);
       RegisterRequest::default_instance_ = new RegisterRequest();
@@ -1085,7 +1085,7 @@ void RegisterRequest::clear_password() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-  const int LoginRequest::kNameFieldNumber;
+  const int LoginRequest::kEmailFieldNumber;
   const int LoginRequest::kPasswordFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -1111,7 +1111,7 @@ void RegisterRequest::clear_password() {
       _is_default_instance_ = false;
       ::google::protobuf::internal::GetEmptyString();
       _cached_size_ = 0;
-      name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
 
@@ -1121,7 +1121,7 @@ void RegisterRequest::clear_password() {
   }
 
   void LoginRequest::SharedDtor() {
-      name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      email_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       password_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       if (this != default_instance_) {
       }
@@ -1154,7 +1154,7 @@ void RegisterRequest::clear_password() {
 
   void LoginRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:elegram.LoginRequest)
-      name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+      email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
 
@@ -1168,15 +1168,15 @@ void RegisterRequest::clear_password() {
           tag = p.first;
           if (!p.second) goto handle_unusual;
           switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-              // optional string name = 1;
+              // optional string email = 1;
               case 1: {
                   if (tag == 10) {
                       DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                          input, this->mutable_name()));
+                          input, this->mutable_email()));
                       DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                          this->name().data(), this->name().length(),
+                          this->email().data(), this->email().length(),
                           ::google::protobuf::internal::WireFormatLite::PARSE,
-                          "elegram.LoginRequest.name"));
+                          "elegram.LoginRequest.email"));
                   } else {
                       goto handle_unusual;
                   }
@@ -1225,14 +1225,14 @@ void RegisterRequest::clear_password() {
   void LoginRequest::SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream *output) const {
       // @@protoc_insertion_point(serialize_start:elegram.LoginRequest)
-      // optional string name = 1;
-      if (this->name().size() > 0) {
+      // optional string email = 1;
+      if (this->email().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-              this->name().data(), this->name().length(),
+              this->email().data(), this->email().length(),
               ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-              "elegram.LoginRequest.name");
+              "elegram.LoginRequest.email");
           ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-              1, this->name(), output);
+              1, this->email(), output);
       }
 
       // optional string password = 2;
@@ -1251,15 +1251,15 @@ void RegisterRequest::clear_password() {
   ::google::protobuf::uint8 *LoginRequest::InternalSerializeWithCachedSizesToArray(
       bool deterministic, ::google::protobuf::uint8 *target) const {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.LoginRequest)
-      // optional string name = 1;
-      if (this->name().size() > 0) {
+      // optional string email = 1;
+      if (this->email().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-              this->name().data(), this->name().length(),
+              this->email().data(), this->email().length(),
               ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-              "elegram.LoginRequest.name");
+              "elegram.LoginRequest.email");
           target =
               ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                  1, this->name(), target);
+                  1, this->email(), target);
       }
 
       // optional string password = 2;
@@ -1281,11 +1281,11 @@ void RegisterRequest::clear_password() {
 // @@protoc_insertion_point(message_byte_size_start:elegram.LoginRequest)
       int total_size = 0;
 
-      // optional string name = 1;
-      if (this->name().size() > 0) {
+      // optional string email = 1;
+      if (this->email().size() > 0) {
           total_size += 1 +
               ::google::protobuf::internal::WireFormatLite::StringSize(
-                  this->name());
+                  this->email());
       }
 
       // optional string password = 2;
@@ -1323,10 +1323,10 @@ void RegisterRequest::clear_password() {
       if (GOOGLE_PREDICT_FALSE(&from == this)) {
           ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
       }
-      if (from.name().size() > 0) {
+      if (from.email().size() > 0) {
 
-          name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                  from.name_);
+          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                                   from.email_);
       }
       if (from.password().size() > 0) {
 
@@ -1359,7 +1359,7 @@ void RegisterRequest::clear_password() {
       InternalSwap(other);
   }
   void LoginRequest::InternalSwap(LoginRequest *other) {
-      name_.Swap(&other->name_);
+      email_.Swap(&other->email_);
       password_.Swap(&other->password_);
       _internal_metadata_.Swap(&other->_internal_metadata_);
       std::swap(_cached_size_, other->_cached_size_);
@@ -1376,48 +1376,48 @@ void RegisterRequest::clear_password() {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
                                                                                                                           // LoginRequest
 
-// optional string name = 1;
-void LoginRequest::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional string email = 1;
+void LoginRequest::clear_email() {
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& LoginRequest::name() const {
-  // @@protoc_insertion_point(field_get:elegram.LoginRequest.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ const ::std::string& LoginRequest::email() const {
+  // @@protoc_insertion_point(field_get:elegram.LoginRequest.email)
+  return email_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LoginRequest::set_name(const ::std::string& value) {
+ void LoginRequest::set_email(const ::std::string& value) {
 
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:elegram.LoginRequest.name)
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:elegram.LoginRequest.email)
 }
- void LoginRequest::set_name(const char* value) {
+ void LoginRequest::set_email(const char* value) {
 
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.name)
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.email)
 }
- void LoginRequest::set_name(const char* value, size_t size) {
+ void LoginRequest::set_email(const char* value, size_t size) {
 
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:elegram.LoginRequest.name)
+  // @@protoc_insertion_point(field_set_pointer:elegram.LoginRequest.email)
 }
- ::std::string* LoginRequest::mutable_name() {
+ ::std::string* LoginRequest::mutable_email() {
 
-  // @@protoc_insertion_point(field_mutable:elegram.LoginRequest.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:elegram.LoginRequest.email)
+  return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* LoginRequest::release_name() {
-  // @@protoc_insertion_point(field_release:elegram.LoginRequest.name)
+ ::std::string* LoginRequest::release_email() {
+  // @@protoc_insertion_point(field_release:elegram.LoginRequest.email)
 
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LoginRequest::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
+ void LoginRequest::set_allocated_email(::std::string* email) {
+  if (email != NULL) {
 
   } else {
 
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:elegram.LoginRequest.name)
+  email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:elegram.LoginRequest.email)
 }
 
 // optional string password = 2;

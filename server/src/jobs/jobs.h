@@ -23,7 +23,6 @@ namespace elegram::server {
    * Protobuf Requests
    * ----------------------------------------------------------------------------------------------------
    */
-
   class RegisterRequestJob {
    public:
     RegisterRequestJob(RegisterRequest *mesg, std::shared_ptr<ClientSession> session);

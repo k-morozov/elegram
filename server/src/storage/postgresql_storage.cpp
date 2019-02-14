@@ -90,18 +90,17 @@ namespace elegram {
         return true;
     }
 
-    uint64_t PostgresStorageConnection::login(const std::string &name,
+    uint64_t PostgresStorageConnection::login(const std::string &email,
                                               const std::string &password) {
         try {
             pqxx::work txn(conn_->conn());
-            pqxx::result r = txn.exec("SELECT id, password_hash FROM Client WHERE name = " +
-                txn.quote(name));
+            pqxx::result r = txn.exec("SELECT id, password_hash FROM Client WHERE email = " +
+                txn.quote(email));
 
             if (r.empty()) {
-                throw std::invalid_argument("invalid name " + name);
+                throw std::invalid_argument("invalid email " + email);
             } else if (r.size() == 1
                 && pqxx::binarystring{r[0]["password_hash"]} != hash_password(password)) {
-
                 throw std::invalid_argument("Invalid password");
             } else {
                 return r[0]["id"].as<uint64_t>();

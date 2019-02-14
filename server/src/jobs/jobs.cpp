@@ -96,7 +96,7 @@ namespace elegram {
       // todo make async ?3
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
       try {
-          uint64_t user_id = session_->storage_connection()->login(mesg_->name(), mesg_->password());
+          uint64_t user_id = session_->storage_connection()->login(mesg_->email(), mesg_->password());
           status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
           session_->set_state(std::make_unique<ClientState>(user_id));
       } catch (const std::invalid_argument &e) {

@@ -62,9 +62,9 @@ def get_response(sock):
     return msg
 
 
-def login_request(sock, login, passw):
+def login_request(sock, email, passw):
     login_req = LoginRequest()
-    login_req.name = login
+    login_req.email = email
     login_req.password = passw
 
     request = Request()
@@ -77,9 +77,9 @@ def login_request(sock, login, passw):
     return get_response(sock)
 
 
-def register_request(sock, login, email, passw):
+def register_request(sock, name, email, passw):
     register_req = RegisterRequest()
-    register_req.name = login
+    register_req.name = name
     register_req.email = email
     register_req.password = passw
 
@@ -159,10 +159,10 @@ def connect(port=8000):
 class TestElegramServer(unittest.TestCase):
     def test_login(self):
         with connect() as sockobj:
-            mesg2 = login_request(sockobj, "john", "12345678999")
+            mesg2 = login_request(sockobj, "john@mail.ru", "12345678999")
             self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
 
-            mesg1 = login_request(sockobj, "john", "12345678")
+            mesg1 = login_request(sockobj, "john@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
     def test_register(self):
@@ -175,7 +175,7 @@ class TestElegramServer(unittest.TestCase):
 
     def test_get_contacts(self):
         with connect() as sockobj:
-            mesg1 = login_request(sockobj, "john", "12345678")
+            mesg1 = login_request(sockobj, "john@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
             mesg2 = contacts_request(sockobj)
@@ -185,7 +185,7 @@ class TestElegramServer(unittest.TestCase):
 
     def test_get_chats(self):
         with connect() as sockobj:
-            mesg1 = login_request(sockobj, "john", "12345678")
+            mesg1 = login_request(sockobj, "john@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
             mesg2 = chats_request(sockobj)
@@ -195,7 +195,7 @@ class TestElegramServer(unittest.TestCase):
 
     def test_get_messages(self):
         with connect() as sockobj:
-            mesg1 = login_request(sockobj, "john", "12345678")
+            mesg1 = login_request(sockobj, "john@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
             chat_id = 1
@@ -207,7 +207,7 @@ class TestElegramServer(unittest.TestCase):
 
     def test_send_message(self):
         with connect() as sockobj:
-            mesg1 = login_request(sockobj, "john", "12345678")
+            mesg1 = login_request(sockobj, "john@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
             # user can write to this chat
@@ -215,7 +215,7 @@ class TestElegramServer(unittest.TestCase):
             self.assertEqual(mesg2.response.status_response.result, StatusResponse.ACCEPTED)
 
         with connect() as sockobj:
-            mesg1 = login_request(sockobj, "jasck", "jasker37")
+            mesg1 = login_request(sockobj, "jas@ck.ru", "jasker37")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
             # user can't write to this chat
