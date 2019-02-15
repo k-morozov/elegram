@@ -41,6 +41,11 @@ message SendMessageRequest {
     MessageToSend mesg = 1;
 }
 
+// 7
+message AddContactRequest {
+    string email = 1;
+}
+
 message Request {
     oneof msg {
         RegisterRequest register_request = 1;
@@ -49,6 +54,7 @@ message Request {
         AllMyContactsRequest contacts_request = 4;
         MessagesRequest messages_request = 5;
         SendMessageRequest send_mesg_request = 6;
+        AddContactRequest add_contact_request = 7;
     }
 }
 
@@ -114,7 +120,6 @@ message WrappedMessage {
         Request request = 2;
     }
 }
-
 
 message LengthPrefix {
     fixed64 length = 1;

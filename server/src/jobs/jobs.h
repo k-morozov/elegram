@@ -81,4 +81,13 @@ namespace elegram::server {
     std::unique_ptr<SendMessageRequest> mesg_;
   };
 
+  class AddContactRequestJob {
+   public:
+    AddContactRequestJob(AddContactRequest *mesg, std::shared_ptr<ClientSession> session);
+    void operator()();
+
+   private:
+    std::shared_ptr<ClientSession> session_;
+    std::unique_ptr<AddContactRequest> mesg_;
+  };
 } // namespace elegram::server

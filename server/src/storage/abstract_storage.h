@@ -16,7 +16,8 @@ namespace elegram {
        * @return user's id
        */
       virtual uint64_t login(const std::string &email, const std::string &password) = 0;
-      virtual bool send_message(uint64_t sender_d, const MessageToSend &mesg) = 0;
+      virtual bool send_message(uint64_t sender_id, const MessageToSend &mesg) = 0;
+      virtual bool add_contact(uint64_t user_id, const std::string &email) = 0;
 
       virtual std::unique_ptr<ChatsResponse> get_chats(uint64_t user_id) = 0;
       virtual std::unique_ptr<ContactsResponse> get_contacts(uint64_t user_id) = 0;

@@ -191,4 +191,28 @@ namespace elegram {
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
   }
+
+  /*-------------------------------------------------------------------------*/
+  server::AddContactRequestJob::AddContactRequestJob(AddContactRequest *mesg,
+                                                     std::shared_ptr<server::ClientSession> session)
+      : session_(std::move(session)), mesg_(mesg) {}
+
+  void server::AddContactRequestJob::operator()() {
+      bool send_res = session_->storage_connection()->add_contact(session_->state().user_id(),
+                                                                  mesg_->email());
+
+      std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
+      if (send_res) {
+          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+      } else {
+          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+      }
+
+      std::unique_ptr<Response> response = std::make_unique<Response>();
+      response->set_allocated_status_response(status_resp.release());
+
+      WrappedMessage wrappedMessage;
+      wrappedMessage.set_allocated_response(response.release());
+      session_->write(wrappedMessage);
+  }
 } // namespace elegram

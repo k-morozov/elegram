@@ -19,6 +19,7 @@ namespace elegram {
        */
       uint64_t login(const std::string &email, const std::string &password) override;
       bool send_message(uint64_t sender_id, const MessageToSend &mesg) override;
+      bool add_contact(uint64_t user_id, const std::string &email) override;
 
       std::unique_ptr<ChatsResponse> get_chats(uint64_t user_id) override;
       std::unique_ptr<ContactsResponse> get_contacts(uint64_t user_id) override;

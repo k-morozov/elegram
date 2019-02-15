@@ -41,6 +41,15 @@ namespace elegram {
                               "VALUES ( $1, $2, $3 ) "
         );
 
+        conn_->conn().prepare("add_contact",
+                              "INSERT INTO ClientToContact(client_id, friend_id) "
+                              "VALUES ( $1, $2 ) "
+        );
+
+        conn_->conn().prepare("get_user_by_email",
+                              "SELECT id, name FROM Client WHERE email = $1 "
+        );
+
         conn_->conn().prepare("get_contacts",
                               "WITH Contacts(id) AS ( "
                               "  SELECT friend_id FROM ClientToContact WHERE client_id = $1 "
@@ -128,6 +137,31 @@ namespace elegram {
                 (sender_id)
                 (mesg.chat_id())
                 (mesg.text()).exec();
+            txn.commit();
+        } catch (const pqxx::sql_error &e) {
+            std::cerr << "Database error: " << e.what() << std::endl
+                      << "Query was: " << e.query() << std::endl;
+            return false;
+        }
+        catch (const std::exception &e) {
+            BOOST_LOG_TRIVIAL(error) << e.what();
+            return false;
+        }
+
+        return true;
+    }
+
+    bool PostgresStorageConnection::add_contact(uint64_t user_id, const std::string &email) {
+        try {
+            pqxx::work txn(conn_->conn());
+
+            pqxx::result req = txn.prepared("get_user_by_email")(email).exec();
+            if (req.empty()) {
+                return false;
+            }
+
+            uint64_t contact_id = req[0]["id"].as<uint64_t>();
+            pqxx::result r = txn.prepared("add_contact")(user_id)(contact_id).exec();
             txn.commit();
         } catch (const pqxx::sql_error &e) {
             std::cerr << "Database error: " << e.what() << std::endl

@@ -37,6 +37,7 @@ namespace elegram {
   void protobuf_AssignDesc_messages_2eproto();
   void protobuf_ShutdownFile_messages_2eproto();
 
+  class AddContactRequest;
   class AllMyChatsRequest;
   class AllMyContactsRequest;
   class Chat;
@@ -709,6 +710,94 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
+  class AddContactRequest
+      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.AddContactRequest) */ {
+   public:
+    AddContactRequest();
+    virtual ~AddContactRequest();
+
+    AddContactRequest(const AddContactRequest &from);
+
+    inline AddContactRequest &operator=(const AddContactRequest &from) {
+        CopyFrom(from);
+        return *this;
+    }
+
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const AddContactRequest &default_instance();
+
+    void Swap(AddContactRequest *other);
+
+    // implements Message ----------------------------------------------
+
+    inline AddContactRequest *New() const { return New(NULL); }
+
+    AddContactRequest *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const AddContactRequest &from);
+    void MergeFrom(const AddContactRequest &from);
+    void Clear();
+    bool IsInitialized() const;
+
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *InternalSerializeWithCachedSizesToArray(
+        bool deterministic, ::google::protobuf::uint8 *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const {
+        return InternalSerializeWithCachedSizesToArray(false, output);
+    }
+    int GetCachedSize() const { return _cached_size_; }
+   private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(AddContactRequest *other);
+   private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+   public:
+
+    ::google::protobuf::Metadata GetMetadata() const;
+
+    // nested types ----------------------------------------------------
+
+    // accessors -------------------------------------------------------
+
+    // optional string email = 1;
+    void clear_email();
+    static const int kEmailFieldNumber = 1;
+    const ::std::string &email() const;
+    void set_email(const ::std::string &value);
+    void set_email(const char *value);
+    void set_email(const char *value, size_t size);
+    ::std::string *mutable_email();
+    ::std::string *release_email();
+    void set_allocated_email(::std::string *email);
+
+    // @@protoc_insertion_point(class_scope:elegram.AddContactRequest)
+   private:
+
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::google::protobuf::internal::ArenaStringPtr email_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_messages_2eproto();
+    friend void protobuf_AssignDesc_messages_2eproto();
+    friend void protobuf_ShutdownFile_messages_2eproto();
+
+    void InitAsDefaultInstance();
+    static AddContactRequest *default_instance_;
+  };
+// -------------------------------------------------------------------
+
   class Request
       : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Request) */ {
    public:
@@ -732,6 +821,7 @@ namespace elegram {
       kContactsRequest = 4,
       kMessagesRequest = 5,
       kSendMesgRequest = 6,
+      kAddContactRequest = 7,
       MSG_NOT_SET = 0,
     };
 
@@ -834,6 +924,15 @@ namespace elegram {
     ::elegram::SendMessageRequest *release_send_mesg_request();
     void set_allocated_send_mesg_request(::elegram::SendMessageRequest *send_mesg_request);
 
+    // optional .elegram.AddContactRequest add_contact_request = 7;
+    bool has_add_contact_request() const;
+    void clear_add_contact_request();
+    static const int kAddContactRequestFieldNumber = 7;
+    const ::elegram::AddContactRequest &add_contact_request() const;
+    ::elegram::AddContactRequest *mutable_add_contact_request();
+    ::elegram::AddContactRequest *release_add_contact_request();
+    void set_allocated_add_contact_request(::elegram::AddContactRequest *add_contact_request);
+
     MsgCase msg_case() const;
     // @@protoc_insertion_point(class_scope:elegram.Request)
    private:
@@ -843,6 +942,7 @@ namespace elegram {
     inline void set_has_contacts_request();
     inline void set_has_messages_request();
     inline void set_has_send_mesg_request();
+    inline void set_has_add_contact_request();
 
     inline bool has_msg() const;
     void clear_msg();
@@ -858,6 +958,7 @@ namespace elegram {
       ::elegram::AllMyContactsRequest *contacts_request_;
       ::elegram::MessagesRequest *messages_request_;
       ::elegram::SendMessageRequest *send_mesg_request_;
+      ::elegram::AddContactRequest *add_contact_request_;
     } msg_;
     mutable int _cached_size_;
     ::google::protobuf::uint32 _oneof_case_[1];
@@ -2249,6 +2350,55 @@ namespace elegram {
 
 // -------------------------------------------------------------------
 
+// AddContactRequest
+
+// optional string email = 1;
+  inline void AddContactRequest::clear_email() {
+      email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  inline const ::std::string &AddContactRequest::email() const {
+      // @@protoc_insertion_point(field_get:elegram.AddContactRequest.email)
+      return email_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  inline void AddContactRequest::set_email(const ::std::string &value) {
+
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+      // @@protoc_insertion_point(field_set:elegram.AddContactRequest.email)
+  }
+  inline void AddContactRequest::set_email(const char *value) {
+
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                        ::std::string(value));
+      // @@protoc_insertion_point(field_set_char:elegram.AddContactRequest.email)
+  }
+  inline void AddContactRequest::set_email(const char *value, size_t size) {
+
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                        ::std::string(reinterpret_cast<const char *>(value), size));
+      // @@protoc_insertion_point(field_set_pointer:elegram.AddContactRequest.email)
+  }
+  inline ::std::string *AddContactRequest::mutable_email() {
+
+      // @@protoc_insertion_point(field_mutable:elegram.AddContactRequest.email)
+      return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  inline ::std::string *AddContactRequest::release_email() {
+      // @@protoc_insertion_point(field_release:elegram.AddContactRequest.email)
+
+      return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  inline void AddContactRequest::set_allocated_email(::std::string *email) {
+      if (email != NULL) {
+
+      } else {
+
+      }
+      email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+      // @@protoc_insertion_point(field_set_allocated:elegram.AddContactRequest.email)
+  }
+
+// -------------------------------------------------------------------
+
 // Request
 
 // optional .elegram.RegisterRequest register_request = 1;
@@ -2537,6 +2687,54 @@ namespace elegram {
           msg_.send_mesg_request_ = send_mesg_request;
       }
       // @@protoc_insertion_point(field_set_allocated:elegram.Request.send_mesg_request)
+  }
+
+// optional .elegram.AddContactRequest add_contact_request = 7;
+  inline bool Request::has_add_contact_request() const {
+      return msg_case() == kAddContactRequest;
+  }
+  inline void Request::set_has_add_contact_request() {
+      _oneof_case_[0] = kAddContactRequest;
+  }
+  inline void Request::clear_add_contact_request() {
+      if (has_add_contact_request()) {
+          delete msg_.add_contact_request_;
+          clear_has_msg();
+      }
+  }
+  inline const ::elegram::AddContactRequest &Request::add_contact_request() const {
+      // @@protoc_insertion_point(field_get:elegram.Request.add_contact_request)
+      return has_add_contact_request()
+             ? *msg_.add_contact_request_
+             : ::elegram::AddContactRequest::default_instance();
+  }
+  inline ::elegram::AddContactRequest *Request::mutable_add_contact_request() {
+      if (!has_add_contact_request()) {
+          clear_msg();
+          set_has_add_contact_request();
+          msg_.add_contact_request_ = new ::elegram::AddContactRequest;
+      }
+      // @@protoc_insertion_point(field_mutable:elegram.Request.add_contact_request)
+      return msg_.add_contact_request_;
+  }
+  inline ::elegram::AddContactRequest *Request::release_add_contact_request() {
+      // @@protoc_insertion_point(field_release:elegram.Request.add_contact_request)
+      if (has_add_contact_request()) {
+          clear_has_msg();
+          ::elegram::AddContactRequest *temp = msg_.add_contact_request_;
+          msg_.add_contact_request_ = NULL;
+          return temp;
+      } else {
+          return NULL;
+      }
+  }
+  inline void Request::set_allocated_add_contact_request(::elegram::AddContactRequest *add_contact_request) {
+      clear_msg();
+      if (add_contact_request) {
+          set_has_add_contact_request();
+          msg_.add_contact_request_ = add_contact_request;
+      }
+      // @@protoc_insertion_point(field_set_allocated:elegram.Request.add_contact_request)
   }
 
   inline bool Request::has_msg() const {
@@ -3235,6 +3433,8 @@ namespace elegram {
   }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
