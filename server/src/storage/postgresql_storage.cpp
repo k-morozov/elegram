@@ -54,13 +54,13 @@ namespace elegram {
                               "WITH Contacts(id) AS ( "
                               "  SELECT friend_id FROM ClientToContact WHERE client_id = $1 "
                               ") "
-                              "SELECT Client.name, Client.email "
+                              "SELECT Client.id, Client.name, Client.email "
                               "FROM Client, Contacts "
                               "WHERE Client.id = Contacts.id "
         );
 
         conn_->conn().prepare("get_messages",
-                              "SELECT sender_id, chat_id, mesg FROM Message WHERE chat_id = $1 "
+                              "SELECT sender_id, mesg FROM Message WHERE chat_id = $1 "
         );
 
         conn_->conn().prepare("get_chats",
@@ -85,6 +85,7 @@ namespace elegram {
                 (name)
                 (email)
                 (hash_password(password)).exec();
+            // todo make this user friend to itself
             txn.commit();
         } catch (const pqxx::sql_error &e) {
             std::cerr
@@ -210,6 +211,7 @@ namespace elegram {
 
             for (auto row : r) {
                 Contact *new_contact = resp->add_contacts();;
+                new_contact->set_user_id(row["id"].as<uint64_t>());
                 new_contact->set_name(row["name"].as<std::string>());
                 new_contact->set_email(row["email"].as<std::string>());
             }
@@ -232,7 +234,6 @@ namespace elegram {
             for (auto row : r) {
                 MessageToRecieve *new_contact = resp->add_messages();
 
-                new_contact->set_chat_id(row["chat_id"].as<uint64_t>());
                 new_contact->set_sender_id(row["sender_id"].as<uint64_t>());
                 new_contact->set_text(row["mesg"].as<std::string>());
             }

@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS Client;
 -------------------------------------------------------------------------------
 CREATE TABLE Client (
 	id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
 	email TEXT NOT NULL UNIQUE,
 	password_hash bytea NOT NULL -- SHA256
 );

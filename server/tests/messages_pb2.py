@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='elegram',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x0emessages.proto\x12\x07\x65legram\"@\n\x0fRegisterRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x13\n\x11\x41llMyChatsRequest\"\x16\n\x14\x41llMyContactsRequest\"\"\n\x0fMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\".\n\rMessageToSend\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\x0c\n\x04text\x18\x02 \x01(\t\":\n\x12SendMessageRequest\x12$\n\x04mesg\x18\x01 \x01(\x0b\x32\x16.elegram.MessageToSend\"\"\n\x11\x41\x64\x64\x43ontactRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"\x91\x03\n\x07Request\x12\x34\n\x10register_request\x18\x01 \x01(\x0b\x32\x18.elegram.RegisterRequestH\x00\x12.\n\rlogin_request\x18\x02 \x01(\x0b\x32\x15.elegram.LoginRequestH\x00\x12\x33\n\rchats_request\x18\x03 \x01(\x0b\x32\x1a.elegram.AllMyChatsRequestH\x00\x12\x39\n\x10\x63ontacts_request\x18\x04 \x01(\x0b\x32\x1d.elegram.AllMyContactsRequestH\x00\x12\x34\n\x10messages_request\x18\x05 \x01(\x0b\x32\x18.elegram.MessagesRequestH\x00\x12\x38\n\x11send_mesg_request\x18\x06 \x01(\x0b\x32\x1b.elegram.SendMessageRequestH\x00\x12\x39\n\x13\x61\x64\x64_contact_request\x18\x07 \x01(\x0b\x32\x1a.elegram.AddContactRequestH\x00\x42\x05\n\x03msg\"f\n\x0eStatusResponse\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.elegram.StatusResponse.RESULT\"$\n\x06RESULT\x12\x0c\n\x08\x41\x43\x43\x45PTED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\"&\n\x04\x43hat\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\"-\n\rChatsResponse\x12\x1c\n\x05\x63hats\x18\x01 \x03(\x0b\x32\r.elegram.Chat\"&\n\x07\x43ontact\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"6\n\x10\x43ontactsResponse\x12\"\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x10.elegram.Contact\"D\n\x10MessageToRecieve\x12\x11\n\tsender_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x63hat_id\x18\x02 \x01(\x04\x12\x0c\n\x04text\x18\x03 \x01(\t\"?\n\x10MessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.elegram.MessageToRecieve\"\xe7\x01\n\x08Response\x12\x32\n\x0fstatus_response\x18\x01 \x01(\x0b\x32\x17.elegram.StatusResponseH\x00\x12\x30\n\x0e\x63hats_response\x18\x02 \x01(\x0b\x32\x16.elegram.ChatsResponseH\x00\x12\x36\n\x11\x63ontacts_response\x18\x03 \x01(\x0b\x32\x19.elegram.ContactsResponseH\x00\x12\x36\n\x11messages_response\x18\x04 \x01(\x0b\x32\x19.elegram.MessagesResponseH\x00\x42\x05\n\x03msg\"c\n\x0eWrappedMessage\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x11.elegram.ResponseH\x00\x12#\n\x07request\x18\x02 \x01(\x0b\x32\x10.elegram.RequestH\x00\x42\x05\n\x03msg\"\x1e\n\x0cLengthPrefix\x12\x0e\n\x06length\x18\x01 \x01(\x06\x62\x06proto3')
+        '\n\x0emessages.proto\x12\x07\x65legram\"@\n\x0fRegisterRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"/\n\x0cLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x13\n\x11\x41llMyChatsRequest\"\x16\n\x14\x41llMyContactsRequest\"\"\n\x0fMessagesRequest\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\".\n\rMessageToSend\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\x0c\n\x04text\x18\x02 \x01(\t\":\n\x12SendMessageRequest\x12$\n\x04mesg\x18\x01 \x01(\x0b\x32\x16.elegram.MessageToSend\"\"\n\x11\x41\x64\x64\x43ontactRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"\x91\x03\n\x07Request\x12\x34\n\x10register_request\x18\x01 \x01(\x0b\x32\x18.elegram.RegisterRequestH\x00\x12.\n\rlogin_request\x18\x02 \x01(\x0b\x32\x15.elegram.LoginRequestH\x00\x12\x33\n\rchats_request\x18\x03 \x01(\x0b\x32\x1a.elegram.AllMyChatsRequestH\x00\x12\x39\n\x10\x63ontacts_request\x18\x04 \x01(\x0b\x32\x1d.elegram.AllMyContactsRequestH\x00\x12\x34\n\x10messages_request\x18\x05 \x01(\x0b\x32\x18.elegram.MessagesRequestH\x00\x12\x38\n\x11send_mesg_request\x18\x06 \x01(\x0b\x32\x1b.elegram.SendMessageRequestH\x00\x12\x39\n\x13\x61\x64\x64_contact_request\x18\x07 \x01(\x0b\x32\x1a.elegram.AddContactRequestH\x00\x42\x05\n\x03msg\"f\n\x0eStatusResponse\x12.\n\x06result\x18\x01 \x01(\x0e\x32\x1e.elegram.StatusResponse.RESULT\"$\n\x06RESULT\x12\x0c\n\x08\x41\x43\x43\x45PTED\x10\x00\x12\x0c\n\x08REJECTED\x10\x01\"&\n\x04\x43hat\x12\x0f\n\x07\x63hat_id\x18\x01 \x01(\x04\x12\r\n\x05title\x18\x02 \x01(\t\"-\n\rChatsResponse\x12\x1c\n\x05\x63hats\x18\x01 \x03(\x0b\x32\r.elegram.Chat\"7\n\x07\x43ontact\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\"6\n\x10\x43ontactsResponse\x12\"\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x10.elegram.Contact\"3\n\x10MessageToRecieve\x12\x11\n\tsender_id\x18\x01 \x01(\x04\x12\x0c\n\x04text\x18\x02 \x01(\t\"?\n\x10MessagesResponse\x12+\n\x08messages\x18\x01 \x03(\x0b\x32\x19.elegram.MessageToRecieve\"\xe7\x01\n\x08Response\x12\x32\n\x0fstatus_response\x18\x01 \x01(\x0b\x32\x17.elegram.StatusResponseH\x00\x12\x30\n\x0e\x63hats_response\x18\x02 \x01(\x0b\x32\x16.elegram.ChatsResponseH\x00\x12\x36\n\x11\x63ontacts_response\x18\x03 \x01(\x0b\x32\x19.elegram.ContactsResponseH\x00\x12\x36\n\x11messages_response\x18\x04 \x01(\x0b\x32\x19.elegram.MessagesResponseH\x00\x42\x05\n\x03msg\"c\n\x0eWrappedMessage\x12%\n\x08response\x18\x01 \x01(\x0b\x32\x11.elegram.ResponseH\x00\x12#\n\x07request\x18\x02 \x01(\x0b\x32\x10.elegram.RequestH\x00\x42\x05\n\x03msg\"\x1e\n\x0cLengthPrefix\x12\x0e\n\x06length\x18\x01 \x01(\x06\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -275,6 +275,7 @@ _SENDMESSAGEREQUEST = _descriptor.Descriptor(
     serialized_end=329,
 )
 
+
 _ADDCONTACTREQUEST = _descriptor.Descriptor(
     name='AddContactRequest',
     full_name='elegram.AddContactRequest',
@@ -491,15 +492,22 @@ _CONTACT = _descriptor.Descriptor(
     containing_type=None,
     fields=[
         _descriptor.FieldDescriptor(
-            name='name', full_name='elegram.Contact.name', index=0,
-            number=1, type=9, cpp_type=9, label=1,
+            name='user_id', full_name='elegram.Contact.user_id', index=0,
+            number=1, type=4, cpp_type=4, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None),
+        _descriptor.FieldDescriptor(
+            name='name', full_name='elegram.Contact.name', index=1,
+            number=2, type=9, cpp_type=9, label=1,
             has_default_value=False, default_value=_b("").decode('utf-8'),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='email', full_name='elegram.Contact.email', index=1,
-            number=2, type=9, cpp_type=9, label=1,
+            name='email', full_name='elegram.Contact.email', index=2,
+            number=3, type=9, cpp_type=9, label=1,
             has_default_value=False, default_value=_b("").decode('utf-8'),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
@@ -517,7 +525,7 @@ _CONTACT = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=962,
-    serialized_end=1000,
+    serialized_end=1017,
 )
 
 
@@ -547,8 +555,8 @@ _CONTACTSRESPONSE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1002,
-    serialized_end=1056,
+    serialized_start=1019,
+    serialized_end=1073,
 )
 
 
@@ -567,15 +575,8 @@ _MESSAGETORECIEVE = _descriptor.Descriptor(
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='chat_id', full_name='elegram.MessageToRecieve.chat_id', index=1,
-            number=2, type=4, cpp_type=4, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None),
-        _descriptor.FieldDescriptor(
-            name='text', full_name='elegram.MessageToRecieve.text', index=2,
-            number=3, type=9, cpp_type=9, label=1,
+            name='text', full_name='elegram.MessageToRecieve.text', index=1,
+            number=2, type=9, cpp_type=9, label=1,
             has_default_value=False, default_value=_b("").decode('utf-8'),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
@@ -592,7 +593,7 @@ _MESSAGETORECIEVE = _descriptor.Descriptor(
     extension_ranges=[],
     oneofs=[
     ],
-    serialized_start=1058,
+    serialized_start=1075,
     serialized_end=1126,
 )
 
@@ -846,20 +847,18 @@ LoginRequest = _reflection.GeneratedProtocolMessageType('LoginRequest', (_messag
 ))
 _sym_db.RegisterMessage(LoginRequest)
 
-AllMyChatsRequest = _reflection.GeneratedProtocolMessageType('AllMyChatsRequest', (_message.Message,),
-                                                             dict(
-                                                                 DESCRIPTOR=_ALLMYCHATSREQUEST,
-                                                                 __module__='messages_pb2'
-                                                                 # @@protoc_insertion_point(class_scope:elegram.AllMyChatsRequest)
-                                                             ))
+AllMyChatsRequest = _reflection.GeneratedProtocolMessageType('AllMyChatsRequest', (_message.Message,), dict(
+    DESCRIPTOR=_ALLMYCHATSREQUEST,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.AllMyChatsRequest)
+))
 _sym_db.RegisterMessage(AllMyChatsRequest)
 
-AllMyContactsRequest = _reflection.GeneratedProtocolMessageType('AllMyContactsRequest',
-                                                                (_message.Message,), dict(
-        DESCRIPTOR=_ALLMYCONTACTSREQUEST,
-        __module__='messages_pb2'
-        # @@protoc_insertion_point(class_scope:elegram.AllMyContactsRequest)
-    ))
+AllMyContactsRequest = _reflection.GeneratedProtocolMessageType('AllMyContactsRequest', (_message.Message,), dict(
+    DESCRIPTOR=_ALLMYCONTACTSREQUEST,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.AllMyContactsRequest)
+))
 _sym_db.RegisterMessage(AllMyContactsRequest)
 
 MessagesRequest = _reflection.GeneratedProtocolMessageType('MessagesRequest', (_message.Message,), dict(
@@ -876,20 +875,18 @@ MessageToSend = _reflection.GeneratedProtocolMessageType('MessageToSend', (_mess
 ))
 _sym_db.RegisterMessage(MessageToSend)
 
-SendMessageRequest = _reflection.GeneratedProtocolMessageType('SendMessageRequest', (_message.Message,),
-                                                              dict(
-                                                                  DESCRIPTOR=_SENDMESSAGEREQUEST,
-                                                                  __module__='messages_pb2'
-                                                                  # @@protoc_insertion_point(class_scope:elegram.SendMessageRequest)
-                                                              ))
+SendMessageRequest = _reflection.GeneratedProtocolMessageType('SendMessageRequest', (_message.Message,), dict(
+    DESCRIPTOR=_SENDMESSAGEREQUEST,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.SendMessageRequest)
+))
 _sym_db.RegisterMessage(SendMessageRequest)
 
-AddContactRequest = _reflection.GeneratedProtocolMessageType('AddContactRequest', (_message.Message,),
-                                                             dict(
-                                                                 DESCRIPTOR=_ADDCONTACTREQUEST,
-                                                                 __module__='messages_pb2'
-                                                                 # @@protoc_insertion_point(class_scope:elegram.AddContactRequest)
-                                                             ))
+AddContactRequest = _reflection.GeneratedProtocolMessageType('AddContactRequest', (_message.Message,), dict(
+    DESCRIPTOR=_ADDCONTACTREQUEST,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.AddContactRequest)
+))
 _sym_db.RegisterMessage(AddContactRequest)
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), dict(
@@ -927,28 +924,25 @@ Contact = _reflection.GeneratedProtocolMessageType('Contact', (_message.Message,
 ))
 _sym_db.RegisterMessage(Contact)
 
-ContactsResponse = _reflection.GeneratedProtocolMessageType('ContactsResponse', (_message.Message,),
-                                                            dict(
-                                                                DESCRIPTOR=_CONTACTSRESPONSE,
-                                                                __module__='messages_pb2'
-                                                                # @@protoc_insertion_point(class_scope:elegram.ContactsResponse)
-                                                            ))
+ContactsResponse = _reflection.GeneratedProtocolMessageType('ContactsResponse', (_message.Message,), dict(
+    DESCRIPTOR=_CONTACTSRESPONSE,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.ContactsResponse)
+))
 _sym_db.RegisterMessage(ContactsResponse)
 
-MessageToRecieve = _reflection.GeneratedProtocolMessageType('MessageToRecieve', (_message.Message,),
-                                                            dict(
-                                                                DESCRIPTOR=_MESSAGETORECIEVE,
-                                                                __module__='messages_pb2'
-                                                                # @@protoc_insertion_point(class_scope:elegram.MessageToRecieve)
-                                                            ))
+MessageToRecieve = _reflection.GeneratedProtocolMessageType('MessageToRecieve', (_message.Message,), dict(
+    DESCRIPTOR=_MESSAGETORECIEVE,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.MessageToRecieve)
+))
 _sym_db.RegisterMessage(MessageToRecieve)
 
-MessagesResponse = _reflection.GeneratedProtocolMessageType('MessagesResponse', (_message.Message,),
-                                                            dict(
-                                                                DESCRIPTOR=_MESSAGESRESPONSE,
-                                                                __module__='messages_pb2'
-                                                                # @@protoc_insertion_point(class_scope:elegram.MessagesResponse)
-                                                            ))
+MessagesResponse = _reflection.GeneratedProtocolMessageType('MessagesResponse', (_message.Message,), dict(
+    DESCRIPTOR=_MESSAGESRESPONSE,
+    __module__='messages_pb2'
+    # @@protoc_insertion_point(class_scope:elegram.MessagesResponse)
+))
 _sym_db.RegisterMessage(MessagesResponse)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), dict(

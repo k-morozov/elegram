@@ -169,8 +169,7 @@ namespace elegram {
               -1,
               sizeof(AllMyContactsRequest),
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllMyContactsRequest, _internal_metadata_),
-              GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllMyContactsRequest,
-                                                             _is_default_instance_));
+              GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AllMyContactsRequest, _is_default_instance_));
       MessagesRequest_descriptor_ = file->message_type(4);
       static const int MessagesRequest_offsets_[1] = {
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagesRequest, chat_id_),
@@ -234,18 +233,13 @@ namespace elegram {
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AddContactRequest, _is_default_instance_));
       Request_descriptor_ = file->message_type(8);
       static const int Request_offsets_[8] = {
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_,
-                                                      register_request_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, register_request_),
           PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, login_request_),
           PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, chats_request_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_,
-                                                      contacts_request_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_,
-                                                      messages_request_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_,
-                                                      send_mesg_request_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_,
-                                                      add_contact_request_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, contacts_request_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, messages_request_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, send_mesg_request_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Request_default_oneof_instance_, add_contact_request_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Request, msg_),
       };
       Request_reflection_ =
@@ -309,7 +303,8 @@ namespace elegram {
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ChatsResponse, _internal_metadata_),
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ChatsResponse, _is_default_instance_));
       Contact_descriptor_ = file->message_type(12);
-      static const int Contact_offsets_[2] = {
+      static const int Contact_offsets_[3] = {
+          GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Contact, user_id_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Contact, name_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Contact, email_),
       };
@@ -340,9 +335,8 @@ namespace elegram {
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContactsResponse, _internal_metadata_),
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ContactsResponse, _is_default_instance_));
       MessageToRecieve_descriptor_ = file->message_type(14);
-      static const int MessageToRecieve_offsets_[3] = {
+      static const int MessageToRecieve_offsets_[2] = {
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToRecieve, sender_id_),
-          GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToRecieve, chat_id_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessageToRecieve, text_),
       };
       MessageToRecieve_reflection_ =
@@ -373,13 +367,10 @@ namespace elegram {
               GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MessagesResponse, _is_default_instance_));
       Response_descriptor_ = file->message_type(16);
       static const int Response_offsets_[5] = {
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_,
-                                                      status_response_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_, status_response_),
           PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_, chats_response_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_,
-                                                      contacts_response_),
-          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_,
-                                                      messages_response_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_, contacts_response_),
+          PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Response_default_oneof_instance_, messages_response_),
           GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Response, msg_),
       };
       Response_reflection_ =
@@ -560,11 +551,11 @@ namespace elegram {
           "ESULT\022\014\n\010ACCEPTED\020\000\022\014\n\010REJECTED\020\001\"&\n\004Cha"
           "t\022\017\n\007chat_id\030\001 \001(\004\022\r\n\005title\030\002 \001(\t\"-\n\rCha"
           "tsResponse\022\034\n\005chats\030\001 \003(\0132\r.elegram.Chat"
-          "\"&\n\007Contact\022\014\n\004name\030\001 \001(\t\022\r\n\005email\030\002 \001(\t"
-          "\"6\n\020ContactsResponse\022\"\n\010contacts\030\001 \003(\0132\020"
-          ".elegram.Contact\"D\n\020MessageToRecieve\022\021\n\t"
-          "sender_id\030\001 \001(\004\022\017\n\007chat_id\030\002 \001(\004\022\014\n\004text"
-          "\030\003 \001(\t\"\?\n\020MessagesResponse\022+\n\010messages\030\001"
+          "\"7\n\007Contact\022\017\n\007user_id\030\001 \001(\004\022\014\n\004name\030\002 \001"
+          "(\t\022\r\n\005email\030\003 \001(\t\"6\n\020ContactsResponse\022\"\n"
+          "\010contacts\030\001 \003(\0132\020.elegram.Contact\"3\n\020Mes"
+          "sageToRecieve\022\021\n\tsender_id\030\001 \001(\004\022\014\n\004text"
+          "\030\002 \001(\t\"\?\n\020MessagesResponse\022+\n\010messages\030\001"
           " \003(\0132\031.elegram.MessageToRecieve\"\347\001\n\010Resp"
           "onse\0222\n\017status_response\030\001 \001(\0132\027.elegram."
           "StatusResponseH\000\0220\n\016chats_response\030\002 \001(\013"
@@ -921,18 +912,15 @@ namespace elegram {
       }
       if (from.name().size() > 0) {
 
-          name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                  from.name_);
+          name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
       }
       if (from.email().size() > 0) {
 
-          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                   from.email_);
+          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
       }
       if (from.password().size() > 0) {
 
-          password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                      from.password_);
+          password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.password_);
       }
   }
 
@@ -1355,13 +1343,11 @@ void RegisterRequest::clear_password() {
       }
       if (from.email().size() > 0) {
 
-          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                   from.email_);
+          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
       }
       if (from.password().size() > 0) {
 
-          password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                      from.password_);
+          password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.password_);
       }
   }
 
@@ -1942,8 +1928,7 @@ void LoginRequest::clear_password() {
               case 1: {
                   if (tag == 8) {
                       DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                           input, &chat_id_)));
 
                   } else {
@@ -1990,9 +1975,7 @@ void LoginRequest::clear_password() {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.MessagesRequest)
       // optional uint64 chat_id = 1;
       if (this->chat_id() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1,
-                                                                                    this->chat_id(),
-                                                                                    target);
+          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->chat_id(), target);
       }
 
       // @@protoc_insertion_point(serialize_to_array_end:elegram.MessagesRequest)
@@ -2188,8 +2171,7 @@ void MessagesRequest::clear_chat_id() {
               case 1: {
                   if (tag == 8) {
                       DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                           input, &chat_id_)));
 
                   } else {
@@ -2263,9 +2245,7 @@ void MessagesRequest::clear_chat_id() {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.MessageToSend)
       // optional uint64 chat_id = 1;
       if (this->chat_id() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1,
-                                                                                    this->chat_id(),
-                                                                                    target);
+          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->chat_id(), target);
       }
 
       // optional string text = 2;
@@ -2334,8 +2314,7 @@ void MessagesRequest::clear_chat_id() {
       }
       if (from.text().size() > 0) {
 
-          text_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                  from.text_);
+          text_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.text_);
       }
   }
 
@@ -2900,8 +2879,7 @@ void SendMessageRequest::set_allocated_mesg(::elegram::MessageToSend* mesg) {
       }
       if (from.email().size() > 0) {
 
-          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                   from.email_);
+          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
       }
   }
 
@@ -3447,8 +3425,7 @@ void AddContactRequest::clear_email() {
               break;
           }
           case kContactsRequest: {
-              mutable_contacts_request()
-                  ->::elegram::AllMyContactsRequest::MergeFrom(from.contacts_request());
+              mutable_contacts_request()->::elegram::AllMyContactsRequest::MergeFrom(from.contacts_request());
               break;
           }
           case kMessagesRequest: {
@@ -3456,13 +3433,11 @@ void AddContactRequest::clear_email() {
               break;
           }
           case kSendMesgRequest: {
-              mutable_send_mesg_request()
-                  ->::elegram::SendMessageRequest::MergeFrom(from.send_mesg_request());
+              mutable_send_mesg_request()->::elegram::SendMessageRequest::MergeFrom(from.send_mesg_request());
               break;
           }
           case kAddContactRequest: {
-              mutable_add_contact_request()
-                  ->::elegram::AddContactRequest::MergeFrom(from.add_contact_request());
+              mutable_add_contact_request()->::elegram::AddContactRequest::MergeFrom(from.add_contact_request());
               break;
           }
           case MSG_NOT_SET: {
@@ -4207,8 +4182,7 @@ void StatusResponse::clear_result() {
               case 1: {
                   if (tag == 8) {
                       DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                           input, &chat_id_)));
 
                   } else {
@@ -4282,9 +4256,7 @@ void StatusResponse::clear_result() {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.Chat)
       // optional uint64 chat_id = 1;
       if (this->chat_id() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1,
-                                                                                    this->chat_id(),
-                                                                                    target);
+          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->chat_id(), target);
       }
 
       // optional string title = 2;
@@ -4353,8 +4325,7 @@ void StatusResponse::clear_result() {
       }
       if (from.title().size() > 0) {
 
-          title_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                   from.title_);
+          title_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.title_);
       }
   }
 
@@ -4719,6 +4690,7 @@ ChatsResponse::chats() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+  const int Contact::kUserIdFieldNumber;
   const int Contact::kNameFieldNumber;
   const int Contact::kEmailFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -4745,6 +4717,7 @@ ChatsResponse::chats() const {
       _is_default_instance_ = false;
       ::google::protobuf::internal::GetEmptyString();
       _cached_size_ = 0;
+      user_id_ = GOOGLE_ULONGLONG(0);
       name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
@@ -4788,6 +4761,7 @@ ChatsResponse::chats() const {
 
   void Contact::Clear() {
 // @@protoc_insertion_point(message_clear_start:elegram.Contact)
+      user_id_ = GOOGLE_ULONGLONG(0);
       name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
@@ -4802,9 +4776,24 @@ ChatsResponse::chats() const {
           tag = p.first;
           if (!p.second) goto handle_unusual;
           switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-              // optional string name = 1;
+              // optional uint64 user_id = 1;
               case 1: {
-                  if (tag == 10) {
+                  if (tag == 8) {
+                      DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                          input, &user_id_)));
+
+                  } else {
+                      goto handle_unusual;
+                  }
+                  if (input->ExpectTag(18)) goto parse_name;
+                  break;
+              }
+
+                  // optional string name = 2;
+              case 2: {
+                  if (tag == 18) {
+                        parse_name:
                       DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                           input, this->mutable_name()));
                       DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -4814,13 +4803,13 @@ ChatsResponse::chats() const {
                   } else {
                       goto handle_unusual;
                   }
-                  if (input->ExpectTag(18)) goto parse_email;
+                  if (input->ExpectTag(26)) goto parse_email;
                   break;
               }
 
-                  // optional string email = 2;
-              case 2: {
-                  if (tag == 18) {
+                  // optional string email = 3;
+              case 3: {
+                  if (tag == 26) {
                         parse_email:
                       DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                           input, this->mutable_email()));
@@ -4859,24 +4848,29 @@ ChatsResponse::chats() const {
   void Contact::SerializeWithCachedSizes(
       ::google::protobuf::io::CodedOutputStream *output) const {
       // @@protoc_insertion_point(serialize_start:elegram.Contact)
-      // optional string name = 1;
+      // optional uint64 user_id = 1;
+      if (this->user_id() != 0) {
+          ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->user_id(), output);
+      }
+
+      // optional string name = 2;
       if (this->name().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->name().data(), this->name().length(),
               ::google::protobuf::internal::WireFormatLite::SERIALIZE,
               "elegram.Contact.name");
           ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-              1, this->name(), output);
+              2, this->name(), output);
       }
 
-      // optional string email = 2;
+      // optional string email = 3;
       if (this->email().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->email().data(), this->email().length(),
               ::google::protobuf::internal::WireFormatLite::SERIALIZE,
               "elegram.Contact.email");
           ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-              2, this->email(), output);
+              3, this->email(), output);
       }
 
       // @@protoc_insertion_point(serialize_end:elegram.Contact)
@@ -4885,7 +4879,12 @@ ChatsResponse::chats() const {
   ::google::protobuf::uint8 *Contact::InternalSerializeWithCachedSizesToArray(
       bool deterministic, ::google::protobuf::uint8 *target) const {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.Contact)
-      // optional string name = 1;
+      // optional uint64 user_id = 1;
+      if (this->user_id() != 0) {
+          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->user_id(), target);
+      }
+
+      // optional string name = 2;
       if (this->name().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->name().data(), this->name().length(),
@@ -4893,10 +4892,10 @@ ChatsResponse::chats() const {
               "elegram.Contact.name");
           target =
               ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                  1, this->name(), target);
+                  2, this->name(), target);
       }
 
-      // optional string email = 2;
+      // optional string email = 3;
       if (this->email().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->email().data(), this->email().length(),
@@ -4904,7 +4903,7 @@ ChatsResponse::chats() const {
               "elegram.Contact.email");
           target =
               ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                  2, this->email(), target);
+                  3, this->email(), target);
       }
 
       // @@protoc_insertion_point(serialize_to_array_end:elegram.Contact)
@@ -4915,14 +4914,21 @@ ChatsResponse::chats() const {
 // @@protoc_insertion_point(message_byte_size_start:elegram.Contact)
       int total_size = 0;
 
-      // optional string name = 1;
+      // optional uint64 user_id = 1;
+      if (this->user_id() != 0) {
+          total_size += 1 +
+              ::google::protobuf::internal::WireFormatLite::UInt64Size(
+                  this->user_id());
+      }
+
+      // optional string name = 2;
       if (this->name().size() > 0) {
           total_size += 1 +
               ::google::protobuf::internal::WireFormatLite::StringSize(
                   this->name());
       }
 
-      // optional string email = 2;
+      // optional string email = 3;
       if (this->email().size() > 0) {
           total_size += 1 +
               ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -4957,15 +4963,16 @@ ChatsResponse::chats() const {
       if (GOOGLE_PREDICT_FALSE(&from == this)) {
           ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
       }
+      if (from.user_id() != 0) {
+          set_user_id(from.user_id());
+      }
       if (from.name().size() > 0) {
 
-          name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                  from.name_);
+          name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
       }
       if (from.email().size() > 0) {
 
-          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                   from.email_);
+          email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
       }
   }
 
@@ -4993,6 +5000,7 @@ ChatsResponse::chats() const {
       InternalSwap(other);
   }
   void Contact::InternalSwap(Contact *other) {
+      std::swap(user_id_, other->user_id_);
       name_.Swap(&other->name_);
       email_.Swap(&other->email_);
       _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -5010,7 +5018,21 @@ ChatsResponse::chats() const {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
                                                                                                                           // Contact
 
-// optional string name = 1;
+// optional uint64 user_id = 1;
+void Contact::clear_user_id() {
+  user_id_ = GOOGLE_ULONGLONG(0);
+}
+ ::google::protobuf::uint64 Contact::user_id() const {
+  // @@protoc_insertion_point(field_get:elegram.Contact.user_id)
+  return user_id_;
+}
+ void Contact::set_user_id(::google::protobuf::uint64 value) {
+
+  user_id_ = value;
+  // @@protoc_insertion_point(field_set:elegram.Contact.user_id)
+}
+
+// optional string name = 2;
 void Contact::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5054,7 +5076,7 @@ void Contact::clear_name() {
   // @@protoc_insertion_point(field_set_allocated:elegram.Contact.name)
 }
 
-// optional string email = 2;
+// optional string email = 3;
 void Contact::clear_email() {
   email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5361,7 +5383,6 @@ ContactsResponse::contacts() const {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
   const int MessageToRecieve::kSenderIdFieldNumber;
-  const int MessageToRecieve::kChatIdFieldNumber;
   const int MessageToRecieve::kTextFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -5388,7 +5409,6 @@ ContactsResponse::contacts() const {
       ::google::protobuf::internal::GetEmptyString();
       _cached_size_ = 0;
       sender_id_ = GOOGLE_ULONGLONG(0);
-      chat_id_ = GOOGLE_ULONGLONG(0);
       text_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
 
@@ -5430,28 +5450,8 @@ ContactsResponse::contacts() const {
 
   void MessageToRecieve::Clear() {
 // @@protoc_insertion_point(message_clear_start:elegram.MessageToRecieve)
-#if defined(__clang__)
-                                                                                                                              #define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(MessageToRecieve, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<MessageToRecieve*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-      ZR_(sender_id_, chat_id_);
+      sender_id_ = GOOGLE_ULONGLONG(0);
       text_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-
-#undef ZR_HELPER_
-#undef ZR_
-
   }
 
   bool MessageToRecieve::MergePartialFromCodedStream(
@@ -5468,36 +5468,19 @@ ContactsResponse::contacts() const {
               case 1: {
                   if (tag == 8) {
                       DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                           input, &sender_id_)));
 
                   } else {
                       goto handle_unusual;
                   }
-                  if (input->ExpectTag(16)) goto parse_chat_id;
+                  if (input->ExpectTag(18)) goto parse_text;
                   break;
               }
 
-                  // optional uint64 chat_id = 2;
+                  // optional string text = 2;
               case 2: {
-                  if (tag == 16) {
-                        parse_chat_id:
-                      DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
-                          input, &chat_id_)));
-
-                  } else {
-                      goto handle_unusual;
-                  }
-                  if (input->ExpectTag(26)) goto parse_text;
-                  break;
-              }
-
-                  // optional string text = 3;
-              case 3: {
-                  if (tag == 26) {
+                  if (tag == 18) {
                         parse_text:
                       DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                           input, this->mutable_text()));
@@ -5541,19 +5524,14 @@ ContactsResponse::contacts() const {
           ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->sender_id(), output);
       }
 
-      // optional uint64 chat_id = 2;
-      if (this->chat_id() != 0) {
-          ::google::protobuf::internal::WireFormatLite::WriteUInt64(2, this->chat_id(), output);
-      }
-
-      // optional string text = 3;
+      // optional string text = 2;
       if (this->text().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->text().data(), this->text().length(),
               ::google::protobuf::internal::WireFormatLite::SERIALIZE,
               "elegram.MessageToRecieve.text");
           ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-              3, this->text(), output);
+              2, this->text(), output);
       }
 
       // @@protoc_insertion_point(serialize_end:elegram.MessageToRecieve)
@@ -5564,19 +5542,10 @@ ContactsResponse::contacts() const {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.MessageToRecieve)
       // optional uint64 sender_id = 1;
       if (this->sender_id() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1,
-                                                                                    this->sender_id(),
-                                                                                    target);
+          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->sender_id(), target);
       }
 
-      // optional uint64 chat_id = 2;
-      if (this->chat_id() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(2,
-                                                                                    this->chat_id(),
-                                                                                    target);
-      }
-
-      // optional string text = 3;
+      // optional string text = 2;
       if (this->text().size() > 0) {
           ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
               this->text().data(), this->text().length(),
@@ -5584,7 +5553,7 @@ ContactsResponse::contacts() const {
               "elegram.MessageToRecieve.text");
           target =
               ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                  3, this->text(), target);
+                  2, this->text(), target);
       }
 
       // @@protoc_insertion_point(serialize_to_array_end:elegram.MessageToRecieve)
@@ -5602,14 +5571,7 @@ ContactsResponse::contacts() const {
                   this->sender_id());
       }
 
-      // optional uint64 chat_id = 2;
-      if (this->chat_id() != 0) {
-          total_size += 1 +
-              ::google::protobuf::internal::WireFormatLite::UInt64Size(
-                  this->chat_id());
-      }
-
-      // optional string text = 3;
+      // optional string text = 2;
       if (this->text().size() > 0) {
           total_size += 1 +
               ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -5647,13 +5609,9 @@ ContactsResponse::contacts() const {
       if (from.sender_id() != 0) {
           set_sender_id(from.sender_id());
       }
-      if (from.chat_id() != 0) {
-          set_chat_id(from.chat_id());
-      }
       if (from.text().size() > 0) {
 
-          text_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                                  from.text_);
+          text_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.text_);
       }
   }
 
@@ -5682,7 +5640,6 @@ ContactsResponse::contacts() const {
   }
   void MessageToRecieve::InternalSwap(MessageToRecieve *other) {
       std::swap(sender_id_, other->sender_id_);
-      std::swap(chat_id_, other->chat_id_);
       text_.Swap(&other->text_);
       _internal_metadata_.Swap(&other->_internal_metadata_);
       std::swap(_cached_size_, other->_cached_size_);
@@ -5713,21 +5670,7 @@ void MessageToRecieve::clear_sender_id() {
   // @@protoc_insertion_point(field_set:elegram.MessageToRecieve.sender_id)
 }
 
-// optional uint64 chat_id = 2;
-void MessageToRecieve::clear_chat_id() {
-  chat_id_ = GOOGLE_ULONGLONG(0);
-}
- ::google::protobuf::uint64 MessageToRecieve::chat_id() const {
-  // @@protoc_insertion_point(field_get:elegram.MessageToRecieve.chat_id)
-  return chat_id_;
-}
- void MessageToRecieve::set_chat_id(::google::protobuf::uint64 value) {
-
-  chat_id_ = value;
-  // @@protoc_insertion_point(field_set:elegram.MessageToRecieve.chat_id)
-}
-
-// optional string text = 3;
+// optional string text = 2;
 void MessageToRecieve::clear_text() {
   text_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6362,13 +6305,11 @@ MessagesResponse::messages() const {
               break;
           }
           case kContactsResponse: {
-              mutable_contacts_response()
-                  ->::elegram::ContactsResponse::MergeFrom(from.contacts_response());
+              mutable_contacts_response()->::elegram::ContactsResponse::MergeFrom(from.contacts_response());
               break;
           }
           case kMessagesResponse: {
-              mutable_messages_response()
-                  ->::elegram::MessagesResponse::MergeFrom(from.messages_response());
+              mutable_messages_response()->::elegram::MessagesResponse::MergeFrom(from.messages_response());
               break;
           }
           case MSG_NOT_SET: {
@@ -7110,8 +7051,7 @@ WrappedMessage::MsgCase WrappedMessage::msg_case() const {
               case 1: {
                   if (tag == 9) {
                       DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                          ::google::protobuf::uint64,
-                          ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
+                          ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_FIXED64>(
                           input, &length_)));
 
                   } else {
@@ -7158,9 +7098,7 @@ WrappedMessage::MsgCase WrappedMessage::msg_case() const {
       // @@protoc_insertion_point(serialize_to_array_start:elegram.LengthPrefix)
       // optional fixed64 length = 1;
       if (this->length() != 0) {
-          target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(1,
-                                                                                     this->length(),
-                                                                                     target);
+          target = ::google::protobuf::internal::WireFormatLite::WriteFixed64ToArray(1, this->length(), target);
       }
 
       // @@protoc_insertion_point(serialize_to_array_end:elegram.LengthPrefix)

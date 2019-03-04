@@ -40,6 +40,9 @@ namespace elegram {
               } else if (request->has_send_mesg_request()) {
                   ba::post(*session_->job_pool(),
                            SendMesgRequestJob(request->release_send_mesg_request(), session_));
+              } else if (request->has_add_contact_request()) {
+                  ba::post(*session_->job_pool(),
+                           AddContactRequestJob(request->release_add_contact_request(), session_));
               } else {
                   BOOST_LOG_TRIVIAL(info) << " unsupported request type";
                   session_->stop();

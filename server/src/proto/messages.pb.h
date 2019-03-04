@@ -60,10 +60,8 @@ namespace elegram {
   enum StatusResponse_RESULT {
     StatusResponse_RESULT_ACCEPTED = 0,
     StatusResponse_RESULT_REJECTED = 1,
-    StatusResponse_RESULT_StatusResponse_RESULT_INT_MIN_SENTINEL_DO_NOT_USE_ =
-    ::google::protobuf::kint32min,
-    StatusResponse_RESULT_StatusResponse_RESULT_INT_MAX_SENTINEL_DO_NOT_USE_ =
-    ::google::protobuf::kint32max
+    StatusResponse_RESULT_StatusResponse_RESULT_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+    StatusResponse_RESULT_StatusResponse_RESULT_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
   };
   bool StatusResponse_RESULT_IsValid(int value);
   const StatusResponse_RESULT StatusResponse_RESULT_RESULT_MIN = StatusResponse_RESULT_ACCEPTED;
@@ -798,8 +796,7 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
-  class Request
-      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Request) */ {
+  class Request : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Request) */ {
    public:
     Request();
     virtual ~Request();
@@ -1081,8 +1078,7 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
-  class Chat
-      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Chat) */ {
+  class Chat : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Chat) */ {
    public:
     Chat();
     virtual ~Chat();
@@ -1265,8 +1261,7 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
-  class Contact
-      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Contact) */ {
+  class Contact : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Contact) */ {
    public:
     Contact();
     virtual ~Contact();
@@ -1326,9 +1321,15 @@ namespace elegram {
 
     // accessors -------------------------------------------------------
 
-    // optional string name = 1;
+    // optional uint64 user_id = 1;
+    void clear_user_id();
+    static const int kUserIdFieldNumber = 1;
+    ::google::protobuf::uint64 user_id() const;
+    void set_user_id(::google::protobuf::uint64 value);
+
+    // optional string name = 2;
     void clear_name();
-    static const int kNameFieldNumber = 1;
+    static const int kNameFieldNumber = 2;
     const ::std::string &name() const;
     void set_name(const ::std::string &value);
     void set_name(const char *value);
@@ -1337,9 +1338,9 @@ namespace elegram {
     ::std::string *release_name();
     void set_allocated_name(::std::string *name);
 
-    // optional string email = 2;
+    // optional string email = 3;
     void clear_email();
-    static const int kEmailFieldNumber = 2;
+    static const int kEmailFieldNumber = 3;
     const ::std::string &email() const;
     void set_email(const ::std::string &value);
     void set_email(const char *value);
@@ -1353,6 +1354,7 @@ namespace elegram {
 
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     bool _is_default_instance_;
+    ::google::protobuf::uint64 user_id_;
     ::google::protobuf::internal::ArenaStringPtr name_;
     ::google::protobuf::internal::ArenaStringPtr email_;
     mutable int _cached_size_;
@@ -1521,15 +1523,9 @@ namespace elegram {
     ::google::protobuf::uint64 sender_id() const;
     void set_sender_id(::google::protobuf::uint64 value);
 
-    // optional uint64 chat_id = 2;
-    void clear_chat_id();
-    static const int kChatIdFieldNumber = 2;
-    ::google::protobuf::uint64 chat_id() const;
-    void set_chat_id(::google::protobuf::uint64 value);
-
-    // optional string text = 3;
+    // optional string text = 2;
     void clear_text();
-    static const int kTextFieldNumber = 3;
+    static const int kTextFieldNumber = 2;
     const ::std::string &text() const;
     void set_text(const ::std::string &value);
     void set_text(const char *value);
@@ -1544,7 +1540,6 @@ namespace elegram {
     ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
     bool _is_default_instance_;
     ::google::protobuf::uint64 sender_id_;
-    ::google::protobuf::uint64 chat_id_;
     ::google::protobuf::internal::ArenaStringPtr text_;
     mutable int _cached_size_;
     friend void protobuf_AddDesc_messages_2eproto();
@@ -2001,8 +1996,7 @@ namespace elegram {
   }
   inline void RegisterRequest::set_name(const char *value) {
 
-      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(value));
+      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.RegisterRequest.name)
   }
   inline void RegisterRequest::set_name(const char *value, size_t size) {
@@ -2046,8 +2040,7 @@ namespace elegram {
   }
   inline void RegisterRequest::set_email(const char *value) {
 
-      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                        ::std::string(value));
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.RegisterRequest.email)
   }
   inline void RegisterRequest::set_email(const char *value, size_t size) {
@@ -2091,8 +2084,7 @@ namespace elegram {
   }
   inline void RegisterRequest::set_password(const char *value) {
 
-      password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                           ::std::string(value));
+      password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.RegisterRequest.password)
   }
   inline void RegisterRequest::set_password(const char *value, size_t size) {
@@ -2117,8 +2109,7 @@ namespace elegram {
       } else {
 
       }
-      password_
-          .SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
+      password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
       // @@protoc_insertion_point(field_set_allocated:elegram.RegisterRequest.password)
   }
 
@@ -2141,8 +2132,7 @@ namespace elegram {
   }
   inline void LoginRequest::set_email(const char *value) {
 
-      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                        ::std::string(value));
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.email)
   }
   inline void LoginRequest::set_email(const char *value, size_t size) {
@@ -2186,8 +2176,7 @@ namespace elegram {
   }
   inline void LoginRequest::set_password(const char *value) {
 
-      password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                           ::std::string(value));
+      password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.LoginRequest.password)
   }
   inline void LoginRequest::set_password(const char *value, size_t size) {
@@ -2212,8 +2201,7 @@ namespace elegram {
       } else {
 
       }
-      password_
-          .SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
+      password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
       // @@protoc_insertion_point(field_set_allocated:elegram.LoginRequest.password)
   }
 
@@ -2276,8 +2264,7 @@ namespace elegram {
   }
   inline void MessageToSend::set_text(const char *value) {
 
-      text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(value));
+      text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.MessageToSend.text)
   }
   inline void MessageToSend::set_text(const char *value, size_t size) {
@@ -2367,8 +2354,7 @@ namespace elegram {
   }
   inline void AddContactRequest::set_email(const char *value) {
 
-      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                        ::std::string(value));
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.AddContactRequest.email)
   }
   inline void AddContactRequest::set_email(const char *value, size_t size) {
@@ -2797,8 +2783,7 @@ namespace elegram {
   }
   inline void Chat::set_title(const char *value) {
 
-      title_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                        ::std::string(value));
+      title_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.Chat.title)
   }
   inline void Chat::set_title(const char *value, size_t size) {
@@ -2865,7 +2850,21 @@ namespace elegram {
 
 // Contact
 
-// optional string name = 1;
+// optional uint64 user_id = 1;
+  inline void Contact::clear_user_id() {
+      user_id_ = GOOGLE_ULONGLONG(0);
+  }
+  inline ::google::protobuf::uint64 Contact::user_id() const {
+      // @@protoc_insertion_point(field_get:elegram.Contact.user_id)
+      return user_id_;
+  }
+  inline void Contact::set_user_id(::google::protobuf::uint64 value) {
+
+      user_id_ = value;
+      // @@protoc_insertion_point(field_set:elegram.Contact.user_id)
+  }
+
+// optional string name = 2;
   inline void Contact::clear_name() {
       name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
@@ -2880,8 +2879,7 @@ namespace elegram {
   }
   inline void Contact::set_name(const char *value) {
 
-      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(value));
+      name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.Contact.name)
   }
   inline void Contact::set_name(const char *value, size_t size) {
@@ -2910,7 +2908,7 @@ namespace elegram {
       // @@protoc_insertion_point(field_set_allocated:elegram.Contact.name)
   }
 
-// optional string email = 2;
+// optional string email = 3;
   inline void Contact::clear_email() {
       email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
@@ -2925,8 +2923,7 @@ namespace elegram {
   }
   inline void Contact::set_email(const char *value) {
 
-      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                        ::std::string(value));
+      email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.Contact.email)
   }
   inline void Contact::set_email(const char *value, size_t size) {
@@ -3007,21 +3004,7 @@ namespace elegram {
       // @@protoc_insertion_point(field_set:elegram.MessageToRecieve.sender_id)
   }
 
-// optional uint64 chat_id = 2;
-  inline void MessageToRecieve::clear_chat_id() {
-      chat_id_ = GOOGLE_ULONGLONG(0);
-  }
-  inline ::google::protobuf::uint64 MessageToRecieve::chat_id() const {
-      // @@protoc_insertion_point(field_get:elegram.MessageToRecieve.chat_id)
-      return chat_id_;
-  }
-  inline void MessageToRecieve::set_chat_id(::google::protobuf::uint64 value) {
-
-      chat_id_ = value;
-      // @@protoc_insertion_point(field_set:elegram.MessageToRecieve.chat_id)
-  }
-
-// optional string text = 3;
+// optional string text = 2;
   inline void MessageToRecieve::clear_text() {
       text_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
@@ -3036,8 +3019,7 @@ namespace elegram {
   }
   inline void MessageToRecieve::set_text(const char *value) {
 
-      text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-                       ::std::string(value));
+      text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
       // @@protoc_insertion_point(field_set_char:elegram.MessageToRecieve.text)
   }
   inline void MessageToRecieve::set_text(const char *value, size_t size) {

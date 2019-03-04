@@ -170,7 +170,7 @@ class TestElegramServer(unittest.TestCase):
             mesg1 = register_request(sockobj, "johny d", "johny_d@mail.ru", "12345678")
             self.assertEqual(mesg1.response.status_response.result, StatusResponse.ACCEPTED)
 
-            mesg2 = register_request(sockobj, "john", "john_doe@mail.ru", "12345678")
+            mesg2 = register_request(sockobj, "john", "john@mail.ru", "12345678")
             self.assertEqual(mesg2.response.status_response.result, StatusResponse.REJECTED)
 
     def test_get_contacts(self):

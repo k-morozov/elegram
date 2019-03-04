@@ -37,6 +37,13 @@ try:
         print(cmd1)
 
 
+    # make them friends for themselves
+    add_friend(1, 1)
+    add_friend(2, 2)
+    add_friend(3, 3)
+    add_friend(4, 4)
+
+
     add_friend(1, 2)
     add_friend(2, 1)
 
@@ -86,6 +93,8 @@ try:
     add_message(2, 1, "Hello, john!")
     add_message(1, 1, "How are u?")
     add_message(2, 1, "Fine, tnks!")
+    add_message(2, 1, "And what about u")
+    add_message(1, 1, "Nice ;)")
 
     add_message(2, 2, "Hello, johny!")
     add_message(1, 2, "Hello, jas!")

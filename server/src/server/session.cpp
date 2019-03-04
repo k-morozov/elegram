@@ -59,7 +59,7 @@ namespace elegram::server {
           return;
       }
 
-      if (bytes == HEADER_SIZE) {
+      if (bytes == PREFIX_SIZE) {
           LengthPrefix prefix;
           bool parsed = prefix.ParseFromArray(read_buffer_.data(),
                                               static_cast<int>(read_buffer_.size()));
@@ -85,7 +85,7 @@ namespace elegram::server {
       using namespace std::placeholders;
 
       // BOOST_LOG_TRIVIAL(info) << this << " Will async_read now";
-      read_buffer_.resize(HEADER_SIZE);
+      read_buffer_.resize(PREFIX_SIZE);
       ba::async_read(sock_,
                      ba::buffer(read_buffer_),
                      std::bind(&ClientSession::on_read_prefix, shared_from_this(), _1, _2));
@@ -146,12 +146,12 @@ namespace elegram::server {
       }
       using namespace std::placeholders;
 
-      read_buffer_.resize(static_cast<unsigned long>(mesg.ByteSize() + HEADER_SIZE));
+      read_buffer_.resize(static_cast<unsigned long>(mesg.ByteSize() + PREFIX_SIZE));
 
       LengthPrefix length_prefix;
       length_prefix.set_length(static_cast<google::protobuf::uint64>(mesg.ByteSize()));
-      length_prefix.SerializeToArray(read_buffer_.data(), HEADER_SIZE);
-      mesg.SerializeToArray(read_buffer_.data() + HEADER_SIZE, static_cast<int>(mesg.ByteSize()));
+      length_prefix.SerializeToArray(read_buffer_.data(), PREFIX_SIZE);
+      mesg.SerializeToArray(read_buffer_.data() + PREFIX_SIZE, static_cast<int>(mesg.ByteSize()));
 
       BOOST_LOG_TRIVIAL(info) << this << " Will async_write now";
       ba::async_write(sock_,

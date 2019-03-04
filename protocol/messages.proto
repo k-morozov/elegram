@@ -81,8 +81,9 @@ message ChatsResponse {
 }
 
 message Contact {
-    string name = 1;
-    string email = 2;
+    uint64 user_id = 1;
+    string name = 2;
+    string email = 3;
 }
 
 // 3
@@ -92,10 +93,9 @@ message ContactsResponse {
 
 message MessageToRecieve {
     uint64 sender_id = 1;
-    uint64 chat_id = 2;
-    string text = 3;
-    // bool readed = 4;
-    // todo add timestampt
+    string text = 2;
+    // todo timestampt = 3;
+    // todo bool readed = 4;
 }
 
 // 4
