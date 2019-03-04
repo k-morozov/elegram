@@ -46,6 +46,12 @@ message AddContactRequest {
     string email = 1;
 }
 
+// 8
+message CreateChatRequest {
+    uint64 friend_id = 1;
+}
+
+
 message Request {
     oneof msg {
         RegisterRequest register_request = 1;
@@ -55,6 +61,7 @@ message Request {
         MessagesRequest messages_request = 5;
         SendMessageRequest send_mesg_request = 6;
         AddContactRequest add_contact_request = 7;
+        CreateChatRequest create_chat_request = 8;
     }
 }
 

@@ -27,7 +27,7 @@ try:
         print(cmd)
 
 
-    def add_friend(id1, id2):
+    def connect(id1, id2):
         '''
         Make id2 a friend of id1, one direction link
         '''
@@ -38,19 +38,22 @@ try:
 
 
     # make them friends for themselves
-    add_friend(1, 1)
-    add_friend(2, 2)
-    add_friend(3, 3)
-    add_friend(4, 4)
+    connect(1, 1)
+    connect(2, 2)
+    connect(3, 3)
+    connect(4, 4)
+
+    db.commit()
 
 
-    add_friend(1, 2)
-    add_friend(2, 1)
+    def make_friends(id1, id2):
+        connect(id1, id2)
+        connect(id2, id1)
 
-    add_friend(1, 3)
-    add_friend(3, 1)
 
-    add_friend(3, 2)
+    make_friends(1, 2)
+    make_friends(1, 3)
+    make_friends(3, 2)
 
     db.commit()
 

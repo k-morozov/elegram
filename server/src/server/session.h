@@ -36,6 +36,7 @@ namespace elegram::server {
     void start();
     void stop();
     void write(const WrappedMessage &mesg);
+    bool logged_in() const;
 
    private:
     using error_code = boost::system::error_code;
@@ -58,7 +59,7 @@ namespace elegram::server {
     constexpr static uint64_t PREFIX_SIZE = sizeof(uint64_t) + 1; // fixed64 in protobuf
 
     // ba::streambuf read_buffer_;
-    std::unique_ptr<ClientState> state_ = nullptr;
+    std::unique_ptr<ClientState> state_ = nullptr; // login job will fill it
     std::vector<uint8_t> read_buffer_{};
 
     std::shared_ptr<ba::thread_pool> job_pool_;

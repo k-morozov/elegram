@@ -162,7 +162,9 @@ namespace elegram {
             }
 
             uint64_t contact_id = req[0]["id"].as<uint64_t>();
-            pqxx::result r = txn.prepared("add_contact")(user_id)(contact_id).exec();
+            // todo avoid already added contacts
+            pqxx::result r1 = txn.prepared("add_contact")(user_id)(contact_id).exec();
+            pqxx::result r2 = txn.prepared("add_contact")(contact_id)(user_id).exec();
             txn.commit();
         } catch (const pqxx::sql_error &e) {
             std::cerr << "Database error: " << e.what() << std::endl

@@ -167,6 +167,10 @@ namespace elegram::server {
       state_ = std::move(new_state);
   }
 
+  bool ClientSession::logged_in() const {
+      return state_ != nullptr;
+  }
+
   const ClientState &ClientSession::state() const {
       return *state_;
   }

@@ -48,7 +48,6 @@ namespace elegram {
                   session_->stop();
                   return;
               }
-              BOOST_LOG_TRIVIAL(info) << " ParseCommandJob done";
               return;
           } else { // message.has_response()
               BOOST_LOG_TRIVIAL(error) << " got response message instead fo request";
@@ -88,6 +87,8 @@ namespace elegram {
       WrappedMessage wrappedMessage;
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
+
+      BOOST_LOG_TRIVIAL(info) << " RegisterRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -116,6 +117,8 @@ namespace elegram {
       WrappedMessage wrappedMessage;
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
+
+      BOOST_LOG_TRIVIAL(info) << " LoginRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -133,6 +136,8 @@ namespace elegram {
       WrappedMessage wrappedMessage;
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
+
+      BOOST_LOG_TRIVIAL(info) << " ChatsRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -141,15 +146,24 @@ namespace elegram {
 
   void server::ContactsRequestJob::operator()() {
       // todo make async ?
-      uint64_t user_id = session_->state().user_id();
-      std::unique_ptr<ContactsResponse> contacts = session_->storage_connection()->get_contacts(user_id);
+      if (session_->logged_in()) {
+          uint64_t user_id = session_->state().user_id();
+          std::unique_ptr<ContactsResponse> contacts = session_->storage_connection()->get_contacts(user_id);
 
-      std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_contacts_response(contacts.release());
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_contacts_response(contacts.release());
 
-      WrappedMessage wrappedMessage;
-      wrappedMessage.set_allocated_response(response.release());
-      session_->write(wrappedMessage);
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      } else {
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      }
+      BOOST_LOG_TRIVIAL(info) << " ContactsRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -159,15 +173,24 @@ namespace elegram {
 
   void server::MessagesRequestJob::operator()() {
       // todo make async ?
-      std::unique_ptr<MessagesResponse>
-          messages = session_->storage_connection()->get_messages(mesg_->chat_id());
+      if (session_->logged_in()) {
+          std::unique_ptr<MessagesResponse>
+              messages = session_->storage_connection()->get_messages(mesg_->chat_id());
 
-      std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_messages_response(messages.release());
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_messages_response(messages.release());
 
-      WrappedMessage wrappedMessage;
-      wrappedMessage.set_allocated_response(response.release());
-      session_->write(wrappedMessage);
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      } else {
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      }
+      BOOST_LOG_TRIVIAL(info) << "MessagesRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -176,23 +199,32 @@ namespace elegram {
       : session_(std::move(session)), mesg_(mesg) {}
 
   void server::SendMesgRequestJob::operator()() {
-      // todo make async ?
-      bool send_res = session_->storage_connection()->send_message(session_->state().user_id(),
-                                                                   mesg_->mesg());
+      if (session_->logged_in()) {
+          // todo make async ?
+          bool send_res = session_->storage_connection()->send_message(session_->state().user_id(),
+                                                                       mesg_->mesg());
 
-      std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
-      if (send_res) {
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+          std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
+          if (send_res) {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+          } else {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          }
+
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_status_response(status_resp.release());
+
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
       } else {
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
       }
-
-      std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_status_response(status_resp.release());
-
-      WrappedMessage wrappedMessage;
-      wrappedMessage.set_allocated_response(response.release());
-      session_->write(wrappedMessage);
+      BOOST_LOG_TRIVIAL(info) << "SendMesgRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/
@@ -201,21 +233,30 @@ namespace elegram {
       : session_(std::move(session)), mesg_(mesg) {}
 
   void server::AddContactRequestJob::operator()() {
-      bool send_res = session_->storage_connection()->add_contact(session_->state().user_id(),
-                                                                  mesg_->email());
+      if (session_->logged_in()) {
+          bool send_res = session_->storage_connection()->add_contact(session_->state().user_id(),
+                                                                      mesg_->email());
 
-      std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
-      if (send_res) {
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+          std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
+          if (send_res) {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+          } else {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          }
+
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_status_response(status_resp.release());
+
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
       } else {
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
       }
-
-      std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_status_response(status_resp.release());
-
-      WrappedMessage wrappedMessage;
-      wrappedMessage.set_allocated_response(response.release());
-      session_->write(wrappedMessage);
+      BOOST_LOG_TRIVIAL(info) << "AddContactRequestJob::operator()() done";
   }
 } // namespace elegram
