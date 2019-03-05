@@ -90,4 +90,16 @@ namespace elegram::server {
     std::shared_ptr<ClientSession> session_;
     std::unique_ptr<AddContactRequest> mesg_;
   };
+
+  class CreateChatRequestJob {
+   public:
+    CreateChatRequestJob(CreateChatRequest *mesg, std::shared_ptr<ClientSession> session);
+    CreateChatRequestJob(const std::shared_ptr<ClientSession> &session, const std::unique_ptr<CreateChatRequest> &mesg);
+    void operator()();
+
+   private:
+    std::shared_ptr<ClientSession> session_;
+    std::unique_ptr<CreateChatRequest> mesg_;
+  };
+
 } // namespace elegram::server

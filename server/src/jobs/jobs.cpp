@@ -43,6 +43,9 @@ namespace elegram {
               } else if (request->has_add_contact_request()) {
                   ba::post(*session_->job_pool(),
                            AddContactRequestJob(request->release_add_contact_request(), session_));
+              } else if (request->has_create_chat_request()) {
+                  ba::post(*session_->job_pool(),
+                           CreateChatRequestJob(request->release_create_chat_request(), session_));
               } else {
                   BOOST_LOG_TRIVIAL(info) << " unsupported request type";
                   session_->stop();
@@ -100,9 +103,9 @@ namespace elegram {
       // todo make async ?3
       std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
       try {
-          uint64_t user_id = session_->storage_connection()->login(mesg_->email(), mesg_->password());
+          auto[user_id, user_name] = session_->storage_connection()->login(mesg_->email(), mesg_->password());
           status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
-          session_->set_state(std::make_unique<ClientState>(user_id));
+          session_->set_state(std::make_unique<ClientState>(user_id, std::move(user_name)));
       } catch (const std::invalid_argument &e) {
           BOOST_LOG_TRIVIAL(error) << e.what();
           status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
@@ -127,15 +130,23 @@ namespace elegram {
 
   void server::ChatsRequestJob::operator()() {
       // todo make async ?
-      uint64_t user_id = session_->state().user_id();
-      std::unique_ptr<ChatsResponse> chats = session_->storage_connection()->get_chats(user_id);
+      if (session_->logged_in()) {
+          uint64_t user_id = session_->state().user_id();
+          std::unique_ptr<ChatsResponse> chats = session_->storage_connection()->get_chats(user_id);
 
-      std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_chats_response(chats.release());
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_chats_response(chats.release());
 
-      WrappedMessage wrappedMessage;
-      wrappedMessage.set_allocated_response(response.release());
-      session_->write(wrappedMessage);
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      } else {
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      }
 
       BOOST_LOG_TRIVIAL(info) << " ChatsRequestJob::operator()() done";
   }
@@ -258,5 +269,38 @@ namespace elegram {
           session_->write(wrappedMessage);
       }
       BOOST_LOG_TRIVIAL(info) << "AddContactRequestJob::operator()() done";
+  }
+
+  /*-------------------------------------------------------------------------*/
+  server::CreateChatRequestJob::CreateChatRequestJob(CreateChatRequest *mesg, std::shared_ptr<ClientSession> session)
+      : session_(std::move(session)), mesg_(mesg) {}
+
+  void server::CreateChatRequestJob::operator()() {
+      if (session_->logged_in()) {
+          bool is_created = session_->storage_connection()->create_chat(session_->state().user_id(),
+                                                                        session_->state().user_name(),
+                                                                        mesg_->friend_id());
+
+          std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
+          if (is_created) {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
+          } else {
+              status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          }
+
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          response->set_allocated_status_response(status_resp.release());
+
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      } else {
+          // send empty response
+          std::unique_ptr<Response> response = std::make_unique<Response>();
+          WrappedMessage wrappedMessage;
+          wrappedMessage.set_allocated_response(response.release());
+          session_->write(wrappedMessage);
+      }
+      BOOST_LOG_TRIVIAL(info) << "CreateChatRequestJob::operator()() done";
   }
 } // namespace elegram

@@ -44,6 +44,7 @@ namespace elegram {
   class ChatsResponse;
   class Contact;
   class ContactsResponse;
+  class CreateChatRequest;
   class LengthPrefix;
   class LoginRequest;
   class MessageToRecieve;
@@ -796,6 +797,89 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
+  class CreateChatRequest
+      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.CreateChatRequest) */ {
+   public:
+    CreateChatRequest();
+    virtual ~CreateChatRequest();
+
+    CreateChatRequest(const CreateChatRequest &from);
+
+    inline CreateChatRequest &operator=(const CreateChatRequest &from) {
+        CopyFrom(from);
+        return *this;
+    }
+
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const CreateChatRequest &default_instance();
+
+    void Swap(CreateChatRequest *other);
+
+    // implements Message ----------------------------------------------
+
+    inline CreateChatRequest *New() const { return New(NULL); }
+
+    CreateChatRequest *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const CreateChatRequest &from);
+    void MergeFrom(const CreateChatRequest &from);
+    void Clear();
+    bool IsInitialized() const;
+
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *InternalSerializeWithCachedSizesToArray(
+        bool deterministic, ::google::protobuf::uint8 *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const {
+        return InternalSerializeWithCachedSizesToArray(false, output);
+    }
+    int GetCachedSize() const { return _cached_size_; }
+   private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(CreateChatRequest *other);
+   private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+   public:
+
+    ::google::protobuf::Metadata GetMetadata() const;
+
+    // nested types ----------------------------------------------------
+
+    // accessors -------------------------------------------------------
+
+    // optional uint64 friend_id = 1;
+    void clear_friend_id();
+    static const int kFriendIdFieldNumber = 1;
+    ::google::protobuf::uint64 friend_id() const;
+    void set_friend_id(::google::protobuf::uint64 value);
+
+    // @@protoc_insertion_point(class_scope:elegram.CreateChatRequest)
+   private:
+
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::google::protobuf::uint64 friend_id_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_messages_2eproto();
+    friend void protobuf_AssignDesc_messages_2eproto();
+    friend void protobuf_ShutdownFile_messages_2eproto();
+
+    void InitAsDefaultInstance();
+    static CreateChatRequest *default_instance_;
+  };
+// -------------------------------------------------------------------
+
   class Request : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Request) */ {
    public:
     Request();
@@ -819,6 +903,7 @@ namespace elegram {
       kMessagesRequest = 5,
       kSendMesgRequest = 6,
       kAddContactRequest = 7,
+      kCreateChatRequest = 8,
       MSG_NOT_SET = 0,
     };
 
@@ -930,6 +1015,15 @@ namespace elegram {
     ::elegram::AddContactRequest *release_add_contact_request();
     void set_allocated_add_contact_request(::elegram::AddContactRequest *add_contact_request);
 
+    // optional .elegram.CreateChatRequest create_chat_request = 8;
+    bool has_create_chat_request() const;
+    void clear_create_chat_request();
+    static const int kCreateChatRequestFieldNumber = 8;
+    const ::elegram::CreateChatRequest &create_chat_request() const;
+    ::elegram::CreateChatRequest *mutable_create_chat_request();
+    ::elegram::CreateChatRequest *release_create_chat_request();
+    void set_allocated_create_chat_request(::elegram::CreateChatRequest *create_chat_request);
+
     MsgCase msg_case() const;
     // @@protoc_insertion_point(class_scope:elegram.Request)
    private:
@@ -940,6 +1034,7 @@ namespace elegram {
     inline void set_has_messages_request();
     inline void set_has_send_mesg_request();
     inline void set_has_add_contact_request();
+    inline void set_has_create_chat_request();
 
     inline bool has_msg() const;
     void clear_msg();
@@ -956,6 +1051,7 @@ namespace elegram {
       ::elegram::MessagesRequest *messages_request_;
       ::elegram::SendMessageRequest *send_mesg_request_;
       ::elegram::AddContactRequest *add_contact_request_;
+      ::elegram::CreateChatRequest *create_chat_request_;
     } msg_;
     mutable int _cached_size_;
     ::google::protobuf::uint32 _oneof_case_[1];
@@ -2385,6 +2481,24 @@ namespace elegram {
 
 // -------------------------------------------------------------------
 
+// CreateChatRequest
+
+// optional uint64 friend_id = 1;
+  inline void CreateChatRequest::clear_friend_id() {
+      friend_id_ = GOOGLE_ULONGLONG(0);
+  }
+  inline ::google::protobuf::uint64 CreateChatRequest::friend_id() const {
+      // @@protoc_insertion_point(field_get:elegram.CreateChatRequest.friend_id)
+      return friend_id_;
+  }
+  inline void CreateChatRequest::set_friend_id(::google::protobuf::uint64 value) {
+
+      friend_id_ = value;
+      // @@protoc_insertion_point(field_set:elegram.CreateChatRequest.friend_id)
+  }
+
+// -------------------------------------------------------------------
+
 // Request
 
 // optional .elegram.RegisterRequest register_request = 1;
@@ -2721,6 +2835,54 @@ namespace elegram {
           msg_.add_contact_request_ = add_contact_request;
       }
       // @@protoc_insertion_point(field_set_allocated:elegram.Request.add_contact_request)
+  }
+
+// optional .elegram.CreateChatRequest create_chat_request = 8;
+  inline bool Request::has_create_chat_request() const {
+      return msg_case() == kCreateChatRequest;
+  }
+  inline void Request::set_has_create_chat_request() {
+      _oneof_case_[0] = kCreateChatRequest;
+  }
+  inline void Request::clear_create_chat_request() {
+      if (has_create_chat_request()) {
+          delete msg_.create_chat_request_;
+          clear_has_msg();
+      }
+  }
+  inline const ::elegram::CreateChatRequest &Request::create_chat_request() const {
+      // @@protoc_insertion_point(field_get:elegram.Request.create_chat_request)
+      return has_create_chat_request()
+             ? *msg_.create_chat_request_
+             : ::elegram::CreateChatRequest::default_instance();
+  }
+  inline ::elegram::CreateChatRequest *Request::mutable_create_chat_request() {
+      if (!has_create_chat_request()) {
+          clear_msg();
+          set_has_create_chat_request();
+          msg_.create_chat_request_ = new ::elegram::CreateChatRequest;
+      }
+      // @@protoc_insertion_point(field_mutable:elegram.Request.create_chat_request)
+      return msg_.create_chat_request_;
+  }
+  inline ::elegram::CreateChatRequest *Request::release_create_chat_request() {
+      // @@protoc_insertion_point(field_release:elegram.Request.create_chat_request)
+      if (has_create_chat_request()) {
+          clear_has_msg();
+          ::elegram::CreateChatRequest *temp = msg_.create_chat_request_;
+          msg_.create_chat_request_ = NULL;
+          return temp;
+      } else {
+          return NULL;
+      }
+  }
+  inline void Request::set_allocated_create_chat_request(::elegram::CreateChatRequest *create_chat_request) {
+      clear_msg();
+      if (create_chat_request) {
+          set_has_create_chat_request();
+          msg_.create_chat_request_ = create_chat_request;
+      }
+      // @@protoc_insertion_point(field_set_allocated:elegram.Request.create_chat_request)
   }
 
   inline bool Request::has_msg() const {
@@ -3415,6 +3577,8 @@ namespace elegram {
   }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

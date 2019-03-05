@@ -6,12 +6,18 @@
 #include "../jobs/jobs.h"
 
 namespace elegram::server {
-  ClientState::ClientState(uint64_t user_id)
-      : user_id_(user_id) {}
+  ClientState::ClientState(uint64_t user_id, std::string &&name)
+      : user_id_(user_id), user_name_(std::make_shared<std::string>(std::move(name))) {}
 
   uint64_t ClientState::user_id() const {
       return user_id_;
   }
+
+  std::shared_ptr<std::string> ClientState::user_name() const {
+      return user_name_;
+  }
+
+  /*---------------------------------------------------------------------------------------------*/
 
   ClientSession::ClientSession(ba::io_service &service,
                                std::shared_ptr<ba::thread_pool> job_pool,

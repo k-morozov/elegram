@@ -19,15 +19,15 @@ CREATE TABLE Client (
 -------------------------------------------------------------------------------
 -- one chat for all
 CREATE TABLE Chat (
-  id SERIAL PRIMARY KEY,  -- global id, incremental
-  title TEXT DEFAULT NULL -- for big chatgroups may be useful
+  id SERIAL PRIMARY KEY -- global id, incremental
 );
 
 -------------------------------------------------------------------------------
 -- many clients can have many chats
 CREATE TABLE ClientToChat (
-  client_id INTEGER REFERENCES Client(id) ON DELETE CASCADE ,
-  chat_id INTEGER REFERENCES Chat(id) ON DELETE CASCADE
+                            client_id INTEGER REFERENCES Client(id) ON DELETE CASCADE ,
+                            chat_id   INTEGER REFERENCES Chat (id) ON DELETE CASCADE,
+                            title     TEXT NOT NULL
 );
 
 --------------------------------------------------------------------------------
@@ -47,5 +47,4 @@ CREATE TABLE ClientToContact (
   friend_id INTEGER REFERENCES Client(id) ON DELETE CASCADE,
   UNIQUE (client_id, friend_id)
 );
-
 --------------------------------------------------------------------------------

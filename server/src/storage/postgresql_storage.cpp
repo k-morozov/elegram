@@ -64,15 +64,32 @@ namespace elegram {
         );
 
         conn_->conn().prepare("get_chats",
-                              "WITH MyChats(chat_id) AS ( "
-                              "    SELECT chat_id from ClientToChat WHERE client_id = $1 "
-                              ") SELECT Chat.id, Chat.title FROM Chat, MyChats "
-                              "WHERE Chat.id = MyChats.chat_id "
+                              "SELECT chat_id, title FROM ClientToChat WHERE client_id = $1 "
         );
 
         conn_->conn().prepare("check_sender_able_to_write_to_chat",
                               "SELECT 1 FROM ClientToChat "
                               "WHERE client_id = $1 AND chat_id = $2 "
+        );
+
+        // create chat if u can
+        conn_->conn().prepare("check_users_have_common_chat",
+                              "WITH "
+                              " MyChats(chat_id) AS ( "
+                              "   SELECT chat_id from ClientToChat WHERE client_id = 1), "
+                              " FriendChat AS ( "
+                              "   SELECT chat_id from ClientToChat WHERE client_id = 3) "
+                              "SELECT 1 "
+                              "FROM MyChats, FriendChat "
+                              "WHERE MyChats.chat_id = FriendChat.chat_id "
+        );
+
+        conn_->conn().prepare("create_chat",
+                              "INSERT INTO Chat DEFAULT VALUES RETURNING id ");
+
+        conn_->conn().prepare("create_chat_connection",
+                              "INSERT INTO ClientToChat(client_id, chat_id, title) "
+                              "VALUES( $1, $2, $3 ) "
         );
     }
 
@@ -100,11 +117,11 @@ namespace elegram {
         return true;
     }
 
-    uint64_t PostgresStorageConnection::login(const std::string &email,
-                                              const std::string &password) {
+    std::pair<uint64_t, std::string> PostgresStorageConnection::login(const std::string &email,
+                                                                      const std::string &password) {
         try {
             pqxx::work txn(conn_->conn());
-            pqxx::result r = txn.exec("SELECT id, password_hash FROM Client WHERE email = " +
+            pqxx::result r = txn.exec("SELECT id, name, password_hash FROM Client WHERE email = " +
                 txn.quote(email));
 
             if (r.empty()) {
@@ -113,7 +130,7 @@ namespace elegram {
                 && pqxx::binarystring{r[0]["password_hash"]} != hash_password(password)) {
                 throw std::invalid_argument("Invalid password");
             } else {
-                return r[0]["id"].as<uint64_t>();
+                return std::make_pair(r[0]["id"].as<uint64_t>(), r[0]["name"].as<std::string>());
             }
         } catch (const pqxx::sql_error &e) {
             std::cerr
@@ -179,9 +196,48 @@ namespace elegram {
         return true;
     }
 
+    bool PostgresStorageConnection::create_chat(uint64_t user_id, std::shared_ptr<std::string> &&user_name,
+                                                uint64_t friend_id) {
+        try {
+            pqxx::work txn(conn_->conn());
+
+            // check that chat chat not exist and should be created
+            pqxx::result req = txn.prepared("check_users_have_common_chat")(user_id)(friend_id).exec();
+            if (!req.empty()) {
+                return false;
+            }
+
+            // create chat itself, get id
+            pqxx::result create_chat_req = txn.prepared("create_chat").exec();
+            uint64_t chat_id = (*create_chat_req.begin())["id"].as<uint64_t>();
+
+            // generate titles of this
+            pqxx::result friend_info_req = txn.prepared("get_info")(friend_id).exec();
+            std::string users_title = "Chat with " + (*friend_info_req.begin())["name"].as<std::string>();
+            std::string friends_title = "Chat with " + *user_name;
+
+
+            // connect user and friend to this chat,
+            pqxx::result connect1 = txn.prepared("create_chat_connection")(user_id)(chat_id)(users_title).exec();
+            pqxx::result connect2 = txn.prepared("create_chat_connection")(friend_id)(chat_id)(friends_title).exec();
+
+            txn.commit();
+        } catch (const pqxx::sql_error &e) {
+            std::cerr << "Database error: " << e.what() << std::endl
+                      << "Query was: " << e.query() << std::endl;
+            return false;
+        }
+        catch (const std::exception &e) {
+            BOOST_LOG_TRIVIAL(error) << e.what();
+            return false;
+        }
+
+        return true;
+    }
+
     // todo change signature and protocol for db error reporting
     std::unique_ptr<elegram::ChatsResponse> PostgresStorageConnection::get_chats(uint64_t user_id) {
-        BOOST_LOG_TRIVIAL(error) << "executing ChatsRequest";
+        BOOST_LOG_TRIVIAL(info) << "executing ChatsRequest";
         std::unique_ptr<elegram::ChatsResponse> resp = std::make_unique<ChatsResponse>();
         try {
             pqxx::work txn(conn_->conn());
@@ -189,11 +245,10 @@ namespace elegram {
             txn.commit();
 
             for (auto row : r) {
-                Chat *new_chat = resp->add_chats();;
-                new_chat->set_chat_id(row["id"].as<uint64_t>());
-                if (!row["title"].is_null()) {
-                    new_chat->set_title(row["title"].as<std::string>());
-                }
+                Chat *new_chat = resp->add_chats();
+                new_chat->set_chat_id(row["chat_id"].as<uint64_t>());
+                new_chat->set_title(row["title"].as<std::string>());
+
             }
         } catch (const pqxx::sql_error &e) {
             std::cerr << "Database error: " << e.what() << std::endl

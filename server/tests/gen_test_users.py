@@ -12,10 +12,10 @@ try:
     cur = db.cursor()
 
     guys = [
-        ("john", "john@mail.ru", "12345678"),
-        ("jimm", "jimm@jimm.qu", "john_super_guy"),
-        ("jasck", "jas@ck.ru", "jasker37"),
-        ("vasya", "vas@ya.ru", "samtivasya")
+        ("john", "john@mail.com", "12345678"),
+        ("jimm", "jimm@jimm.com", "hatejohn"),
+        ("jack", "ja@ck.com", "jack37"),
+        ("vasya", "vas@ya.com", "samtivasya")
     ]
 
     # Вставляем в таблицу Clients 4 пользователей
@@ -60,29 +60,33 @@ try:
 
     # create some chats between some of friends
     def create_chat():
-        cmd = "INSERT INTO Chat DEFAULT VALUES"
+        cmd = "INSERT INTO Chat DEFAULT VALUES RETURNING id "
         cur.execute(cmd)
         print(cmd)
+        row = cur.fetchone()
+        print("RETURNED new created chat_id = {0}".format(row[0]))
+        return row[0]
 
 
-    create_chat()  # 1
-    create_chat()  # 2
+    chat_id1 = create_chat()  # 1
+    chat_id2 = create_chat()  # 2
     db.commit()
 
 
-    def connect_to_chat(chat_id, client_id):
-        cmd = "INSERT INTO ClientToChat(client_id, chat_id) VALUES({0}, {1})".format(client_id, chat_id)
+    def connect_to_chat(chat_id, client_id, title):
+        cmd = "INSERT INTO ClientToChat(client_id, chat_id, title) VALUES({0}, {1}, '{2}')".format(client_id, chat_id,
+                                                                                                   title)
         cur.execute(cmd)
         print(cmd)
 
 
     # chat 1: 1 <-> 2
-    connect_to_chat(1, 1)
-    connect_to_chat(1, 2)
+    connect_to_chat(chat_id1, 1, "Chat with my friend Jimmy =)")
+    connect_to_chat(chat_id1, 2, "John and his problems =(")
 
     # chat 2: 1 <-> 3
-    connect_to_chat(2, 1)
-    connect_to_chat(2, 3)
+    connect_to_chat(chat_id2, 1, "Chat with Jack")
+    connect_to_chat(chat_id2, 3, "Chat with John")
 
 
     def add_message(from_id: int, chat_id: int, mesg: str):
@@ -100,7 +104,7 @@ try:
     add_message(1, 1, "Nice ;)")
 
     add_message(2, 2, "Hello, johny!")
-    add_message(1, 2, "Hello, jas!")
+    add_message(1, 2, "Hello, jacky!")
 
     db.commit()
 

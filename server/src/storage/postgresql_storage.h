@@ -15,11 +15,12 @@ namespace elegram {
       /**
        * Return user's id.
        * Throw std::invalid_argument if can't login.
-       * @return user's id
+       * @return user's id and user's name
        */
-      uint64_t login(const std::string &email, const std::string &password) override;
+      std::pair<uint64_t, std::string> login(const std::string &email, const std::string &password) override;
       bool send_message(uint64_t sender_id, const MessageToSend &mesg) override;
       bool add_contact(uint64_t user_id, const std::string &email) override;
+      bool create_chat(uint64_t user_id, std::shared_ptr<std::string> &&user_name, uint64_t friend_id) override;
 
       std::unique_ptr<ChatsResponse> get_chats(uint64_t user_id) override;
       std::unique_ptr<ContactsResponse> get_contacts(uint64_t user_id) override;
