@@ -50,6 +50,10 @@ namespace elegram {
                               "SELECT id, name FROM Client WHERE email = $1 "
         );
 
+        conn_->conn().prepare("get_info",
+                              "SELECT name, email FROM Client WHERE id = $1 "
+        );
+
         conn_->conn().prepare("get_contacts",
                               "WITH Contacts(id) AS ( "
                               "  SELECT friend_id FROM ClientToContact WHERE client_id = $1 "
@@ -76,9 +80,9 @@ namespace elegram {
         conn_->conn().prepare("check_users_have_common_chat",
                               "WITH "
                               " MyChats(chat_id) AS ( "
-                              "   SELECT chat_id from ClientToChat WHERE client_id = 1), "
+                              "   SELECT chat_id from ClientToChat WHERE client_id = $1), "
                               " FriendChat AS ( "
-                              "   SELECT chat_id from ClientToChat WHERE client_id = 3) "
+                              "   SELECT chat_id from ClientToChat WHERE client_id = $2) "
                               "SELECT 1 "
                               "FROM MyChats, FriendChat "
                               "WHERE MyChats.chat_id = FriendChat.chat_id "
