@@ -94,7 +94,6 @@ namespace elegram::server {
   class CreateChatRequestJob {
    public:
     CreateChatRequestJob(CreateChatRequest *mesg, std::shared_ptr<ClientSession> session);
-    CreateChatRequestJob(const std::shared_ptr<ClientSession> &session, const std::unique_ptr<CreateChatRequest> &mesg);
     void operator()();
 
    private:

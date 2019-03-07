@@ -101,27 +101,32 @@ namespace elegram {
 
   void server::LoginRequestJob::operator()() {
       // todo make async ?3
-      std::unique_ptr<StatusResponse> status_resp = std::make_unique<StatusResponse>();
+      std::unique_ptr<LoginResponse> login_response = std::make_unique<LoginResponse>();
       try {
           auto[user_id, user_name] = session_->storage_connection()->login(mesg_->email(), mesg_->password());
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_ACCEPTED);
-          session_->set_state(std::make_unique<ClientState>(user_id, std::move(user_name)));
+          session_->set_state(std::make_unique<ClientState>(user_id, user_name, mesg_->email()));
+
+          std::unique_ptr<Contact> profile = std::make_unique<Contact>();
+          profile->set_user_id(session_->state().user_id());
+          profile->set_name(session_->state().user_name());
+          profile->set_email(session_->state().email());
+
+          login_response->set_allocated_profile(profile.release());
       } catch (const std::invalid_argument &e) {
-          BOOST_LOG_TRIVIAL(error) << e.what();
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
+          // BOOST_LOG_TRIVIAL(error) << e.what();
+          // REJECTED
       } catch (...) {
           BOOST_LOG_TRIVIAL(error) << "THROWED SOMETHING UNHANDLED";
-          status_resp->set_result(StatusResponse_RESULT::StatusResponse_RESULT_REJECTED);
       }
 
       std::unique_ptr<Response> response = std::make_unique<Response>();
-      response->set_allocated_status_response(status_resp.release());
+      response->set_allocated_login_response(login_response.release());
 
       WrappedMessage wrappedMessage;
       wrappedMessage.set_allocated_response(response.release());
       session_->write(wrappedMessage);
 
-      BOOST_LOG_TRIVIAL(info) << " LoginRequestJob::operator()() done";
+      BOOST_LOG_TRIVIAL(info) << "LoginRequestJob::operator()() done";
   }
 
   /*-------------------------------------------------------------------------*/

@@ -47,6 +47,7 @@ namespace elegram {
   class CreateChatRequest;
   class LengthPrefix;
   class LoginRequest;
+  class LoginResponse;
   class MessageToRecieve;
   class MessageToSend;
   class MessagesRequest;
@@ -1736,6 +1737,108 @@ namespace elegram {
   };
 // -------------------------------------------------------------------
 
+  class LoginResponse
+      : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.LoginResponse) */ {
+   public:
+    LoginResponse();
+    virtual ~LoginResponse();
+
+    LoginResponse(const LoginResponse &from);
+
+    inline LoginResponse &operator=(const LoginResponse &from) {
+        CopyFrom(from);
+        return *this;
+    }
+
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const LoginResponse &default_instance();
+
+    enum OptionalProfileCase {
+      kProfile = 1,
+      OPTIONAL_PROFILE_NOT_SET = 0,
+    };
+
+    void Swap(LoginResponse *other);
+
+    // implements Message ----------------------------------------------
+
+    inline LoginResponse *New() const { return New(NULL); }
+
+    LoginResponse *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const LoginResponse &from);
+    void MergeFrom(const LoginResponse &from);
+    void Clear();
+    bool IsInitialized() const;
+
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *InternalSerializeWithCachedSizesToArray(
+        bool deterministic, ::google::protobuf::uint8 *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const {
+        return InternalSerializeWithCachedSizesToArray(false, output);
+    }
+    int GetCachedSize() const { return _cached_size_; }
+   private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(LoginResponse *other);
+   private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+   public:
+
+    ::google::protobuf::Metadata GetMetadata() const;
+
+    // nested types ----------------------------------------------------
+
+    // accessors -------------------------------------------------------
+
+    // optional .elegram.Contact profile = 1;
+    bool has_profile() const;
+    void clear_profile();
+    static const int kProfileFieldNumber = 1;
+    const ::elegram::Contact &profile() const;
+    ::elegram::Contact *mutable_profile();
+    ::elegram::Contact *release_profile();
+    void set_allocated_profile(::elegram::Contact *profile);
+
+    OptionalProfileCase optional_profile_case() const;
+    // @@protoc_insertion_point(class_scope:elegram.LoginResponse)
+   private:
+    inline void set_has_profile();
+
+    inline bool has_optional_profile() const;
+    void clear_optional_profile();
+    inline void clear_has_optional_profile();
+
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    union OptionalProfileUnion {
+      OptionalProfileUnion() {}
+      ::elegram::Contact *profile_;
+    } optional_profile_;
+    mutable int _cached_size_;
+    ::google::protobuf::uint32 _oneof_case_[1];
+
+    friend void protobuf_AddDesc_messages_2eproto();
+    friend void protobuf_AssignDesc_messages_2eproto();
+    friend void protobuf_ShutdownFile_messages_2eproto();
+
+    void InitAsDefaultInstance();
+    static LoginResponse *default_instance_;
+  };
+// -------------------------------------------------------------------
+
   class Response
       : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:elegram.Response) */ {
    public:
@@ -1757,6 +1860,7 @@ namespace elegram {
       kChatsResponse = 2,
       kContactsResponse = 3,
       kMessagesResponse = 4,
+      kLoginResponse = 5,
       MSG_NOT_SET = 0,
     };
 
@@ -1841,6 +1945,15 @@ namespace elegram {
     ::elegram::MessagesResponse *release_messages_response();
     void set_allocated_messages_response(::elegram::MessagesResponse *messages_response);
 
+    // optional .elegram.LoginResponse login_response = 5;
+    bool has_login_response() const;
+    void clear_login_response();
+    static const int kLoginResponseFieldNumber = 5;
+    const ::elegram::LoginResponse &login_response() const;
+    ::elegram::LoginResponse *mutable_login_response();
+    ::elegram::LoginResponse *release_login_response();
+    void set_allocated_login_response(::elegram::LoginResponse *login_response);
+
     MsgCase msg_case() const;
     // @@protoc_insertion_point(class_scope:elegram.Response)
    private:
@@ -1848,6 +1961,7 @@ namespace elegram {
     inline void set_has_chats_response();
     inline void set_has_contacts_response();
     inline void set_has_messages_response();
+    inline void set_has_login_response();
 
     inline bool has_msg() const;
     void clear_msg();
@@ -1861,6 +1975,7 @@ namespace elegram {
       ::elegram::ChatsResponse *chats_response_;
       ::elegram::ContactsResponse *contacts_response_;
       ::elegram::MessagesResponse *messages_response_;
+      ::elegram::LoginResponse *login_response_;
     } msg_;
     mutable int _cached_size_;
     ::google::protobuf::uint32 _oneof_case_[1];
@@ -3246,6 +3361,67 @@ namespace elegram {
 
 // -------------------------------------------------------------------
 
+// LoginResponse
+
+// optional .elegram.Contact profile = 1;
+  inline bool LoginResponse::has_profile() const {
+      return optional_profile_case() == kProfile;
+  }
+  inline void LoginResponse::set_has_profile() {
+      _oneof_case_[0] = kProfile;
+  }
+  inline void LoginResponse::clear_profile() {
+      if (has_profile()) {
+          delete optional_profile_.profile_;
+          clear_has_optional_profile();
+      }
+  }
+  inline const ::elegram::Contact &LoginResponse::profile() const {
+      // @@protoc_insertion_point(field_get:elegram.LoginResponse.profile)
+      return has_profile()
+             ? *optional_profile_.profile_
+             : ::elegram::Contact::default_instance();
+  }
+  inline ::elegram::Contact *LoginResponse::mutable_profile() {
+      if (!has_profile()) {
+          clear_optional_profile();
+          set_has_profile();
+          optional_profile_.profile_ = new ::elegram::Contact;
+      }
+      // @@protoc_insertion_point(field_mutable:elegram.LoginResponse.profile)
+      return optional_profile_.profile_;
+  }
+  inline ::elegram::Contact *LoginResponse::release_profile() {
+      // @@protoc_insertion_point(field_release:elegram.LoginResponse.profile)
+      if (has_profile()) {
+          clear_has_optional_profile();
+          ::elegram::Contact *temp = optional_profile_.profile_;
+          optional_profile_.profile_ = NULL;
+          return temp;
+      } else {
+          return NULL;
+      }
+  }
+  inline void LoginResponse::set_allocated_profile(::elegram::Contact *profile) {
+      clear_optional_profile();
+      if (profile) {
+          set_has_profile();
+          optional_profile_.profile_ = profile;
+      }
+      // @@protoc_insertion_point(field_set_allocated:elegram.LoginResponse.profile)
+  }
+
+  inline bool LoginResponse::has_optional_profile() const {
+      return optional_profile_case() != OPTIONAL_PROFILE_NOT_SET;
+  }
+  inline void LoginResponse::clear_has_optional_profile() {
+      _oneof_case_[0] = OPTIONAL_PROFILE_NOT_SET;
+  }
+  inline LoginResponse::OptionalProfileCase LoginResponse::optional_profile_case() const {
+      return LoginResponse::OptionalProfileCase(_oneof_case_[0]);
+  }
+// -------------------------------------------------------------------
+
 // Response
 
 // optional .elegram.StatusResponse status_response = 1;
@@ -3440,6 +3616,54 @@ namespace elegram {
       // @@protoc_insertion_point(field_set_allocated:elegram.Response.messages_response)
   }
 
+// optional .elegram.LoginResponse login_response = 5;
+  inline bool Response::has_login_response() const {
+      return msg_case() == kLoginResponse;
+  }
+  inline void Response::set_has_login_response() {
+      _oneof_case_[0] = kLoginResponse;
+  }
+  inline void Response::clear_login_response() {
+      if (has_login_response()) {
+          delete msg_.login_response_;
+          clear_has_msg();
+      }
+  }
+  inline const ::elegram::LoginResponse &Response::login_response() const {
+      // @@protoc_insertion_point(field_get:elegram.Response.login_response)
+      return has_login_response()
+             ? *msg_.login_response_
+             : ::elegram::LoginResponse::default_instance();
+  }
+  inline ::elegram::LoginResponse *Response::mutable_login_response() {
+      if (!has_login_response()) {
+          clear_msg();
+          set_has_login_response();
+          msg_.login_response_ = new ::elegram::LoginResponse;
+      }
+      // @@protoc_insertion_point(field_mutable:elegram.Response.login_response)
+      return msg_.login_response_;
+  }
+  inline ::elegram::LoginResponse *Response::release_login_response() {
+      // @@protoc_insertion_point(field_release:elegram.Response.login_response)
+      if (has_login_response()) {
+          clear_has_msg();
+          ::elegram::LoginResponse *temp = msg_.login_response_;
+          msg_.login_response_ = NULL;
+          return temp;
+      } else {
+          return NULL;
+      }
+  }
+  inline void Response::set_allocated_login_response(::elegram::LoginResponse *login_response) {
+      clear_msg();
+      if (login_response) {
+          set_has_login_response();
+          msg_.login_response_ = login_response;
+      }
+      // @@protoc_insertion_point(field_set_allocated:elegram.Response.login_response)
+  }
+
   inline bool Response::has_msg() const {
       return msg_case() != MSG_NOT_SET;
   }
@@ -3577,6 +3801,8 @@ namespace elegram {
   }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

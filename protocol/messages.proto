@@ -110,12 +110,20 @@ message MessagesResponse {
     repeated MessageToRecieve messages = 1;
 }
 
+// 5
+message LoginResponse {
+    oneof optional_profile {
+        Contact profile = 1;
+    }
+}
+
 message Response {
     oneof msg {
         StatusResponse status_response = 1;
         ChatsResponse chats_response = 2;
         ContactsResponse contacts_response = 3;
         MessagesResponse messages_response = 4;
+        LoginResponse login_response = 5;
     }
 }
 

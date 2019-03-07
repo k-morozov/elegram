@@ -12,7 +12,7 @@ try:
     cur = db.cursor()
 
     guys = [
-        ("john", "john@mail.com", "12345678"),
+        ("John", "q", "q"),
         ("jimm", "jimm@jimm.com", "hatejohn"),
         ("jack", "ja@ck.com", "jack37"),
         ("vasya", "vas@ya.com", "samtivasya")
@@ -35,15 +35,6 @@ try:
                "VALUES ({0}, {1})".format(id1, id2)
         cur.execute(cmd1)
         print(cmd1)
-
-
-    # make them friends for themselves
-    connect(1, 1)
-    connect(2, 2)
-    connect(3, 3)
-    connect(4, 4)
-
-    db.commit()
 
 
     def make_friends(id1, id2):

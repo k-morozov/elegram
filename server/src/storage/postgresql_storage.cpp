@@ -200,8 +200,7 @@ namespace elegram {
         return true;
     }
 
-    bool PostgresStorageConnection::create_chat(uint64_t user_id, std::shared_ptr<std::string> &&user_name,
-                                                uint64_t friend_id) {
+    bool PostgresStorageConnection::create_chat(uint64_t user_id, const std::string &user_name, uint64_t friend_id) {
         try {
             pqxx::work txn(conn_->conn());
 
@@ -218,7 +217,7 @@ namespace elegram {
             // generate titles of this
             pqxx::result friend_info_req = txn.prepared("get_info")(friend_id).exec();
             std::string users_title = "Chat with " + (*friend_info_req.begin())["name"].as<std::string>();
-            std::string friends_title = "Chat with " + *user_name;
+            std::string friends_title = "Chat with " + user_name;
 
 
             // connect user and friend to this chat,

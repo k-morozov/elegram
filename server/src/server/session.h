@@ -12,13 +12,15 @@ namespace elegram::server {
 
   class ClientState {
    public:
-    ClientState(uint64_t user_id, std::string &&name);
+    ClientState(uint64_t user_id, const std::string &name, const std::string &email);
     uint64_t user_id() const;
-    std::shared_ptr<std::string> user_name() const;
+    const std::string &user_name() const;
+    const std::string &email() const;
 
    private:
     uint64_t user_id_;
-    std::shared_ptr<std::string> user_name_;
+    std::string user_name_;
+    std::string email_;
   };
 
   class ClientSession : public std::enable_shared_from_this<ClientSession> {

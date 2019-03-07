@@ -6,15 +6,21 @@
 #include "../jobs/jobs.h"
 
 namespace elegram::server {
-  ClientState::ClientState(uint64_t user_id, std::string &&name)
-      : user_id_(user_id), user_name_(std::make_shared<std::string>(std::move(name))) {}
+  ClientState::ClientState(uint64_t user_id, const std::string &name, const std::string &email)
+      : user_id_(user_id),
+        user_name_(name),
+        email_(email) {}
 
   uint64_t ClientState::user_id() const {
       return user_id_;
   }
 
-  std::shared_ptr<std::string> ClientState::user_name() const {
+  const std::string &ClientState::user_name() const {
       return user_name_;
+  }
+
+  const std::string &ClientState::email() const {
+      return email_;
   }
 
   /*---------------------------------------------------------------------------------------------*/
@@ -58,6 +64,7 @@ namespace elegram::server {
   }
 
   void ClientSession::on_read_prefix(const ClientSession::error_code &err, size_t bytes) {
+      BOOST_LOG_TRIVIAL(info) << "ClientSession::on_read_prefix() called";
       if (err) {
           stop();
       }
@@ -67,8 +74,7 @@ namespace elegram::server {
 
       if (bytes == PREFIX_SIZE) {
           LengthPrefix prefix;
-          bool parsed = prefix.ParseFromArray(read_buffer_.data(),
-                                              static_cast<int>(read_buffer_.size()));
+          bool parsed = prefix.ParseFromArray(read_buffer_.data(), bytes);
           if (parsed) {
               BOOST_LOG_TRIVIAL(info) << this << " on_read_prefix: readed " << prefix.length();
               do_async_read_message(prefix.length());
@@ -85,12 +91,13 @@ namespace elegram::server {
   }
 
   void ClientSession::do_async_read_prefix() {
+      BOOST_LOG_TRIVIAL(info) << "ClientSession::do_async_read_prefix() called";
       if (stopped_) {
           return;
       }
       using namespace std::placeholders;
 
-      // BOOST_LOG_TRIVIAL(info) << this << " Will async_read now";
+      BOOST_LOG_TRIVIAL(info) << this << " Will async_read now";
       read_buffer_.resize(PREFIX_SIZE);
       ba::async_read(sock_,
                      ba::buffer(read_buffer_),
@@ -99,6 +106,7 @@ namespace elegram::server {
 
   void ClientSession::on_read_message(const ClientSession::error_code &err, size_t readed_bytes,
                                       uint64_t mesg_size) {
+      BOOST_LOG_TRIVIAL(info) << "ClientSession::on_read_message() called";
       if (err) {
           stop();
       }
@@ -117,6 +125,7 @@ namespace elegram::server {
   }
 
   void ClientSession::do_async_read_message(uint64_t mesg_size) {
+      BOOST_LOG_TRIVIAL(info) << "ClientSession::do_async_read_message() called";
       if (stopped_) {
           return;
       }
@@ -130,7 +139,7 @@ namespace elegram::server {
   }
 
   void ClientSession::write(const WrappedMessage &mesg) {
-      BOOST_LOG_TRIVIAL(info) << this << " will write " << mesg.ByteSize() << " bytes";
+      BOOST_LOG_TRIVIAL(info) << this << " will write WrappedMessage: " << mesg.ByteSize() << " bytes";
       do_async_write(mesg);
   }
 
@@ -157,7 +166,7 @@ namespace elegram::server {
       LengthPrefix length_prefix;
       length_prefix.set_length(static_cast<google::protobuf::uint64>(mesg.ByteSize()));
       length_prefix.SerializeToArray(read_buffer_.data(), PREFIX_SIZE);
-      mesg.SerializeToArray(read_buffer_.data() + PREFIX_SIZE, static_cast<int>(mesg.ByteSize()));
+      mesg.SerializeToArray(read_buffer_.data() + PREFIX_SIZE, mesg.ByteSize());
 
       BOOST_LOG_TRIVIAL(info) << this << " Will async_write now";
       ba::async_write(sock_,
@@ -178,6 +187,7 @@ namespace elegram::server {
   }
 
   const ClientState &ClientSession::state() const {
+      assert(state_ && "STATE IS NULL!!!!!, HOW COULD IT BE");
       return *state_;
   }
 
