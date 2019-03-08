@@ -11,6 +11,10 @@
 namespace elegram::server {
   namespace ba = boost::asio;
 
+  /**
+   * Create new sessions, wait for new connections.
+   * Own all resources like sessions, workers and storage connector.
+   */
   class ElegramServer : public std::enable_shared_from_this<ElegramServer> {
    public:
     explicit ElegramServer(unsigned short port,
@@ -24,12 +28,13 @@ namespace elegram::server {
     void signal_handler(const boost::system::error_code &, int);
 
    private:
+    const uint64_t WORKER_THREADS = 2;
     ba::io_service network_service_{};
-    ba::ip::tcp::endpoint ep_;
+    ba::ip::tcp::endpoint endpoint_;
     ba::ip::tcp::acceptor acceptor_;
 
-    std::shared_ptr<ba::thread_pool> job_pool_ = std::make_shared<ba::thread_pool>(2);
-    std::shared_ptr<AbstractStorageConnectionFactory> db_stor_;
+    std::shared_ptr<ba::thread_pool> job_pool_; // pool of workers, they are exec requests from clients
+    std::shared_ptr<AbstractStorageConnectionFactory> db_stor_; // ptr to database storage wrapper
   };
 
 } // namespace elegram::server

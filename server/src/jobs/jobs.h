@@ -8,7 +8,8 @@
 
 namespace elegram::server {
   /**
-   * Todo write all jobs that sessions generate here
+   * Parse session's buffer for and create new job.
+   * This new job works with storage and send response to client.
    */
   class ParseCommandJob {
    public:

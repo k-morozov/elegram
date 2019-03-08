@@ -58,11 +58,12 @@ int main(const int argc, const char *const argv[]) {
 
     using namespace elegram::server;
 
-    std::shared_ptr<ElegramServer>
-        server = std::make_shared<ElegramServer>(port, std::make_shared<PostgresStorageFactory>());
-    server->run();
+    // create Server object with connection to PostgresSQL dbname
+    auto postgres_storage_factory = std::make_shared<PostgresStorageFactory>();
+    std::shared_ptr<ElegramServer> server = std::make_shared<ElegramServer>(port, postgres_storage_factory);
+    server->run(); // run event loop
 
-    BOOST_LOG_TRIVIAL(info) << "Will return EXIT_SUCCESS now";
+    BOOST_LOG_TRIVIAL(info) << "Server is shutting down now with EXIT_SUCCESS";
 
     // Optional:  Delete all global objects allocated by libprotobuf.
     google::protobuf::ShutdownProtobufLibrary();

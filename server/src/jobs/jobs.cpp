@@ -47,7 +47,7 @@ namespace elegram {
                   ba::post(*session_->job_pool(),
                            CreateChatRequestJob(request->release_create_chat_request(), session_));
               } else {
-                  BOOST_LOG_TRIVIAL(info) << " unsupported request type";
+                  BOOST_LOG_TRIVIAL(error) << " unsupported request type";
                   session_->stop();
                   return;
               }

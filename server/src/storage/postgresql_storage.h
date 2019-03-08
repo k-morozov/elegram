@@ -5,9 +5,12 @@
 
 namespace elegram {
   namespace server {
+    /**
+     * Connection to PostgreSQL server.
+     */
     class PostgresStorageConnection : public AbstractStorageConnection {
      public:
-      PostgresStorageConnection();
+      explicit PostgresStorageConnection(const std::string &user_name, const std::string &dbname);
 
       bool registration(const std::string &name,
                         const std::string &email,
@@ -33,7 +36,11 @@ namespace elegram {
 
     class PostgresStorageFactory : public AbstractStorageConnectionFactory {
      public:
+      explicit PostgresStorageFactory(std::string &&user_name = "avallon", std::string &&dbname = "postgres");
       std::unique_ptr<AbstractStorageConnection> create_connection() override;
+     private:
+      std::string user_name_;
+      std::string db_name_;
     };
   }
 } // namespace elegram::server

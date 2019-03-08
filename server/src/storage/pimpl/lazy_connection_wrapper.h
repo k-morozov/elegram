@@ -7,9 +7,10 @@ namespace elegram {
   namespace server {
     class LazyConnectionImpl {
      public:
+      LazyConnectionImpl(const std::string &user_name, const std::string &dbname);
       pqxx::lazyconnection &conn();
      private:
-      pqxx::lazyconnection conn_{"dbname=postgres user=avallon"};
+      pqxx::lazyconnection conn_;
     };
   } // namespace server
 } // namespace elegram

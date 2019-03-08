@@ -38,7 +38,7 @@ CREATE TABLE Message
 (
   id        BIGSERIAL PRIMARY KEY,
   sender_id INTEGER REFERENCES Client (id),
-  chat_id   INTEGER REFERENCES Chat (id) ON DELETE CASCADE, -- TODO may be remove ON DELETE later
+  chat_id   INTEGER REFERENCES Chat (id) ON DELETE CASCADE,
   send_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   mesg      TEXT NOT NULL
 );

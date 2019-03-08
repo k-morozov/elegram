@@ -26,11 +26,8 @@ namespace elegram {
       }
     } // anonymous namespace
 
-    /**
-     * TODO don't prepare them for every connection, do it once for all connections (can we do it?)
-     */
-    PostgresStorageConnection::PostgresStorageConnection()
-        : conn_(std::make_unique<LazyConnectionImpl>()) {
+    PostgresStorageConnection::PostgresStorageConnection(const std::string &user_name, const std::string &dbname)
+        : conn_(std::make_unique<LazyConnectionImpl>(user_name, dbname)) {
         conn_->conn().prepare("registration",
                               "INSERT INTO Client (name, email, password_hash) "
                               "VALUES ( $1, $2, $3 )"
@@ -106,7 +103,6 @@ namespace elegram {
                 (name)
                 (email)
                 (hash_password(password)).exec();
-            // todo make this user friend to itself
             txn.commit();
         } catch (const pqxx::sql_error &e) {
             std::cerr
@@ -307,8 +303,11 @@ namespace elegram {
     }
 
     /* -------------------------PostgresStorageFactory-------------------------*/
+    PostgresStorageFactory::PostgresStorageFactory(std::string &&user_name, std::string &&dbname)
+        : user_name_(std::move(user_name)), db_name_(std::move(dbname)) {}
+
     std::unique_ptr<AbstractStorageConnection> PostgresStorageFactory::create_connection() {
-        return std::make_unique<PostgresStorageConnection>();
+        return std::make_unique<PostgresStorageConnection>(user_name_, db_name_);
     }
   }
 } // namespace elegram::server

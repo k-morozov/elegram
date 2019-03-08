@@ -5,6 +5,9 @@
 
 namespace elegram {
   namespace server {
+    /**
+     * Storage API, job's use it for communicate with db.
+     */
     class AbstractStorageConnection {
      public:
       virtual bool registration(const std::string &name,

@@ -6,8 +6,9 @@
 namespace elegram::server {
   ElegramServer::ElegramServer(unsigned short port,
                                std::shared_ptr<AbstractStorageConnectionFactory> &&storage_ptr)
-      : ep_(ba::ip::tcp::v4(), port),
-        acceptor_(network_service_, ep_),
+      : endpoint_(ba::ip::tcp::v4(), port),
+        acceptor_(network_service_, endpoint_),
+        job_pool_(std::make_shared<ba::thread_pool>(WORKER_THREADS)),
         db_stor_(std::move(storage_ptr)) {}
 
   void ElegramServer::run() {
@@ -51,12 +52,11 @@ namespace elegram::server {
   }
 
   ElegramServer::~ElegramServer() {
-      BOOST_LOG_TRIVIAL(info) << "### Server DTOR called";
-      // todo pimpl
+      BOOST_LOG_TRIVIAL(info) << "Server DTOR() called";
   }
 
   void ElegramServer::signal_handler(const boost::system::error_code &, int) {
-      BOOST_LOG_TRIVIAL(info) << "Signal handler called";
+      BOOST_LOG_TRIVIAL(info) << "Signal_handler() called";
       acceptor_.close();
 
       // requests_queue_->stop_wait_and_block_pushing();

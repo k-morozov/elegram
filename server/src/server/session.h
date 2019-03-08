@@ -10,6 +10,9 @@
 namespace elegram::server {
   namespace ba = boost::asio;
 
+  /**
+   * Containt profile data of client, saved inside session for minimizing db access.
+   */
   class ClientState {
    public:
     ClientState(uint64_t user_id, const std::string &name, const std::string &email);
@@ -23,6 +26,13 @@ namespace elegram::server {
     std::string email_;
   };
 
+  /**
+   * Server create session object for every connection.
+   * Session recieve request and sends resopnse (1 response for every request)
+   * in async way using boost ASIO.
+   * It creates job and use boost::post and boost::thread_pool of workers for executing jobs.
+   * share_ptr to ClientSession passed to all ba calbacks, so session alive while asio runs.
+   */
   class ClientSession : public std::enable_shared_from_this<ClientSession> {
    public:
     ClientSession(ba::io_service &service,
