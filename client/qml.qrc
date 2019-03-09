@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/LoginWindow.qml</file>
+        <file>qml/RegisterWindow.qml</file>
+        <file>qml/SettingsWindow.qml</file>
+        <file>qml/BackButton.qml</file>
+        <file>qml/ChatsWindow.qml</file>
+        <file>qml/MessagesWindow.qml</file>
+        <file>qml/ContactsWindow.qml</file>
+        <file>qml/AddContactWindow.qml</file>
+        <file>qml/ProfileWindow.qml</file>
+        <file>qml/SimplePopup.qml</file>
+    </qresource>
+</RCC>

@@ -101,11 +101,6 @@ target_link_libraries(${PROJECT_NAME}
         postgres_conn_lib
         )
 
-
-## set up testing
-#enable_testing()
-#add_test(unit_table_testing ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/test_table)
-
 # install to bin folder our binaries
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 

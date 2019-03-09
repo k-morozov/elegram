@@ -1,0 +1,31 @@
+dist: xenial
+language: cpp
+branches:
+  only:
+    - master
+before_install:
+  - sudo apt-add-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
+  - sudo apt-get -qq update
+install:
+  - sudo apt-get --yes install qt512-meta-minimal qt512quickcontrols2
+before_script:
+  - mkdir build
+  - QTDIR="/opt/qt512"
+  - PATH="$QTDIR/bin:$PATH"
+  - source /opt/qt55/bin/qt512-env.sh
+addons:
+  apt:
+    packages:
+      - protobuf-compiler
+      - libprotobuf-dev
+      - qt55base
+      - qt55imageformats
+      - qt55svg
+script:
+  - cd protocol
+  # that is how to generate files for serialization/deserialization
+  - protoc  --cpp_out=../client/src/protobuf messages.proto
+  - cd ..
+  - cd build
+  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ..
+  - cmake --build .
