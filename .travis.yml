@@ -10,15 +10,13 @@ before_script:
 
   # install boost 1.67 from cosmic repo
   - sudo apt-get update
-  - sudo apt-get install libboost-all-dev -t cosmic
+  - sudo apt-get install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      - protobuf-compiler
-      - libprotobuf-dev
       - libpq-dev # and may be postgresql
       - postgresql-server-dev-all
 script:
