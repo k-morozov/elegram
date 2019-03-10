@@ -1,6 +1,7 @@
 # Elegram
-A toy instant message service, both server and client (builded using QT) applications.
+[![Build Status](https://travis-ci.com/mkvdv/elegram.svg?branch=master)](https://travis-ci.com/mkvdv/elegram)
 
+A toy instant message service, both server and client (builded using QT) applications.
 
 ## Requirements
 * Server require this libraries:

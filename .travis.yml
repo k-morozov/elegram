@@ -18,6 +18,7 @@ addons:
     packages:
       - g++-7
       - libpq-dev # and may be postgresql
+      - libpqxx-dev
       - postgresql-server-dev-all
 script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
