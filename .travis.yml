@@ -8,9 +8,19 @@ before_script:
   - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
   - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
 
-  # install boost 1.67 from cosmic repo
-  - sudo apt-get update
+  # add qt repo
+  - sudo apt-add-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
+
+  # install boost 1.67 from cosmic repo and qt
+  - sudo apt-get -qq update
   - sudo apt-get install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+  - sudo apt-get --yes install qt512-meta-minimal qt512quickcontrols2
+
+  - mkdir build
+  - QTDIR="/opt/qt512"
+  - PATH="$QTDIR/bin:$PATH"
+  - source /opt/qt55/bin/qt512-env.sh
+
 addons:
   apt:
     sources:
@@ -24,8 +34,9 @@ script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - cd protocol
   # that is how to generate files for serialization/deserialization
-  - protoc  --cpp_out=../server/src/proto --python_out=../server/tests  messages.proto
-
-  - cd build
-  - cmake ..
+  - protoc  --cpp_out=../server/src/proto messages.proto
+  - protoc  --cpp_out=../client/src/protobuf messages.proto
+  - cd ../build
+  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ..
+  # build both client and server
   - cmake --build .
