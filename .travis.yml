@@ -5,8 +5,8 @@ branches:
     - master
 before_script:
   # add modern repo for loading boost 1.67 packages, want thread_pool
-  - sudo cp config_travis/cosmic-packages.pref /etc/apt/preferences.d/cosmic-package-repo.pref
-  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/comsic.list
+  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
+  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
 
   # install boost 1.67 from cosmic repo
   - sudo apt-get update
