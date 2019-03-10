@@ -14,13 +14,13 @@ before_install:
 install:
   # install boost 1.67 from cosmic repo and qt
   - sudo apt-get update
-  - sudo apt-get --yes install qt512-meta-minimal qt512quickcontrols2
+  - sudo apt-get --yes install qt512base qt512declarative qt512quickcontrols2
   - sudo apt-get install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
 
   - mkdir build
   - QTDIR="/opt/qt512"
   - PATH="$QTDIR/bin:$PATH"
-  - source /opt/qt55/bin/qt512-env.sh
+  - source /opt/qt512/bin/qt512-env.sh
   - mkdir build
 
 addons:
