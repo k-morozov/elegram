@@ -3,7 +3,7 @@ language: cpp
 branches:
   only:
     - master
-before_script:
+before_install:
   # add modern repo for loading boost 1.67 packages, want thread_pool
   - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
   - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
@@ -11,15 +11,17 @@ before_script:
   # add qt repo
   - sudo apt-add-repository --yes ppa:beineri/opt-qt-5.12.1-xenial
 
+install:
   # install boost 1.67 from cosmic repo and qt
-  - sudo apt-get -qq update
-  - sudo apt-get install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+  - sudo apt-get update
   - sudo apt-get --yes install qt512-meta-minimal qt512quickcontrols2
+  - sudo apt-get install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
 
   - mkdir build
   - QTDIR="/opt/qt512"
   - PATH="$QTDIR/bin:$PATH"
   - source /opt/qt55/bin/qt512-env.sh
+  - mkdir build
 
 addons:
   apt:
