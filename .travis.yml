@@ -1,12 +1,17 @@
-dist: xenial
 language: cpp
+sudo: required
+dist: xenial
+compiler:
+  - gcc
+os:
+  - linux
 branches:
   only:
     - master
 before_install:
   # add modern repo for loading boost 1.67 packages, want thread_pool
-  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
-  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
+  #  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
+  #  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
 
   # add qt repo
   - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.0-xenial
@@ -15,7 +20,7 @@ before_install:
 install:
   # install boost 1.67 from cosmic repo and qt
   - sudo apt-get -y install qt512-meta-minimal
-  - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+  #  - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
 
   - mkdir build
   - QTDIR="/opt/qt512"
@@ -29,9 +34,9 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      - libpq-dev # and may be postgresql
-      - libpqxx-dev
-      - postgresql-server-dev-all
+#      - libpq-dev # and may be postgresql
+#      - libpqxx-dev
+#      - postgresql-server-dev-all
 script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - cd protocol
