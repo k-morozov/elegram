@@ -2,7 +2,7 @@
 #define MESSAGEFACTORY_H
 #include <QString>
 #include <memory>
-#include "../../protobuf/messages.pb.h"
+#include "../protobuf/messages.pb.h"
 
 namespace elegram {
   class MessageFactory {

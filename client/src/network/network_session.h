@@ -8,7 +8,6 @@
 #include <vector>
 #include <functional>
 
-#include "../../protobuf/messages.pb.h"
 #include "../jobs/jobs.h"
 
 namespace elegram {

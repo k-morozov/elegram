@@ -33,7 +33,7 @@ set(SOURCES src/main.cpp
         src/message_processing/messagefactory.cpp
         src/message_processing/messageparser.cpp
         src/jobs/jobs.cpp
-        protobuf/messages.pb.cc
+        src/protobuf/messages.pb.cc
         src/backend.cpp
         src/jobs/jobsutils.cpp
         )

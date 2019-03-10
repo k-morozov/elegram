@@ -13,7 +13,7 @@ before_install:
   # add qt repo
   - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.0-xenial
   - sudo apt-get update -qq
-  - sudo apt-get -y install qt512-meta-minimal
+  - sudo apt-get -y install qt512-meta-minimal mesa-common-dev libglu1-mesa-dev
 
   - QTDIR="/opt/qt512"
   - PATH="$QTDIR/bin:$PATH"

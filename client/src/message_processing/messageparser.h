@@ -1,6 +1,6 @@
 #ifndef MESSAGEPARSER_H
 #define MESSAGEPARSER_H
-#include "../../protobuf/messages.pb.h"
+#include "../protobuf/messages.pb.h"
 #include <memory>
 #include <vector>
 

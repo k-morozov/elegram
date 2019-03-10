@@ -83,7 +83,7 @@ macro(set_warning_flags target std_ver)
 endmacro()
 
 target_link_libraries(messages_pb2_lib
-        protobuf
+        src/protobuf
         )
 
 set_warning_flags(postgres_conn_lib 14)

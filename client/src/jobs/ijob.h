@@ -1,7 +1,7 @@
 #ifndef IJOBS_H
 #define IJOBS_H
 
-#include "../../protobuf/messages.pb.h"
+#include "../protobuf/messages.pb.h"
 #include <memory>
 
 namespace elegram {

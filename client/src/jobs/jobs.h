@@ -2,7 +2,6 @@
 #define JOBS_H
 
 #include "ijob.h"
-#include "../../protobuf/messages.pb.h"
 
 #include <QString>
 #include <memory>
