@@ -2,6 +2,13 @@ Package: libboost*
 Pin: release n=cosmic
 Pin-Priority: 990
 
+Package: protobuf*
+Pin: release n=cosmic
+Pin-Priority: 990
+
+Package: libprotobuf*
+Pin: release n=cosmic
+Pin-Priority: 990
 
 Explanation: Uninstall or do not install any Ubuntu-originated
 Explanation: package versions other than those in the bionic release
