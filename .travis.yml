@@ -48,8 +48,8 @@ script:
   - cd protocol
 
   # that is how to generate files for serialization/deserialization
-  - protoc  --cpp_out=../server/src/proto messages.proto
-  - protoc  --cpp_out=../client/src/protobuf messages.proto
+  #  - protoc  --cpp_out=../server/src/proto messages.proto
+  #  - protoc  --cpp_out=../client/src/protobuf messages.proto
 
   #  # build server
   #  - cd ../build/server_build
