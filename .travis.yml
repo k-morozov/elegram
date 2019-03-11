@@ -25,13 +25,13 @@ before_install:
   - mkdir -p build/server_build build/client_build
 
 install:
-  # add modern repo for loading boost 1.67 packages, want thread_pool
-  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
-  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
-  - sudo apt-get update -qq
-
-  # install boost 1.67 from cosmic repo
-  - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+#  # add modern repo for loading boost 1.67 packages, want thread_pool
+#  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
+#  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
+#  - sudo apt-get update -qq
+#
+#  # install boost 1.67 from cosmic repo
+#  - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
 
 addons:
   apt:
@@ -39,9 +39,9 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-7
-      - libpq-dev # and may be postgresql
-      - libpqxx-dev
-      - postgresql-server-dev-all
+#      - libpq-dev # and may be postgresql
+#      - libpqxx-dev
+#      - postgresql-server-dev-all
 
 script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
@@ -51,11 +51,11 @@ script:
   - protoc  --cpp_out=../server/src/proto messages.proto
   - protoc  --cpp_out=../client/src/protobuf messages.proto
 
-  # build server
-  - cd ../build/server_build
-  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../server
-  - cmake --build .
-  - cmake --build . --target package
+  #  # build server
+  #  - cd ../build/server_build
+  #  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../server
+  #  - cmake --build .
+  #  - cmake --build . --target package
 
   # build client
   - cd ../client_build
@@ -68,4 +68,4 @@ deploy:
     on:
       branch: master
     script:
-      - curl -T elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_client/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
+      - curl -T build/client_build/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_client/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
