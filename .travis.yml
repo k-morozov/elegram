@@ -69,6 +69,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-    script:
-      - curl -T client_build/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_client/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
-      - curl -T server_build/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_server/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
+    script: >-
+      curl -T client_build/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_client/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1" &&
+      curl -T server_build/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_server/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=xenial;deb_component=main;deb_architecture=amd64;publish=1"
