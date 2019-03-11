@@ -58,7 +58,7 @@ script:
   #  - cmake --build . --target package
 
   # build client
-  - cd ../client_build
+  - cd ../build/client_build
   - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../client
   - cmake --build .
   - cmake --build . --target package
