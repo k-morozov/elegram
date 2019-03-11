@@ -5,7 +5,7 @@ A toy instant message service, both server and client (builded using QT) applica
 
 ## Requirements
 * Server require this libraries:
-   * [Boost](https://www.boost.org/) library [version 1.67.0.0](https://packages.ubuntu.com/cosmic/libboost-all-dev) 
+   * [Boost](https://www.boost.org/) library [version 1.67](https://packages.ubuntu.com/cosmic/libboost-all-dev) 
    for ASIO, program_options and logging
    * OpenSSL for hashing functions
    * PostgreSQL server (use docker image in examples for it)
@@ -14,8 +14,9 @@ A toy instant message service, both server and client (builded using QT) applica
    
    
 * Client require:
-    * QT 5
+    * [QT 5](https://www.qt.io/)
     * [Google Protobuf](https://developers.google.com/protocol-buffers/)
    
 ## Documentation
-* Some notes about serer [here](docs/server.md)
+* Some notes about server [here](docs/server.md)
+* Some notes about client [here](docs/client.md)

@@ -12,10 +12,10 @@ try:
     cur = db.cursor()
 
     guys = [
-        ("John", "q", "q"),
-        ("jimm", "jimm@jimm.com", "hatejohn"),
-        ("jack", "ja@ck.com", "jack37"),
-        ("vasya", "vas@ya.com", "samtivasya")
+        ("John", "john@mail.ru", "12345678"),
+        ("Jimm", "jimm@jimm.com", "hatejohn"),
+        ("Jack", "ja@ck.com", "jack37"),
+        ("Vasya", "vas@ya.com", "samtivasya")
     ]
 
     # Вставляем в таблицу Clients 4 пользователей

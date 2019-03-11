@@ -8,7 +8,7 @@ Session object, which wait requests and send response
 * For every request session create job and push it to job pool using 
 boost asio ba::post. Worker threads execute this jobs, extract data 
 from database and prepare results for sending response to client 
-through network.
+through network. 
 
 ## Database
 * Structure of db describes [here](../server/tests/gen_schema.sql)
@@ -18,10 +18,10 @@ through network.
 for every session (lazy connection)
 
 
-## Income messages protocol - use protobuff
-* Messeges serialized and deserialized using 
-[google protobuf messages](../protocol/messages.proto)
-* Some protocol description:
+## Protocol
+* Server sends all data through TCP protocol
+* Messages are serialized and deserialized using [Google Protobuf messages](../protocol/messages.proto)
+* Some protocol description
     * Login
         - ––> LoginRequest [email, password]
         - <–– LoginResponse [Contact [user_id, name, email] ]
@@ -54,10 +54,15 @@ for every session (lazy connection)
         - ––> CreateChatRequest [ friend_id ]
         - <–– StatusResponse [ Accepted / Rejected ]
 
-
-## How to run tests
-* Start postgres db (from docker)
-* run `init.sh` script for initializing db
-* Load dependencies and build server
+## How to start server
+* Add postgresql docker image and start it (look [`docker_start_postgres.sh`](../server/tests/docker_start_postgres.sh))
+* run [`gen_data.sh`](../server/tests/gen_data.sh) script for initializing db and crating test data
+* Load dependencies and build server (look at [.travis.yml](../.travis.yml) for more details)
 * Start server
-* ~~run `test_send_packets.py` testing script~~ testing script out of date now
+```bash
+./elegram_server --port 8000 --logging true
+```
+
+## TODO
+-[ ] Send data using secure (SSL) connection
+-[ ] ~~Add notification about new incoming message ?~~

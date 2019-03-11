@@ -1,7 +1,4 @@
-#!/bin/bash
-
-# start docker container with postgres
-#sudo docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+#!/usr/bin/env bash
 
 # generate schema
 sudo -u postgres psql -U postgres -f gen_schema.sql

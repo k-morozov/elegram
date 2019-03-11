@@ -5,6 +5,10 @@ compiler:
   - gcc
 os:
   - linux
+env:
+  global:
+    - VERSION_MAJOR=1
+    - VERSION_MINOR=0
 branches:
   only:
     - master
@@ -54,7 +58,16 @@ script:
   - cmake --build . --target package
 
   # build client
-  - cd ../server_build
+  - cd ../client_build
   - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../client
   - cmake --build .
   - cmake --build . --target package
+deploy:
+  - provider: script
+    skip_cleanup: true
+    on:
+      branch: master
+    script:
+      - cd ..
+      - curl -T server_build/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_server/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_server-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+      - curl -T client_build/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb -umkvdv:$BINTRAY_API_KEY "https://api.bintray.com/content/mkvdv/elegram/elegram/elegram_client/$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER/elegram_client-$VERSION_MAJOR.$VERSION_MINOR.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"

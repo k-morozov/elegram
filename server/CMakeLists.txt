@@ -9,7 +9,7 @@ endif ()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
-find_package(Boost COMPONENTS system program_options log unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS system program_options log REQUIRED)
 find_package(Threads)
 find_package(OpenSSL)
 include_directories(${Boost_INCLUDE_DIRS})
