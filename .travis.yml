@@ -64,6 +64,7 @@ script:
   - cmake --build .
   - cmake --build . --target package
   - cd ..
+
 deploy:
   - provider: script
     skip_cleanup: true
