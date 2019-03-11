@@ -18,7 +18,8 @@ before_install:
   - QTDIR="/opt/qt512"
   - PATH="$QTDIR/bin:$PATH"
   - source /opt/qt512/bin/qt512-env.sh
-  - mkdir build
+  - mkdir -p build/server_build build/client_build
+
 install:
   # add modern repo for loading boost 1.67 packages, want thread_pool
   - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
@@ -27,6 +28,7 @@ install:
 
   # install boost 1.67 from cosmic repo
   - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+
 addons:
   apt:
     sources:
@@ -36,6 +38,7 @@ addons:
       - libpq-dev # and may be postgresql
       - libpqxx-dev
       - postgresql-server-dev-all
+
 script:
   - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - cd protocol
@@ -44,7 +47,14 @@ script:
   - protoc  --cpp_out=../server/src/proto messages.proto
   - protoc  --cpp_out=../client/src/protobuf messages.proto
 
-  - cd ../build
-  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ..
-  # build both client and server
+  # build server
+  - cd ../build/server_build
+  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../server
   - cmake --build .
+  - cmake --build . --target package
+
+  # build client
+  - cd ../server_build
+  - cmake -DCMAKE_PREFIX_PATH=/opt/qt512/lib/cmake ../../client
+  - cmake --build .
+  - cmake --build . --target package
