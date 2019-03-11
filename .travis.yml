@@ -26,12 +26,13 @@ before_install:
 
 install:
 #  # add modern repo for loading boost 1.67 packages, want thread_pool
-#  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
-#  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
-#  - sudo apt-get update -qq
-#
-#  # install boost 1.67 from cosmic repo
-#  - sudo apt-get -y install libboost-all-dev libprotobuf-dev protobuf-compiler -t cosmic
+  - sudo cp config_travis/cosmic_packages.pref /etc/apt/preferences.d/cosmic_package-repo.pref
+  - sudo cp config_travis/cosmic.list          /etc/apt/sources.list.d/cosmic.list
+  - sudo apt-get update -qq
+
+  #  # install boost 1.67 from cosmic repo
+  #  - sudo apt-get -y install libboost-all-dev -t cosmic
+  - sudo apt-get -y install libprotobuf-dev protobuf-compiler -t cosmic
 
 addons:
   apt:
