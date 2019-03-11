@@ -1,5 +1,8 @@
 # Elegram
 [![Build Status](https://travis-ci.com/mkvdv/elegram.svg?branch=master)](https://travis-ci.com/mkvdv/elegram)
+[![Download](https://api.bintray.com/packages/mkvdv/elegram/elegram/images/download.svg?version=elegram_server) ](https://bintray.com/mkvdv/elegram/elegram/elegram_server/link)
+[![Download](https://api.bintray.com/packages/mkvdv/elegram/elegram/images/download.svg?version=elegram_client) ](https://bintray.com/mkvdv/elegram/elegram/elegram_client/link)
+
 
 A toy instant message service, both server and client (builded using QT) applications.
 
