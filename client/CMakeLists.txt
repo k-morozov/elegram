@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 set(QT_MINIMUM_VERSION 5.9.0)
 
-if ($ENV{TRAVIS_BUILD_NUMBER})
-    project(elegram_client VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+if (DEFINED ENV{TRAVIS_BUILD_NUMBER} AND DEFINED ENV{VERSION_MAJOR} AND DEFINED ENV{VERSION_MINOR})
+    project(elegram_client VERSION $ENV{VERSION_MAJOR}.$ENV{VERSION_MINOR}.$ENV{TRAVIS_BUILD_NUMBER})
 else ()
     project(elegram_client VERSION 0.0.1)
 endif ()

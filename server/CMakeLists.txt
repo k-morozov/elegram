@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 
-if ($ENV{TRAVIS_BUILD_NUMBER})
-    project(elegram_server VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+if (DEFINED ENV{TRAVIS_BUILD_NUMBER} AND DEFINED ENV{VERSION_MAJOR} AND DEFINED ENV{VERSION_MINOR})
+    project(elegram_server VERSION $ENV{VERSION_MAJOR}.$ENV{VERSION_MINOR}.$ENV{TRAVIS_BUILD_NUMBER})
 else ()
     project(elegram_server VERSION 0.0.1)
 endif ()
