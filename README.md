@@ -23,3 +23,14 @@ A toy instant message service, both server and client (builded using QT) applica
 ## Documentation
 * Some notes about server [here](docs/server.md)
 * Some notes about client [here](docs/client.md)
+
+### Installation
+
+* Resolving debian packages from [bintray](https://bintray.com/mkvdv/elegram/elegram)
+
+```bash
+ wget -qO -https://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
+ echo "deb https://dl.bintray.com/mkvdv/elegram xenial main" | sudo tee -a /etc/apt/sources.list
+ apt update
+ apt install elegram_client elegram_server
+``` 
